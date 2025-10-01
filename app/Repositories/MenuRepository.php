@@ -13,7 +13,7 @@ class MenuRepository
     {
         return [
             'infoPageAboutUs'       => $this->getPageBySlug('ve-chung-toi'),
-            'infoPageBlog'          => $this->getPageBySlug('tin-tuc'),
+            'categoryBlogParent'    => $this->getCategoryBlogs(),
             'infoPageContact'       => $this->getPageBySlug('lien-he'),
             'language'              => $language,
         ];

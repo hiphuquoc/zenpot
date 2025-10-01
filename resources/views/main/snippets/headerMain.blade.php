@@ -35,7 +35,7 @@
                         @endif
                     @endforeach
                 @endif
-                <!-- Dịch vụ -->
+                <!-- Sản phẩm -->
                 <li>
                     <div>
                         <a href="/san-pham-zenpot" title="Sản phẩm của Zenpot">
@@ -124,58 +124,46 @@
                         @endif
                     @endforeach
                 @endif
-                <!-- bảng giá đăng tin --> 
-                @if(!empty($infoPageTablePrice))      
-                    @foreach($infoPageTablePrice->seos as $seo)
-                        @if(!empty($seo->infoSeo->language)&&$seo->infoSeo->language==$language)
-                            @php
-                                $title = $seo->infoSeo->title ?? null;
-                            @endphp
-                            <li>
-                                <a href="/{{ $seo->infoSeo->slug_full }}" title="{{ $title }}">
-                                    <svg><use xlink:href="#icon_money_bill_wave"></use></svg>
-                                    <div class="nav-mobile_main__title">{{ $title }}</div>
-                                </a>
-                            </li>
-                        @break
-                        @endif
-                    @endforeach
-                @endif
-                <!-- dịch vụ -- xử lý sau khi tạo trang danh sách dịch vụ -->
+                <!-- Sản phẩm -->
                 <li>
-                    <div onclick="showHideListMenuMobile(this);">
-                        <svg><use xlink:href="#icon_clipboard_list"></use></svg>
-                        <div class="nav-mobile_main__title">{{ config('data_language_1.'.$language.'.services') }}</div>
-                        <svg><use xlink:href="#icon_plus"></use></svg>
-                    </div>
-                    <ul>
-                        @if(!empty($categories)&&$categories->isNotEmpty())
-                            @foreach($categories as $category)
-                                @php
-                                    // sắp xếp trước khi duyệt
-                                    $sortedTags = $category->tags->sortByDesc(function ($tag) {
-                                        return $tag->infoTag->seo->ordering ?? 0;
-                                    });
-                                @endphp
-                                @foreach($sortedTags as $tag)
-                                    @foreach($tag->infoTag->seos as $seo)
-                                        @if(!empty($seo->infoSeo->language)&&$seo->infoSeo->language==$language)
+                    <a href="/san-pham-zenpot" title="Sản phẩm Zenpot">
+                        <svg><use xlink:href="#icon_layer-group"></use></svg>
+                        <div class="nav-mobile_main__title">Sản phẩm Zenpot</div>
+                    </a>
+                </li>
+                <!-- Tin tức - Kiến thức -->
+                @foreach($categoryBlogParent->seos as $seo)
+                    @if(!empty($seo->infoSeo->language)&&$seo->infoSeo->language)
+                        @php
+                            $title  = $seo->infoSeo->title ?? null;
+                        @endphp
+                        <li>
+                            <div onclick="showHideListMenuMobile(this);">
+                                <svg><use xlink:href="#icon_blog"></use></svg>
+                                <a href="/{{ $seo->infoSeo->slug_full ?? '' }}" class="nav-mobile_main__title" title="{{ $title }}">{{ $title }}</a>
+                                <svg><use xlink:href="#icon_plus"></use></svg>
+                            </div>
+                            <ul>
+                                @foreach($categoryBlogParent->childs as $categoryBlog)
+                                    @foreach($categoryBlog->seos as $s)
+                                        @if(!empty($s->infoSeo->language)&&$s->infoSeo->language==$language)
                                             @php
-                                                $title = $seo->infoSeo->title ?? null;
+                                                $title = $s->infoSeo->title ?? null;
                                             @endphp
                                             <li>
-                                                <a href="/{{ $seo->infoSeo->slug_full ?? null }}" title="{{ $title }}">
+                                                <a href="/{{ $s->infoSeo->slug_full ?? '' }}" title="{{ $title }}">
                                                     <div class="nav-mobile_main__title">{{ $title }}</div>
                                                 </a>
                                             </li>
-                                            @break
+                                            @break 
                                         @endif
                                     @endforeach
                                 @endforeach
-                            @endforeach
-                        @endif
-                    </ul>
-                </li>
+                            </ul>
+                        </li>
+                        @break
+                    @endif
+                @endforeach
                 <!-- Liên hệ -->
                 @if(!empty($infoPageContact))      
                     @foreach($infoPageContact->seos as $seo)
