@@ -28,17 +28,14 @@
 @stack('cssFirstView')
 <!-- Css tải sau -->
 @stack('headCustom')
-@if(env('APP_ENV')=='local')
-    <!-- tải font nếu dev -->
-    <style type="text/css">
-        @font-face {
-            font-family: "SVN-Momento";
-            font-style: normal;
-            font-weight: 400;
-            src: url("{{ asset('fonts/SVN-Momento.ttf') }}") format("truetype");
-        }
-    </style>
-@endif
+<style type="text/css">
+    @font-face {
+        font-family: "SVN-Momento";
+        font-style: normal;
+        font-weight: 400;
+        src: url("{{ asset('fonts/SVN-Momento.ttf') }}") format("truetype");
+    }
+</style>
 {{-- @include('main.snippets.fonts') --}}
 
 <!-- START:: ===== GOOGLE FONTS -->
