@@ -46,7 +46,7 @@
                 </span>
                 <input type="number" min="0" id="ordering" class="form-control {{ !empty($flagCopySource)&&$flagCopySource==true ? 'inputSuccess' : '' }}" name="ordering" value="{{ old('ordering') ?? $itemSeo->ordering ?? $itemSource->seo->ordering ?? '' }}">
             </div>
-            <!-- One Row -->
+            {{-- <!-- One Row -->
             <div class="formBox_full_item">
                 <span data-toggle="tooltip" data-placement="top" title="
                     Đây là ID của icon hiển thị bổ trợ trên menu chính (Lập trình viên dùng)
@@ -71,7 +71,7 @@
                         @endforeach
                     </select>                    
                 </div>
-            </div>
+            </div> --}}
             <!-- One Row -->
             <div class="formBox_full_item">
                 <div class="form-check form-check-success">

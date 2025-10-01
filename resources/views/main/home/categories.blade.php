@@ -3,7 +3,7 @@
     <div class="designBox reverse990">
         <div class="designBox_item reverse990">
             <div class="designBox_item_image">
-                <img class="leftImg" src="https://zenpot.storage.googleapis.com/storage/images/sg-11134201-7rep8-m8x45ysh70tj7a.webp" alt="" title="" />
+                <img class="leftImg" src="https://zenpot.storage.googleapis.com/storage/images/sg-11134201-7rep8-m8x45ysh70tj7a.webp" alt="" title="" loading="lazy" />
             </div>
             <div class="designBox_item_content">
                 <div class="designBox_item_content_skills">
@@ -73,38 +73,38 @@
             </div>
             <div class="designBox_item_categories">
                 <a href="/san-pham-zenpot" class="designBox_item_categories_item" title="Mini & để bàn" aria-label="Mini & để bàn">
-                    <img src="https://spacet-release.s3.ap-southeast-1.amazonaws.com/img/blog/2023-10-04/ban-go-lua-ket-hop-kinh-vua-hien-dai-vua-doc-dao-651ceec6c9649b0ef5cd67c1.webp" alt="" title="" />
+                    <img src="https://spacet-release.s3.ap-southeast-1.amazonaws.com/img/blog/2023-10-04/ban-go-lua-ket-hop-kinh-vua-hien-dai-vua-doc-dao-651ceec6c9649b0ef5cd67c1.webp" alt="" title="" loading="lazy" />
                     <div class="designBox_item_categories_item_content">
                         <h3 class="maxLine_2">Mini & Để bàn</h3>
                     </div>
                 </a>
                 <a href="/san-pham-zenpot" class="designBox_item_categories_item" title="Trung & Đa Năng" aria-label="Trung & Đa Năng">
-                    <img src="https://mychair.vn/wp-content/uploads/2023/10/hoa-lan-trang-tri-phong-hop.jpg" alt="" title="" />
+                    <img src="https://mychair.vn/wp-content/uploads/2023/10/hoa-lan-trang-tri-phong-hop.jpg" alt="" title="" loading="lazy" />
                     <div class="designBox_item_categories_item_content">
                         <h3 class="maxLine_2">Trung & Đa Năng</h3>
                     </div>
                 </a>
                 <a href="/san-pham-zenpot" class="designBox_item_categories_item" title="Bonsai & Decor" aria-label="Bonsai & Decor">
-                    <img src="https://mychair.vn/wp-content/uploads/2023/10/hoa-lan-trang-tri-phong-hop.jpg" alt="" title="" />
+                    <img src="https://mychair.vn/wp-content/uploads/2023/10/hoa-lan-trang-tri-phong-hop.jpg" alt="" title="" loading="lazy" />
                     <div class="designBox_item_categories_item_content">
                         <h3 class="maxLine_2">Máng & Dài</h3>
                     </div>
                 </a>
                 <a href="/san-pham-zenpot" class="designBox_item_categories_item" title="Bonsai & Decor" aria-label="Bonsai & Decor">
-                    <img src="https://mychair.vn/wp-content/uploads/2023/10/hoa-lan-trang-tri-phong-hop.jpg" alt="" title="" />
+                    <img src="https://mychair.vn/wp-content/uploads/2023/10/hoa-lan-trang-tri-phong-hop.jpg" alt="" title="" loading="lazy" />
                     <div class="designBox_item_categories_item_content">
                         <h3 class="maxLine_2">Bonsai & Decor</h3>
                     </div>
                 </a>
                 <a href="/san-pham-zenpot" class="designBox_item_categories_item" title="Bonsai & Decor" aria-label="Bonsai & Decor">
-                    <img src="https://mychair.vn/wp-content/uploads/2023/10/hoa-lan-trang-tri-phong-hop.jpg" alt="" title="" />
+                    <img src="https://mychair.vn/wp-content/uploads/2023/10/hoa-lan-trang-tri-phong-hop.jpg" alt="" title="" loading="lazy" />
                     <div class="designBox_item_categories_item_content">
                         <h3 class="maxLine_2">Treo & Gắn tường</h3>
                     </div>
                 </a>
                 
                 <a href="/san-pham-zenpot" class="designBox_item_categories_item" title="Bonsai & Decor" aria-label="Bonsai & Decor">
-                    <img src="https://mychair.vn/wp-content/uploads/2023/10/hoa-lan-trang-tri-phong-hop.jpg" alt="" title="" />
+                    <img src="https://mychair.vn/wp-content/uploads/2023/10/hoa-lan-trang-tri-phong-hop.jpg" alt="" title="" loading="lazy" />
                     <div class="designBox_item_categories_item_content">
                         <h3 class="maxLine_2">Đế lót & Đôn</h3>
                     </div>

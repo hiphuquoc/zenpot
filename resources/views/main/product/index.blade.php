@@ -57,7 +57,7 @@
 
         <div class="mainContent">
         
-            @include('main.product.test')
+            @include('main.product.body')
             
         </div>
 

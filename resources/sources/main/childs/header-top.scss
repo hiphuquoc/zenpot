@@ -147,9 +147,6 @@ $height_headerMain : 60px;
         top: 0;
         background-color: rgba(0, 0, 0, 0.75); /* Có thể thêm độ trong suốt */
         box-shadow: 0 0 7px var(--colorShadow);
-        .logoMain {
-            // margin-top: 2rem;
-        }
     }
     .container {
         display: flex;
@@ -977,7 +974,7 @@ $heighSearchBox : 4.25rem;
     justify-content: center;
     align-items: center;
     width: fit-content;
-    // transition: all 0.3s ease;
+    transition: all 0.3s ease;
     &_logo {
         background: url(https://zenpot.storage.googleapis.com/storage/images/logo-zenpot-full-white.webp) no-repeat;
         background-size: 100%;
@@ -1003,6 +1000,11 @@ $heighSearchBox : 4.25rem;
         box-shadow: none;
         margin-left: auto;
         margin-right: auto;
+        &_logo {
+            background: url(https://zenpot.storage.googleapis.com/storage/images/logo-zenpot-full-color.webp) no-repeat;
+            background-size: 100%;
+            margin: 0;
+        }
     }
     @media(max-width: 1199px){
         padding: 3px;

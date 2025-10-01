@@ -13,7 +13,7 @@
             </div>
             <div class="designBox_item_categories">
                 <a href="#" class="designBox_item_categories_item" title="Mini & để bàn" aria-label="Mini & để bàn">
-                    <img src="https://yeucay.com.vn/storage/product/cay-kim-tien/kim-tien-nho.png" alt="" title="" />
+                    <img src="https://yeucay.com.vn/storage/product/cay-kim-tien/kim-tien-nho.png" alt="" title="" loading="lazy" />
                     <div class="designBox_item_categories_item_content">
                         <h3 class="maxLine_2">Mini & Để bàn</h3>
                         <div class="designBox_item_categories_item_content_tags">
@@ -29,7 +29,7 @@
                     </div>
                 </a>
                 <a href="#" class="designBox_item_categories_item" title="Trung & Đa Năng" aria-label="Trung & Đa Năng">
-                    <img src="https://yeucay.com.vn/storage/product/cay-kim-tien/kim-tien-nho.png" alt="" title="" />
+                    <img src="https://yeucay.com.vn/storage/product/cay-kim-tien/kim-tien-nho.png" alt="" title="" loading="lazy" />
                     <div class="designBox_item_categories_item_content">
                         <h3 class="maxLine_2">Trung & Đa Năng</h3>
                         <div class="designBox_item_categories_item_content_tags">
@@ -45,7 +45,7 @@
                     </div>
                 </a>
                 <a href="#" class="designBox_item_categories_item" title="Bonsai & Decor" aria-label="Bonsai & Decor">
-                    <img src="https://yeucay.com.vn/storage/product/cay-kim-tien/kim-tien-nho.png" alt="" title="" />
+                    <img src="https://yeucay.com.vn/storage/product/cay-kim-tien/kim-tien-nho.png" alt="" title="" loading="lazy" />
                     <div class="designBox_item_categories_item_content">
                         <h3 class="maxLine_2">Máng & Dài</h3>
                         <div class="designBox_item_categories_item_content_tags">
@@ -61,7 +61,7 @@
                     </div>
                 </a>
                 <a href="#" class="designBox_item_categories_item" title="Bonsai & Decor" aria-label="Bonsai & Decor">
-                    <img src="https://yeucay.com.vn/storage/product/cay-kim-tien/kim-tien-nho.png" alt="" title="" />
+                    <img src="https://yeucay.com.vn/storage/product/cay-kim-tien/kim-tien-nho.png" alt="" title="" loading="lazy" />
                     <div class="designBox_item_categories_item_content">
                         <h3 class="maxLine_2">Bonsai & Decor</h3>
                         <div class="designBox_item_categories_item_content_tags">
@@ -77,7 +77,7 @@
                     </div>
                 </a>
                 <a href="#" class="designBox_item_categories_item" title="Bonsai & Decor" aria-label="Bonsai & Decor">
-                    <img src="https://yeucay.com.vn/storage/product/cay-kim-tien/kim-tien-nho.png" alt="" title="" />
+                    <img src="https://yeucay.com.vn/storage/product/cay-kim-tien/kim-tien-nho.png" alt="" title="" loading="lazy" />
                     <div class="designBox_item_categories_item_content">
                         <h3 class="maxLine_2">Treo & Gắn tường</h3>
                         <div class="designBox_item_categories_item_content_tags">
@@ -94,7 +94,7 @@
                 </a>
                 
                 <a href="#" class="designBox_item_categories_item" title="Bonsai & Decor" aria-label="Bonsai & Decor">
-                    <img src="https://yeucay.com.vn/storage/product/cay-kim-tien/kim-tien-nho.png" alt="" title="" />
+                    <img src="https://yeucay.com.vn/storage/product/cay-kim-tien/kim-tien-nho.png" alt="" title="" loading="lazy" />
                     <div class="designBox_item_categories_item_content">
                         <h3 class="maxLine_2">Đề lót & Đôn</h3>
                         <div class="designBox_item_categories_item_content_tags">
@@ -114,7 +114,7 @@
 
         <div class="designBox_item reverse990">
             <div class="designBox_item_image">
-                <img  class="rightImg" src="https://zenpot.storage.googleapis.com/storage/images/chau-cay-la-co-gia-de-ban83ce9b323d2a499c98b9ce5cf035e3231024x1024.webp" alt="" title="" />
+                <img  class="rightImg" src="https://zenpot.storage.googleapis.com/storage/images/chau-cay-la-co-gia-de-ban83ce9b323d2a499c98b9ce5cf035e3231024x1024.webp" alt="" title="" loading="lazy" />
             </div>
             <div class="designBox_item_content">
                 <h2 class="designBox_item_content_title">

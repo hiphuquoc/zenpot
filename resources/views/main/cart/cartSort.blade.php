@@ -6,7 +6,7 @@
                 {{ $detailCart['count'] ?? 0 }}
             </div>
         </div>
-        <div class="cartBox_show_text">{{ config('data_language_1.'.$language.'.cart') }}</div>
+        {{-- <div class="cartBox_show_text">{{ config('data_language_1.'.$language.'.cart') }}</div> --}}
     </a>
     <div id="js_checkEmptyCart_idWrite" class="cartBox_list">
         @if(!empty($products)&&$products->isNotEmpty())

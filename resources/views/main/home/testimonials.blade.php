@@ -69,7 +69,7 @@
                           </div>
 
                           <div class="testimonial-author">
-                            <img src="{{ $testimonial['avatar'] ?? '' }}" alt="Cảm nhận khách hàng {{ $loop->index + 1 }}">
+                            <img src="{{ $testimonial['avatar'] ?? '' }}" alt="Cảm nhận khách hàng {{ $loop->index + 1 }}" loading="lazy" />
                             <span>Khách hàng {{ $loop->index + 1 }}</span>
                           </div>
                         </div>
@@ -88,7 +88,7 @@
 
         <div class="designBox_item hide-990">
             <div class="designBox_item_image">
-                <img  class="leftImg" src="https://zenpot.storage.googleapis.com/storage/images/chau-cay-thuy-tinh-de-ban-trang-tri-5.webp" alt="" title="" />
+                <img  class="leftImg" src="https://zenpot.storage.googleapis.com/storage/images/chau-cay-thuy-tinh-de-ban-trang-tri-5.webp" alt="" title="" loading="lazy" />
             </div>
             
         </div>

@@ -119,14 +119,10 @@ class CategoryBlogController extends Controller {
                         $idCategory          = CategoryBLog::insertItem([
                             'flag_show'     => $flagShow,
                             'seo_id'        => $idSeo,
-                            'sign'          => $sign,
-                            'icon'          => $icon,
                         ]);
                     }else {
                         CategoryBlog::updateItem($idCategory, [
                             'flag_show'     => $flagShow,
-                            'sign'          => $sign,
-                            'icon'          => $icon,
                         ]);
                     }
                 }

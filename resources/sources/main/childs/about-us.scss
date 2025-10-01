@@ -243,7 +243,7 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.35); /* fill màu đen 0.15 */
-  backdrop-filter: blur(8px);       /* làm mờ background phía sau */
+//   backdrop-filter: blur(8px);       /* làm mờ background phía sau */
   z-index: -1; /* đẩy xuống dưới nội dung nhưng trên background */
 }
 

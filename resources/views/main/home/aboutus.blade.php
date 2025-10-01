@@ -3,7 +3,7 @@
     <div class="designBox reverse990">
         <div class="designBox_item reverse990">
             <div class="designBox_item_image">
-                <img class="leftImg" src="https://zenpot.storage.googleapis.com/storage/images/nano-banana-2025-09-18t05-19-13.webp" alt="" title="" />
+                <img class="leftImg" src="https://zenpot.storage.googleapis.com/storage/images/nano-banana-2025-09-18t05-19-13.webp" alt="" title="" loading="lazy" />
             </div>
             <div class="designBox_item_content">
                 <h2 class="designBox_item_content_title">
@@ -64,7 +64,7 @@
                 </div>
             </div>
             <div class="designBox_item_image">
-                <img class="rightImg" src="https://zenpot.storage.googleapis.com/storage/images/tai-sao-ta-nen-trong-cay-trong-nha-9x-garden.webp" alt="" title="" />
+                <img class="rightImg" src="https://zenpot.storage.googleapis.com/storage/images/tai-sao-ta-nen-trong-cay-trong-nha-9x-garden.webp" alt="" title="" loading="lazy" />
             </div>
         </div>
 

@@ -16,7 +16,7 @@
             <ul>
                 <li>
                     <a href="/" title="Trang chủ Zenpot">
-                        <img src="{{ asset('storage/images/svg/home-fff.svg') }}" alt="Trang chủ Zenpot" title="Trang chủ Zenpot" style="margin-top:-6px;" />
+                        <img src="{{ asset('storage/images/svg/home-fff.svg') }}" alt="Trang chủ Zenpot" title="Trang chủ Zenpot" loading="lazy" style="margin-top:-6px;" />
                     </a>
                 </li>
                 <!-- Về chúng tôi -->
@@ -48,9 +48,9 @@
                 <!-- Tin tức - Kiến thức -->
                 <li>
                     <div>
-                        <a href="/tin-tuc" title="Tin tức của Zenpot">
+                        <a href="/zenpot-blog" title="Zenpot BLog">
                             <div>
-                                Tin tức - Kiến thức
+                                Zenpot Blog
                             </div>
                         </a>
                     </div>
