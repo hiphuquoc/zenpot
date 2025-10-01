@@ -1,0 +1,39 @@
+.breadcrumbBox {
+    overflow: hidden;
+    color: white;
+    font-size: 1.1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    // margin-top: 1rem;
+    a {
+        color: white;
+        &:hover {
+            color: rgb(var(--colorHighLight));
+        }
+    }
+    svg {
+        margin: 0 0.5rem;
+        width: 10px;
+        height: 10px;
+        color: white;
+    }
+    @media(max-width: 1199px){
+        // margin-top: 0.75rem;
+    }
+    @media(max-width: 991px){
+        svg {
+            margin: 0 0.325rem;
+        }
+    }
+    @media(max-width: 767px){
+        svg {
+            margin: 0 0.25rem;
+        }
+    }
+}
+
+// // ✅ Xoay icon nếu giao diện RTL
+// [dir="rtl"] .breadcrumbBox svg {
+//     transform: rotate(180deg);
+// }

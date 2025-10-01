@@ -1,0 +1,555 @@
+.sectionBox {
+    margin: 6rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    .container {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    &_title {
+        h2, h3 {
+            @include titleDefault;
+            margin-bottom: 0 !important;
+        }
+    }
+    &_desc {
+        margin-bottom: 0.5rem;
+    }
+    &_button {
+        margin-top: 1rem;
+        margin-left: auto;
+        margin-right: auto;
+        > * {
+            display: flex;
+            width: fit-content;
+        }
+    }
+    &.withBackground {
+        background: rgb(var(--colorBackgroundLv2));
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+        margin-bottom: 0;
+    }
+    @media(max-width: 1199px){
+        margin: 5rem 0;
+        .container {
+            gap: 0.95rem;
+        }
+    }
+    @media(max-width: 990px){
+        margin: 3rem 0;
+        .container {
+            gap: 0.9rem;
+        }
+    }
+    @media(max-width: 767px){
+        margin: 2.5rem 0;
+        .container {
+            gap: 0.85rem;
+        }
+        &_button {
+            margin-top: 0.75rem;
+        }
+    }
+    @media(max-width: 577px){
+        margin: 2rem 0;
+        .container {
+            gap: 0.75rem;
+        }
+        &_button {
+            margin-top: 0.5rem;
+        }
+    }
+}
+
+.designBox {
+    display: flex;
+    gap: 5rem;
+    width: 100%;
+    max-width: 2000px;
+    margin: 0 auto;
+    &_item {
+        width: calc(50% - 5rem/2);
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
+        &:first-child {
+            text-align: right;
+            .designBox_item_content {
+                padding-left: 5rem;
+            }
+        }
+        &:last-child {
+            text-align: left;
+            .designBox_item_content {
+                padding-right: 5rem;
+            }
+        }
+
+        &_image {
+            position: relative;
+            &::before {
+                content: "";
+                display: block;
+                padding-bottom: 56.25%; // 16:9
+            }   
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                /* lấy vùng giữa ảnh */
+                object-fit: cover;       // phóng to, cắt bớt
+                object-position: center; // luôn giữ vùng giữa ảnh
+
+                &.leftImg {
+                    border-radius: 0 var(--radiusNormal) var(--radiusNormal) 0;
+                }
+                &.rightImg {
+                    border-radius: var(--radiusNormal) 0 0 var(--radiusNormal);
+                }
+            }
+        }
+
+        &_map {
+            min-height: 300px;
+        }
+
+        &_content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            &_title {
+                display: flex;
+                flex-direction: column;
+                gap: 0.25rem;
+                font-size: 2.75rem;
+                line-height: 1.2;
+                font-weight: 400 !important;
+                margin-bottom: 1rem;
+                color: rgb(var(--colorTitle));
+                &_bold {
+                    font-size: 3rem;
+                    font-weight: 700 !important;
+                }
+            }
+            &_titleLarge {
+                font-family: var(--fontSpecial);
+                font-size: 2.5rem;
+                color: #fff;
+                -webkit-text-fill-color: transparent;
+                background: -webkit-linear-gradient(transparent, transparent), url(https://zenpot.storage.googleapis.com/storage/images/stock-van-go.webp) center 0 no-repeat;
+                background-size: cover;
+                background: -o-linear-gradient(transparent, transparent);
+                -webkit-background-clip: text;
+            }
+            &_subTitle {
+                font-size: 2.5rem;
+                line-height: 1.4;
+                // margin-top: -45px;
+            }
+            &_description {
+                font-size: 1.15rem;
+                color: var(--colorText);
+            }
+            &_featured {
+                display: grid;
+                gap: 1.75rem;
+                margin-top: 1rem;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                &_item {
+                    display: flex;
+                    gap: 1.5rem;
+                    &_icon {
+                        flex: 0 0 40px;
+                        width: 40px;
+                        height: 40px;
+                        svg {
+                            width: 100%;
+                            height: 100%;
+                            color: rgb(var(--colorLv1));
+                            opacity: 0.85;
+                        }
+                    }
+                    &_content {
+                        display: flex;
+                        flex-direction: column;
+                        width: 100%;
+                        gap: 1rem;
+                        h3 {
+                            font-weight: 600;
+                            font-size: 1.35rem;
+                            margin-bottom: 0;
+                        }
+                        > div {
+                            color: rgb(var(--colorText));
+                            font-size: 1.15rem;
+                            text-align: justify;
+                        }
+                    }
+                }
+            }
+            &_skills {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                flex-wrap: wrap;
+                gap: 2rem;
+                &_item {
+                    &_number {
+                        font-size: 3.25rem;
+                        font-weight: 800;
+                        color: #fff;
+                        -webkit-text-fill-color: transparent;
+                        background: -webkit-linear-gradient(transparent, transparent), url(https://zenpot.storage.googleapis.com/storage/images/stock-van-go.webp) center 0 no-repeat;
+                        background-size: cover;
+                        background: -o-linear-gradient(transparent, transparent);
+                        -webkit-background-clip: text;
+                    }
+                    &_text {
+                        font-weight: 600;
+                        font-size: 1.15rem;
+                        color: rgb(var(--colorText));
+                    }
+                }
+            }
+        }
+        &_categories {
+            display: grid;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+            &_item {
+                // width: calc(33.33% - (0.5rem*2/3));
+                position: relative; // để nội dung bên trong định vị
+                overflow: hidden;
+                border-radius: var(--radiusNormal);
+
+                &:hover {
+                    img {
+                        scale: 1.1;
+                    }
+                }
+
+                // tạo box 1:1
+                &::before {
+                    content: "";
+                    display: block;
+                    padding-bottom: 100%; // 1:1
+                }
+
+                // nội dung bên trong
+                img {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover; // cho ảnh fill hết
+                    transition: ease 0.3s all;
+                }
+
+                &_content {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    gap: 1rem;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 1;
+                    transition: ease 0.3s all;
+                    > * {
+                        text-shadow: 0 2px 30px rgba(0, 0, 0, 0.35);
+                    }
+                    h3 {
+                        color: #fff;
+                        font-weight: 700;
+                        font-size: 1.15rem;
+                    }
+                    &_tags {
+                        display: flex;
+                        gap: 1rem;
+                        align-items: center;
+                        font-size: 0.95rem;
+                        &_item {
+                            display: flex;
+                            align-items: center;
+                            gap: 0.35rem;
+                            color: #fff;
+                            svg {
+                                width: 20px;
+                                height: 20px;
+                                color: rgba(255, 255, 255, 0.85);
+                                &.mini {
+                                    width: 16px;
+                                    height: 16px;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.25);
+                    z-index: 0;
+                    -webkit-backdrop-filter: blur(8px);
+                    filter: blur(8px);
+                }
+            }
+        }
+
+    }
+    @media(max-width: 1199px){
+        gap: 3rem;
+        &_item {
+            gap: 2.5rem;
+            &:first-child {
+                .designBox_item_content {
+                    padding-left: 1.5rem;
+                }
+            }
+            &:last-child {
+                .designBox_item_content {
+                    padding-right: 1.5rem;
+                }
+            }
+            &_content {
+                gap: 1rem;
+                &_titleLarge {
+                    font-size: 2.25rem;
+                }
+                &_title {
+                    font-size: 2.5rem;
+                    margin-bottom: 0.825rem;
+                    &_bold {
+                        font-size: 2.75rem;
+                    }
+                }
+                &_description {
+                    font-size: 1.05rem;
+                }
+                &_featured {
+                    gap: 1.5rem;
+                    margin-top: 0.75rem;
+                    &_item {
+                        gap: 1.25rem;
+                        &_icon {
+                            flex: 0 0 36px;
+                            height: 36px;
+                        }
+                        &_content {
+                            gap: 0.75rem;
+                            h3 {
+                                font-size: 1.3rem;
+                            }
+                            > div {
+                                font-size: 1.05rem;
+                            }
+                        }
+                    }
+                }
+                &_skills {
+                    gap: 1.75rem;
+                    &_item {
+                        &_number {
+                            font-size: 2.75rem;
+                        }
+                        &_text {
+                            font-size: 1.05rem;
+                        }
+                    }
+                }
+            }
+            &_categories {
+                &_item {
+                    &_content {
+                        h3 {
+                            font-size: 1.05rem;
+                        }
+                        &_tags {
+                            font-size: 0.925rem;
+                            &_item {
+                                svg {
+                                    width: 18px;
+                                    height: 18px;
+                                    &.mini {
+                                        width: 15px;
+                                        height: 15px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    @media(max-width: 990px){
+        flex-direction: column;
+        gap: 3rem;
+        padding: 0 1.5rem;
+        &_item {
+            width: 100%;
+            padding: 0 !important;
+            gap: 1.75rem;
+            &:first-child {
+                text-align: left !important;
+                .designBox_item_content {
+                    padding-left: 0;
+                }
+            }
+            &:last-child {
+                text-align: left !important;
+                .designBox_item_content {
+                    padding-right: 0;
+                }
+            }
+            &_image {
+                img {
+                    border-radius: var(--radiusNormal) !important;
+                }
+            }
+            &_content {
+                gap: 0.75rem;
+                padding: 0 !important;
+                &_titleLarge {
+                    font-size: 2rem;
+                }
+                &_title {
+                    font-size: 2.25rem;
+                    margin-bottom: 0.75rem;
+                    &_bold {
+                        font-size: 2.5rem;
+                    }
+                }
+                &_featured {
+                    margin-top: 0.5rem;
+                    gap: 1.75rem;
+                    &_item {
+                        gap: 1.5rem;
+                        flex-direction: row-reverse;
+                        &_content {
+                            gap: 0.5rem;
+                            h3 {
+                                font-size: 1.25rem;
+                            }
+                        }
+                    }
+                }
+                &_skills {
+                    gap: 1.5rem;
+                    &_item {
+                        &_number {
+                            font-size: 2.5rem;
+                        }
+                    }
+                }
+            }
+        }   
+    }
+    @media(max-width: 767px){
+        gap: 2.5rem;
+        padding: 0 1.25rem;
+        &_item {
+            gap: 1.5rem;
+            &_content {
+                gap: 0.55rem;
+                &_titleLarge {
+                    font-size: 1.75rem;
+                }
+                &_title {
+                    font-size: 2rem;
+                    margin-bottom: 0.625rem;
+                    &_bold {
+                        font-size: 2.25rem;
+                    }
+                }
+                &_featured {
+                    gap: 1.25rem;
+                    margin-top: 0.25rem;
+                    margin-bottom: 0.5rem;
+                    &_item {
+                        gap: 1rem;
+                        &_icon {
+                            flex: 0 0 32px;
+                            height: 32px;
+                        }
+                        &_content {
+                            gap: 0.5rem;
+                            h3 {
+                                font-size: 1.2rem;
+                            }
+                        }
+                    }
+                }
+                &_skills {
+                    gap: 1.25rem;
+                    &_item {
+                        &_number {
+                            font-size: 2.5rem;
+                        }
+                    }
+                }
+            }
+        }   
+    }
+    @media(max-width: 577px){
+        gap: 2rem; // dàn 1 hàng nên lấy giá trị bằng sectionBox để tách biệt như box khác
+        padding: 0 1rem;
+        &_item {
+            gap: 1rem;
+            &_content {
+                gap: 0.55rem;
+                &_title {
+                    font-size: 1.75rem;
+                    margin-bottom: 0.5rem;
+                    &_bold {
+                        font-size: 2rem;
+                    }
+                }
+                &_description {
+                    font-size: 1rem;
+                }
+                &_featured {
+                    gap: 1rem;
+                    &_item {
+                        gap: 1rem;
+                        &_content {
+                            h3 {
+                                font-size: 1.15rem;
+                            }
+                            > div {
+                                font-size: 1rem;
+                            }
+                        }
+                    }
+                }
+                &_skills {
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 1rem;
+                    &_item {
+                        &_number {
+                            font-size: 2.25rem;
+                        }
+                    }
+                }
+            }
+            &_categories {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }   
+    }
+}

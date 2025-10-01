@@ -1,0 +1,171 @@
+/* Home ===== màn hình đầu tiên */
+@import 'childs/default.scss';
+@import 'childs/base.scss';
+@import 'childs/header-top.scss';
+@import 'childs/layout.scss';
+@import 'childs/breadcrumb.scss';
+@import 'childs/toccontent.scss';
+@import 'childs/about-us.scss';
+@import 'childs/banner.scss';
+@import 'childs/design.scss';
+// /* Home ===== kém quan trọng (nhưng ít nên đưa vào đây luôn) */
+// @import 'childs/loading.scss';
+@import 'childs/image-box.scss';
+@import 'childs/why-choose.scss';
+@import 'childs/footer.scss';
+@import 'childs/right.scss';
+@import 'childs/login.scss';
+@import 'childs/modal.scss';
+@import 'childs/contact.scss';
+
+table {
+    @include tableDefault;
+}
+
+.layoutPageReport {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    
+    &_description {
+        padding: 1.25rem 1.5rem;
+        background: rgba(var(--colorHighLight), 0.25);
+        font-size: 0.95rem;
+        border-radius: var(--radiusNormal);
+        @include boxShadowBox;
+        &:hover {
+          transform: none;
+          border: 1px solid rgba(var(--colorBackgroundLv3), 0.75);
+          box-shadow: 0 7.5px 15px rgba(var(--colorBackgroundLv2));
+        }
+        > * {
+            &:last-child {
+                margin-bottom: 0 !important;
+            }
+        }
+        .callToAction {
+            display: inline-block;
+            gap: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            background: rgb(var(--colorRed));
+            color: rgb(var(--colorHighLight));
+            border-radius: var(--radiusNormal);
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            line-height: 2;
+            &:hover {
+                color: white;
+                background: rgb(var(--colorLv1));
+            }
+            svg {
+                width: 1rem;
+                height: 1rem;
+                vertical-align: middle;
+                margin-right: 0.25rem;
+                margin-bottom: 5px;
+            }
+        }
+    }
+    &_box {
+
+    }
+    @media(max-width: 1199px){
+        &_description {
+            padding: 1rem 1.25rem;
+        }
+    }
+    @media(max-width: 767px){
+        &_description {
+            padding: 0.75rem 1rem;
+        }
+    }
+}
+
+.pageListBox {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    &_item {
+        display: flex;
+        color: rgb(var(--colorTitle));
+        font-weight: 500;
+        &.active, &:hover {
+            color: rgb(var(--colorLv1));
+        }
+    }
+}
+
+.faqBox {
+  transition: all 0.3s ease;
+
+  &_title {
+    @include titleDefault;
+  }
+
+  &_box {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    &_item {
+      background: #e8edfb;
+      padding: 0.75rem 1rem 1rem;
+      border-radius: var(--radiusNormal);
+      font-weight: 500;
+      transition: background 0.3s;
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      &:hover {
+        background: #ced5e9;
+      }
+
+      &_question {
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: rgb(var(--colorLv2));
+        // color: #0d47a1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &::after {
+          content: "-";
+          font-size: 22px;
+          color: rgb(var(--colorIcon));
+          transition: transform 0.3s;
+        }
+      }
+
+      &_answer {
+        font-size: 0.95rem;
+        color: rgb(var(--colorText));
+      }
+
+      &.hide {
+        .faqBox_box_item_answer {
+          display: none;
+        }
+
+        .faqBox_box_item_question::after {
+          content: "+";
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+
+  @media (max-width: 990px) {
+    &_box {
+      gap: 0.75rem;
+      &_item {
+        gap: 0.25rem;
+      }
+    }
+  }
+}

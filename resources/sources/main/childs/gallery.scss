@@ -1,0 +1,168 @@
+/* gallery */
+.galleryBox {
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+    position: relative;
+    gap: 0.75rem;
+    &_box {
+        transform: translate3d(0px, 0px, 0px);
+        transition: all 0.3s ease;
+        display: flex;
+        width: 100%;
+        margin-bottom: 0;
+        overflow: hidden;
+        &_item {
+            width: 100%;
+            flex: 0 0 100%;
+            position: relative;
+
+            &::before {
+                content: "";
+                display: block;
+                padding-top: 56.25%; // 16:9 tỷ lệ nếu bạn cần tỷ lệ cố định
+            }
+
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.3s ease;
+                cursor: zoom-in;
+                border-radius: var(--radiusNormal);
+            }
+        }
+    }
+    &_arrow {
+        &__privious,
+        &__next {
+            position: absolute;
+            top: 45%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            padding: 0.75rem;
+            color: #fff;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            svg {
+                width: 1.25rem;
+                height: 1.25rem;
+            }
+            &:hover {
+                background: rgba(0,0,0,0.75);
+            }
+        }
+        &__privious {
+            left: 0;
+            border-radius: 0 var(--radiusSmall) var(--radiusSmall) 0;
+        }
+
+        &__next {
+            right: 0;
+            border-radius: var(--radiusSmall) 0 0 var(--radiusSmall);
+        }
+    }
+    &_bar {
+        display: flex;
+        width: 100%;
+        overflow-x: auto;
+        padding: 0;
+        scroll-behavior: smooth;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        > * {
+            position: relative;
+            flex: 0 0 calc(27% - 12px); // hiển thị khoảng 3-4 ảnh tùy viewport
+            margin-right: 1.25rem;
+            border-radius: var(--radiusNormal);
+            opacity: 0.5;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            &::before {
+                content: "";
+                display: block;
+                padding-top: 56.25%; // tỷ lệ 16:9 cho thumbnail
+                border-radius: inherit;
+            }
+
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: inherit;
+            }
+
+            &:hover {
+                opacity: 0.8;
+            }
+
+            &.selected {
+                opacity: 1;
+                border: 3px solid var(--colorTitle);
+            }
+        }
+    }
+    @media(max-width: 990px){
+        gap: 0.5rem;
+        &_bar {
+            > * {
+                margin-right: 1rem;
+            }
+        }
+    }
+}
+
+#galleryBox_box_mobile {
+    margin-bottom: 0 !important;
+}
+
+.galleryBox_bar.fullScreen > * {
+    flex: 0 0 calc(15% - 12px);
+}
+
+@media (max-width: 1199px) {
+    .galleryBox_bar.fullScreen> * {
+        flex: 0 0 calc(18% - 12px);
+    }
+}
+
+@media (max-width: 990px) {
+.galleryBox_bar.fullScreen> * {
+    flex: 0 0 calc(21% - 12px);
+}
+}
+
+@media (max-width: 767px) {
+.galleryBox_bar.fullScreen> * {
+    flex: 0 0 calc(23% - 12px);
+}
+}
+
+@media (max-width: 577px) {
+.galleryBox_bar.fullScreen> * {
+    flex: 0 0 calc(28% - 12px);
+}
+}
+
+@media (max-width: 419px) {
+.galleryBox_bar.fullScreen> * {
+    flex: 0 0 calc(36% - 12px);
+}
+}

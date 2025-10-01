@@ -1,0 +1,67 @@
+{
+  "resources/sources/admin/style.scss": {
+    "file": "assets/style.css",
+    "src": "resources/sources/admin/style.scss",
+    "isEntry": true
+  },
+  "resources/sources/main/category-blog-first-view.scss": {
+    "file": "assets/category-blog-first-view.css",
+    "src": "resources/sources/main/category-blog-first-view.scss",
+    "isEntry": true
+  },
+  "resources/sources/main/category-blog-non-first-view.scss": {
+    "file": "assets/home-non-first-view.css",
+    "src": "resources/sources/main/home-non-first-view.scss",
+    "isEntry": true
+  },
+  "resources/sources/main/category-first-view.scss": {
+    "file": "assets/category-first-view.css",
+    "src": "resources/sources/main/category-first-view.scss",
+    "isEntry": true
+  },
+  "resources/sources/main/category-non-first-view.scss": {
+    "file": "assets/home-non-first-view.css",
+    "src": "resources/sources/main/home-non-first-view.scss",
+    "isEntry": true
+  },
+  "resources/sources/main/home-first-view.scss": {
+    "file": "assets/home-first-view.css",
+    "src": "resources/sources/main/home-first-view.scss",
+    "isEntry": true
+  },
+  "resources/sources/main/home-non-first-view.scss": {
+    "file": "assets/home-non-first-view.css",
+    "src": "resources/sources/main/home-non-first-view.scss",
+    "isEntry": true
+  },
+  "resources/sources/main/page-first-view.scss": {
+    "file": "assets/page-first-view.css",
+    "src": "resources/sources/main/page-first-view.scss",
+    "isEntry": true
+  },
+  "resources/sources/main/page-non-first-view.scss": {
+    "file": "assets/home-non-first-view.css",
+    "src": "resources/sources/main/home-non-first-view.scss",
+    "isEntry": true
+  },
+  "resources/sources/main/post-first-view.scss": {
+    "file": "assets/post-first-view.css",
+    "src": "resources/sources/main/post-first-view.scss",
+    "isEntry": true
+  },
+  "resources/sources/main/post-non-first-view.scss": {
+    "file": "assets/home-non-first-view.css",
+    "src": "resources/sources/main/home-non-first-view.scss",
+    "isEntry": true
+  },
+  "resources/sources/main/product-first-view.scss": {
+    "file": "assets/product-first-view.css",
+    "src": "resources/sources/main/product-first-view.scss",
+    "isEntry": true
+  },
+  "resources/sources/main/product-non-first-view.scss": {
+    "file": "assets/home-non-first-view.css",
+    "src": "resources/sources/main/home-non-first-view.scss",
+    "isEntry": true
+  }
+}

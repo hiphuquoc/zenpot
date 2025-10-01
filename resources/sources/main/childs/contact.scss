@@ -1,0 +1,172 @@
+.contacBoxInBottom {
+  background: linear-gradient(135deg, #f0f4ff, #ffffff);
+  padding: 1.25rem 1.5rem 1.5rem;
+  text-align: center;
+  max-width: 700px;
+  margin: 1rem auto 0 auto; /* thêm tí margin-top vì đứng trên câu hỏi liên quan -> hiệu ứng */
+  transition: all 0.3s ease;
+  border-radius: var(--radiusNormal);
+  border: 1px solid rgba(var(--colorBackgroundLv3), 0.75);
+  box-shadow: 0 0 7px rgb(var(--colorBackgroundLv2));
+  &:hover {
+      border: 1px solid rgb(var(--colorBackgroundLv3));
+      box-shadow: 0 2px 12px rgba(var(--colorLv1), 0.25);
+      transform: translateY(-2px);
+  }
+
+  &_title {
+    h2 {
+      font-weight: 700;
+      color: rgb(var(--colorTitle));
+      position: relative;
+    }
+  }
+
+  &_box {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    color: var(--colorDesc);
+
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:first-child {
+        font-weight: 500;
+        color: rgb(var(--colorLv1));
+        margin-bottom: 0.25rem;
+      }
+
+      &:nth-child(n+2) {
+        background: #e8edfb;
+        padding: 0.75rem 1rem;
+        border-radius: var(--radiusNormal);
+        font-weight: 500;
+        transition: background 0.3s;
+
+        &:hover {
+          background: #ced5e9;
+        }
+      }
+    }
+    a {
+        display: flex;
+        margin: 0 0.5rem;
+        font-size: 1.05rem;
+    }
+  }
+
+  @media (max-width: 1199px) {
+    padding: 1rem 1.25rem 1.25rem;
+  }
+
+  @media (max-width: 990px) {
+    padding: 0.75rem 1rem 1rem;
+    margin: 0.75rem auto 0.25rem auto;
+    &_box {
+        gap: 0.75rem;
+    }
+  }
+}
+
+.contactBox {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  flex-wrap: wrap;
+  gap: 2rem;
+
+  &_item {
+    width: fit-content;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    overflow: hidden;
+
+    &_icon {
+      flex: 0 0 50px;
+      width: 50px;
+      height: 50px;
+      svg {
+        width: 100%;
+        height: 100%;
+        color: rgb(var(--colorLv1));
+        margin-top: 5px;
+        &.mini {
+          width: 75%;
+          height: 75%;
+          margin-top: 7px;
+        }
+      }
+    }
+
+    &_content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      &_title {
+        font-size: 1.5rem;
+        font-weight: 500;
+      }
+      &_subTitle {
+        font-size: 1.05rem;
+      }
+    }
+  }
+  @media(max-width: 1199px){
+    gap: 1.75rem;
+    &_item {
+      &_icon {
+        flex: 0 0 47.5px;
+        width: 47.5px;
+        height: 47.5px;
+      }
+      &_content {
+        gap: 0.325rem;
+        &_title {
+          font-size: 1.45rem;
+        }
+        &_subTitle {
+          font-size: 1.025rem;
+        }
+      }
+    }
+  }
+  @media(max-width: 767px){
+    gap: 1.25rem;
+    &_item {
+      &_icon {
+        flex: 0 0 45px;
+        width: 45px;
+        height: 45px;
+      }
+      &_content {
+        &_title {
+          font-size: 1.4rem;
+        }
+        &_subTitle {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+  @media(max-width: 577px){
+    gap: 1rem;
+    &_item {
+      &_icon {
+        flex: 0 0 42.5px;
+        width: 42.5px;
+        height: 42.5px;
+      }
+      &_content {
+        &_title {
+          font-size: 1.35rem;
+        }
+        &_subTitle {
+          font-size: 0.975rem;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+.whyChooseBusiness {
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    gap: 0.5rem;
+    margin: 1.5rem auto;
+    &_item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        position: relative;
+        &:not(:last-child) {
+            &:before {
+                content: '';
+                position: absolute;
+                left: 18px;
+                top: 50%;
+                width: 3px;
+                height: 100%;
+                border-left: 2px dashed rgba(var(--colorLv1), 0.25);
+            }
+        }
+        &_icon {
+            flex: 0 0 40px;
+            width: 40px;
+            height: 40px;
+            left: 0;
+            background: url(https://hoptackinhdoanh.storage.googleapis.com/storage/images/icon-check-small.webp?15) no-repeat;
+            background-size: 100% 100%;
+        }
+        &_content {
+            flex-grow: 1;
+            // background: rgba(var(--colorBackgroundLv1), 0.75);
+            border-radius: var(--radiusNormal);
+            padding: 1rem 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            &_title {
+                text-transform: uppercase;
+                h3, h4 {
+                    margin-bottom: 0 !important;
+                    font-size: 1.1rem;
+                    font-family: var(--fontTitle);
+                    font-weight: 800;
+                    color: rgb(var(--colorLv2));
+                }
+            }
+            &_desc {
+                color: rgb(var(--colorDesc));
+                line-height: 1.5;
+            }
+        }
+        &:nth-child(2n + 1){
+            .whyChooseBusiness_item_content {
+                background: rgb(var(--colorBackgroundLv2));
+                box-shadow: 0 2px 7px rgba(var(--colorBackgroundLv2), 0.5);
+                border: 1px solid rgb(var(--colorBackgroundLv3));
+                
+                @include halfCirleTopRightBox;
+            }
+        }
+    }
+    ul {
+        margin-bottom: 0 !important;
+    }
+    @media(max-width: 1199px){
+        margin: 1.25rem auto;
+    }
+    @media(max-width: 767px){
+        gap: 0.25rem;
+        margin: 1rem auto;
+        &_item {
+            gap: 0.5rem;
+            &_content {
+                padding: 0.75rem 1rem;
+            }
+            &:not(:last-child){
+                &:before {
+                    left: 8px;
+                }
+            }
+            &_icon {
+                width: 35px;
+                flex: 0 0 35px;
+                height: 35px;
+                margin-left: -8px; /* đưa ra tí tiết kiệm diện tích */
+            }
+        }
+    }
+}

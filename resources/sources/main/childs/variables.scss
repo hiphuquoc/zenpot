@@ -1,0 +1,174 @@
+// Biến cố định cho tất cả giao diện
+$bg-1: #212529;
+$bg-09: #343a40;
+$bg-08: #495057;
+$bg-07: #6c757d;
+$bg-06: #adb5bd;
+$bg-05: #ced4da;
+$bg-04: #dee2e6;
+$bg-03: #e9ecef;
+$bg-02: #edf2f7;
+
+// Dark mode variables
+$dark-colorLv1: #7B3F20;
+$dark-colorLv2: #532816;
+// $dark-colorIcon: #868e96;
+$dark-colorIcon: #a8bbd5;
+$dark-colorSLv1: #FFA500;
+$dark-colorSLv2: #FF8C00;
+$dark-colorButtonLv1: #7B3F20;
+$dark-colorButtonLv2: #532816;
+$dark-colorTextLight: #aa6441;
+$dark-colorTitle: #2a2a2e;
+$dark-colorText: #64748b;
+$dark-colorDesc: #585961;
+$dark-colorPrice: #e74c3c;
+$dark-colorHightLight: #FCF259; /*FCF259 */
+$dark-colorSuccess: #07A35D;
+$dark-colorRed: #C62E2E;
+$dark-colorBackgroundLv1: #fcfcfd;
+$dark-colorBackgroundLv2: #edf2f7;
+$dark-colorBackgroundLv3: #dee2e6;
+
+:root {
+  // Biến cố định (giữ hex vì không cần dùng với rgba())
+  --bg-1: #{$bg-1};
+  --bg-09: #{$bg-09};
+  --bg-08: #{$bg-08};
+  --bg-07: #{$bg-07};
+  --bg-06: #{$bg-06};
+  --bg-05: #{$bg-05};
+  --bg-04: #{$bg-04};
+  --bg-03: #{$bg-03};
+  --bg-02: #{$bg-02};
+
+  // icon svg 
+  --icon_close : url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" fill="currentColor"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>');
+
+  --icon_check : url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>');
+
+  --icon_three_dots : url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor"><path d="M8 256a56 56 0 1 1 112 0A56 56 0 1 1 8 256zm160 0a56 56 0 1 1 112 0 56 56 0 1 1 -112 0zm216-56a56 56 0 1 1 0 112 56 56 0 1 1 0-112z"/></svg>');
+
+  --icon_circle_dot : url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-352a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/></svg>');
+
+  --icon_plus : url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"/></svg>');
+
+  --icon_facebook_f : url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" fill="currentColor"><path d="M80 299.3V512H196V299.3h86.5l18-97.8H196V166.9c0-51.7 20.3-71.5 72.7-71.5c16.3 0 29.4 .4 37 1.2V7.9C291.4 4 256.4 0 236.2 0C129.3 0 80 50.5 80 159.4v42.1H14v97.8H80z"/></svg>');
+
+  --icon_instagram : url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>');
+
+  --icon_youtube : url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor"><path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"/></svg>');
+
+  --icon_tiktok : url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor"><path d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0l88 0a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"/></svg>');
+
+  --icon_search : url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="512" height="512" fill="currentColor"><g id="_01_align_center" data-name="01 align center"><path d="M24,22.586l-6.262-6.262a10.016,10.016,0,1,0-1.414,1.414L22.586,24ZM10,18a8,8,0,1,1,8-8A8.009,8.009,0,0,1,10,18Z"/></g></svg>');
+
+  --icon_file : url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M0 64C0 28.7 28.7 0 64 0L224 0l0 128c0 17.7 14.3 32 32 32l128 0 0 288c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 64zm384 64l-128 0L256 0 384 128z"/></svg>');
+
+  --icon_copy : url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M208 0L332.1 0c12.7 0 24.9 5.1 33.9 14.1l67.9 67.9c9 9 14.1 21.2 14.1 33.9L448 336c0 26.5-21.5 48-48 48l-192 0c-26.5 0-48-21.5-48-48l0-288c0-26.5 21.5-48 48-48zM48 128l80 0 0 64-64 0 0 256 192 0 0-32 64 0 0 48c0 26.5-21.5 48-48 48L48 512c-26.5 0-48-21.5-48-48L0 176c0-26.5 21.5-48 48-48z"/></svg>');
+
+  // Biến mặc định (dark mode) - trích xuất RGB
+  --colorLv1: #{red($dark-colorLv1), green($dark-colorLv1), blue($dark-colorLv1)};
+  --colorLv2: #{red($dark-colorLv2), green($dark-colorLv2), blue($dark-colorLv2)};
+  --colorSLv1: #{red($dark-colorSLv1), green($dark-colorSLv1), blue($dark-colorSLv1)};
+  --colorSLv2: #{red($dark-colorSLv2), green($dark-colorSLv2), blue($dark-colorSLv2)};
+  --colorButtonLv1: #{red($dark-colorButtonLv1), green($dark-colorButtonLv1), blue($dark-colorButtonLv1)};
+  --colorButtonLv2: #{red($dark-colorButtonLv2), green($dark-colorButtonLv2), blue($dark-colorButtonLv2)};
+  --colorTextLight: #{red($dark-colorTextLight), green($dark-colorTextLight), blue($dark-colorTextLight)};
+  --colorTitle: #{red($dark-colorTitle), green($dark-colorTitle), blue($dark-colorTitle)};
+  --colorText: #{red($dark-colorText), green($dark-colorText), blue($dark-colorText)};
+  --colorDesc: #{red($dark-colorDesc), green($dark-colorDesc), blue($dark-colorDesc)};
+  --colorIcon: #{red($dark-colorIcon), green($dark-colorIcon), blue($dark-colorIcon)};
+  --colorPrice: #{red($dark-colorPrice), green($dark-colorPrice), blue($dark-colorPrice)};
+  --colorHighLight: #{red($dark-colorHightLight), green($dark-colorHightLight), blue($dark-colorHightLight)};
+  --colorSuccess: #{red($dark-colorSuccess), green($dark-colorSuccess), blue($dark-colorSuccess)};
+  --colorRed: #{red($dark-colorRed), green($dark-colorRed), blue($dark-colorRed)};
+  --colorBackgroundLv1: #{red($dark-colorBackgroundLv1), green($dark-colorBackgroundLv1), blue($dark-colorBackgroundLv1)};
+  --colorBackgroundLv2: #{red($dark-colorBackgroundLv2), green($dark-colorBackgroundLv2), blue($dark-colorBackgroundLv2)};
+  --colorBackgroundLv3: #{red($dark-colorBackgroundLv3), green($dark-colorBackgroundLv3), blue($dark-colorBackgroundLv3)};
+
+  // Color gradient
+  --colorGradientGray: linear-gradient(135deg, #64748B 0%, #475569 50%, #374b6b 100%);
+  // --colorGradientGray: linear-gradient(135deg, #4B5563 0%, #374151 50%, #1F2937 100%);
+  --colorGradientMain: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 50%, #06B6D4 100%);
+  --colorGradientMain-hover: linear-gradient(45deg, #8B5CF6 0%, #3B82F6 50%, #06B6D4 100%);
+
+  // font-size mặc định 
+  --fontText : "Lexend", sans-serif;
+  --fontTitle : "Inter", sans-serif;
+  --fontSpecial : 'SVN-Momento', sans-serif;
+  --fontSizeNormal : 1rem;
+  --opacityNormal : 1;
+
+  // color shadow
+  --colorShadow : rgba(0, 0, 0, 0.25);
+
+  // line height
+  --lineHeightNormal : 1.7;
+
+  // radius
+  --radiusLarge : 1.5rem;
+  --radiusNormal : 0.75rem;
+  --radiusSmall : 0.5rem;
+
+  // spacing
+  --gapSection : 2rem;
+}
+
+// .light {
+//   --colorLv1: #{red($light-colorLv1), green($light-colorLv1), blue($light-colorLv1)};
+//   --colorLv2: #{red($light-colorLv2), green($light-colorLv2), blue($light-colorLv2)};
+//   --colorSLv1: #{red($light-colorSLv1), green($light-colorSLv1), blue($light-colorSLv1)};
+//   --colorSLv2: #{red($light-colorSLv2), green($light-colorSLv2), blue($light-colorSLv2)};
+//   --colorButtonLv1: #{red($light-colorButtonLv1), green($light-colorButtonLv1), blue($light-colorButtonLv1)};
+//   --colorButtonLv2: #{red($light-colorButtonLv2), green($light-colorButtonLv2), blue($light-colorButtonLv2)};
+//   --colorTextLight: #{red($light-colorTextLight), green($light-colorTextLight), blue($light-colorTextLight)};
+//   --colorTitle: #{red($light-colorTitle), green($light-colorTitle), blue($light-colorTitle)};
+//   --colorText: #{red($light-colorText), green($light-colorText), blue($light-colorText)};
+//   --colorIcon: #{red($light-colorIcon), green($light-colorIcon), blue($light-colorIcon)};
+//   --colorPrice: #{red($light-colorPrice), green($light-colorPrice), blue($light-colorPrice)};
+//   --colorSuccess: #{red($light-colorSuccess), green($light-colorSuccess), blue($light-colorSuccess)};
+//   --colorRed: #{red($light-colorRed), green($light-colorRed), blue($light-colorRed)};
+//   --colorBackgroundLv1: #{red($light-colorBackgroundLv1), green($light-colorBackgroundLv1), blue($light-colorBackgroundLv1)};
+//   --colorBackgroundLv2: #{red($light-colorBackgroundLv2), green($light-colorBackgroundLv2), blue($light-colorBackgroundLv2)};
+//   --colorBackgroundLv3: #{red($light-colorBackgroundLv3), green($light-colorBackgroundLv3), blue($light-colorBackgroundLv3)};
+
+//   // font-size mặc định 
+//   --fontSizeNormal : 0.975rem;
+//   --opacityNormal : 1;
+
+//   // color shadow
+//   --colorShadow : rgba(0, 0, 0, 0.25);
+
+//   // line height
+//   --lineHeightNormal : 1.7;
+// }
+
+// .gray {
+//   --colorLv1: #{red($gray-colorLv1), green($gray-colorLv1), blue($gray-colorLv1)};
+//   --colorLv2: #{red($gray-colorLv2), green($gray-colorLv2), blue($gray-colorLv2)};
+//   --colorSLv1: #{red($gray-colorSLv1), green($gray-colorSLv1), blue($gray-colorSLv1)};
+//   --colorSLv2: #{red($gray-colorSLv2), green($gray-colorSLv2), blue($gray-colorSLv2)};
+//   --colorButtonLv1: #{red($gray-colorButtonLv1), green($gray-colorButtonLv1), blue($gray-colorButtonLv1)};
+//   --colorButtonLv2: #{red($gray-colorButtonLv2), green($gray-colorButtonLv2), blue($gray-colorButtonLv2)};
+//   --colorTextLight: #{red($gray-colorTextLight), green($gray-colorTextLight), blue($gray-colorTextLight)};
+//   --colorTitle: #{red($gray-colorTitle), green($gray-colorTitle), blue($gray-colorTitle)};
+//   --colorText: #{red($gray-colorText), green($gray-colorText), blue($gray-colorText)};
+//   --colorIcon: #{red($gray-colorIcon), green($gray-colorIcon), blue($gray-colorIcon)};
+//   --colorPrice: #{red($gray-colorPrice), green($gray-colorPrice), blue($gray-colorPrice)};
+//   --colorSuccess: #{red($gray-colorSuccess), green($gray-colorSuccess), blue($gray-colorSuccess)};
+//   --colorRed: #{red($gray-colorRed), green($gray-colorRed), blue($gray-colorRed)};
+//   --colorBackgroundLv1: #{red($gray-colorBackgroundLv1), green($gray-colorBackgroundLv1), blue($gray-colorBackgroundLv1)};
+//   --colorBackgroundLv2: #{red($gray-colorBackgroundLv2), green($gray-colorBackgroundLv2), blue($gray-colorBackgroundLv2)};
+//   --colorBackgroundLv3: #{red($gray-colorBackgroundLv3), green($gray-colorBackgroundLv3), blue($gray-colorBackgroundLv3)};
+
+//   // font-size mặc định 
+//   --fontSizeNormal : 0.925rem;
+//   --opacityNormal : 0.85;
+
+//   // color shadow
+//   --colorShadow : rgba(0, 0, 0, 0.5);
+
+//   // line height
+//   --lineHeightNormal : 1.8;
+// }

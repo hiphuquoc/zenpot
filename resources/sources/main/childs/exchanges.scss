@@ -1,0 +1,303 @@
+@mixin exchangeGrid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    .bussinessPlanBox_item {
+        width: calc(33.33% - (1.5rem * 2)/3);
+        &_detail {
+            flex-direction: column;
+            gap: 1rem;
+            &_gallery {
+                flex: unset;
+                width: 100%;
+                .img-wrapper {
+                    &:nth-child(n + 2) {
+                        display: none;
+                    }
+                }
+            }
+            &_text {
+                &_subTitle {
+                    margin-top: auto;
+                }
+                &_footer {
+                    padding-top: 0.25rem;
+                    margin-top: unset;
+                }
+            }
+        }
+        &_ribbon {
+            display: none;
+        }
+    }
+}
+.bussinessPlanBox {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    &.grid {
+        @include exchangeGrid;
+    }
+    &_item {
+        width: 100%;
+        padding: 1.5rem;
+        position: relative;
+        transition: all 0.3s ease;
+        border-radius: var(--radiusNormal);
+        @include boxShadowBox;
+        &_detail {
+            display: flex;
+            align-items: stretch;
+            height: 100%;
+            gap: 1.5rem;
+            &_gallery {
+                flex: 0 0 320px;
+                width: 320px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 5px;
+
+                .img-wrapper {
+                    position: relative;
+                    width: calc(50% - 2.5px); // mặc định cho ảnh nhỏ
+                    padding-top: calc(56.25% / 2); // 16:9
+                    overflow: hidden;
+
+                    &:nth-child(1) {
+                        width: 100%;
+                        padding-top: 56.25%; // 16:9
+                    }
+
+                    img {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                }
+            }
+            &_text {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                flex-grow: 1;
+                &_title {
+                    display: flex;
+                    h2, h3 {
+                        margin: 0;
+                        padding: 0;
+                        color: rgb(var(--colorTitle));
+                        font-family: var(--fontTitle);
+                        font-size: 1.2rem;
+                        font-weight: 700;
+                        text-transform: none;
+                        line-height: 1.5;
+                        &:hover {
+                            color: rgb(var(--colorLv2));
+                        }
+                    }
+                }
+                &_subTitle {
+                    @include subTitleOfExchange;
+                }
+                &_desc {
+                    color: rgb(var(--colorDesc));
+                }
+                &_footer {
+                    display: flex;
+                    align-items: flex-end;
+                    margin-top: auto;
+                    line-height: 1.5;
+                    color: rgb(var(--colorText));
+                    &_item {
+                        font-size: calc(var(--fontSizeNormal) - 0.1rem);
+                        .founderBox {
+                            border: none !important;
+                            box-shadow: none !important;
+                            &_infoBox {
+                                @include founderInfo;
+                                padding: 0 !important;
+                                border: none !important;
+                                box-shadow: none !important;
+                                gap: 0.75rem;
+                                &_image {
+                                    img {
+                                        width: 45px;
+                                        height: 45px;
+                                    }
+                                }
+                                &_info {
+                                    &_title {
+                                        font-size: calc(var(--fontSizeNormal) - 0.05rem);
+                                        font-weight: 700;
+                                        color: rgb(var(--colorText));
+                                    }
+                                    &_subTile {
+                                        font-weight: 400;
+                                        font-size: calc(var(--fontSizeNormal) - 0.1rem);
+                                    }
+                                }
+                            }
+                        }
+                        &:last-child {
+                            display: flex;
+                            justify-content: flex-end;
+                            margin-left: auto;
+                            white-space: nowrap;
+                        }
+                    }
+                }
+            }
+        }
+        &_sign {
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            min-width: 50px;
+            height: 27px;
+            border-radius: 2px 5px 5px 1px;
+            position: absolute;
+            left: -7px;
+            top: 20px;
+            padding: 3px 10px;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+            z-index: 1;
+            &:after {
+                content: "";
+                width: 4px;
+                height: 4px;
+                left: 0px;
+                top: 27px;
+                border: solid transparent;
+                position: absolute;
+                clip-path: polygon(100% 0px, 0px 0px, 100% 100%);
+            }
+
+            &.vipKey5 {
+                background-color: rgb(var(--colorRed));
+                &:after {
+                    background-color: #7a2900;
+                }
+            }
+
+            &.vipKey4 {
+                background-color: rgb(var(--colorRed));
+                &:after {
+                    background-color: #7a2900;
+                }
+            }
+            
+            &.vipKey3 { // VIP Kim cương
+                background-color: #319795; // Xanh ngọc kim cương (turquoise)
+                &:after {
+                    background-color: #217472; // Đậm hơn
+                }
+            }
+
+            &.vipKey2 { // VIP Vàng
+                background-color: #cea500; // Vàng sáng nổi bật
+                &:after {
+                    background-color: #977900; // Vàng đậm hơn
+                }
+            }
+
+            &.vipKey1 { // VIP Bạc
+                background-color: #707B7C; // Xám bạc ánh kim
+                &:after {
+                    background-color: #4c5657; // Xám đậm hơn
+                }
+            }
+        }
+        /* Trạng thái loading */
+        &.loading {
+            background: linear-gradient(90deg, rgb(var(--colorBackgroundLv2)) 25%, rgb(var(--colorBackgroundLv3)) 50%, rgb(var(--colorBackgroundLv2)) 75%);
+            background-size: 200% 100%;
+            animation: loadingGradient 1.5s ease infinite;
+            min-height: 325px;
+            .grid & {
+                min-height: 540px;
+            }
+            /* Ẩn nội dung thật trong lúc loading */
+            .bussinessPlanBox_item_detail, .bussinessPlanBox_item_sign {
+                opacity: 0;
+            }
+        }
+
+        /* Keyframes cho hiệu ứng gradient chuyển động */
+        @keyframes loadingGradient {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: 0 0;
+            }
+        }
+    }
+    @media(max-width: 1199px){
+        &.list {
+            @include exchangeGrid;
+            .bussinessPlanBox_item {
+                width: calc(50% - (1.75rem / 2));
+            }
+        }
+    }
+
+    @media(max-width: 990px){
+        gap: 1.25rem !important;
+        &.list, &.grid {
+            .bussinessPlanBox_item {
+                width: calc(50% - 1.25rem/2);
+            }
+        }
+        &_item {
+            padding: 1.25rem;
+            &_detail {
+                &_text {
+                    &_title {
+                        h2, h3 {
+                            font-size: 1.15rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media(max-width: 767px){
+        gap: 1rem !important;
+        &.list, &.grid {
+            .bussinessPlanBox_item {
+                width: calc(50% - 1rem/2);
+            }
+        }
+        &_item {
+            padding: 1rem;
+            &_detail {
+                gap: 0.75rem !important;
+                &_text {
+                    gap: 0.75rem;
+                }
+            }
+        }
+    }
+
+    @media(max-width: 577px){
+        &.list, &.grid {
+            .bussinessPlanBox_item {
+                width: 100%;
+                &_detail {
+                    &_gallery {
+                        .img-wrapper {
+                            &:nth-child(n + 2) {
+                                display: flex;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

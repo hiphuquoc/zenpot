@@ -1,0 +1,384 @@
+// ==================
+// 1. CATEGORY WRAPPER
+// ==================
+.categoryBox {
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-top: 1rem;
+
+  @media (max-width: 1199px) {
+    padding-top: 0.825rem;
+    gap: 1.75rem;
+  }
+
+  @media (max-width: 990px) {
+    padding-top: 0.75rem;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 767px) {
+    padding-top: 0.625rem;
+    gap: 1.25rem;
+  }
+
+  @media (max-width: 577px) {
+    // padding-top: 0.625rem;
+    gap: 1rem;
+  }
+}
+
+// ==================
+// 2. HEADER SECTION
+// ==================
+.category-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.category-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: rgb(var(--colorLv2));
+  margin-bottom: 0.5rem;
+  position: relative;
+  display: inline-block;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, rgb(var(--colorLv1)), rgb(var(--colorLv2)));
+    border-radius: 2px;
+  }
+}
+
+.category-subtitle {
+  color: rgb(var(--colorText));
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+// ==================
+// 3. PRODUCTS GRID
+// ==================
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+
+  @media (max-width: 1199px) {
+    gap: 1.75rem;
+  }
+
+  @media (max-width: 990px) {
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 767px) {
+    gap: 1.25rem;
+  }
+
+  @media (max-width: 577px) {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+}
+
+// ==================
+// 4. PRODUCT CARD
+// ==================
+.product-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  animation: fadeInUp 0.6s ease forwards;
+
+  // Hover effect
+  &:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+
+    .product-image img {
+      transform: scale(1.1);
+    }
+
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  // &::before {
+  //   content: '';
+  //   position: absolute;
+  //   inset: 0;
+  //   background: linear-gradient(
+  //     135deg,
+  //     rgba(var(--colorLv1), 0.05) 0%,
+  //     rgba(129, 199, 132, 0.05) 100%
+  //   );
+  //   opacity: 0;
+  //   transition: opacity 0.3s ease;
+  //   z-index: 1;
+  // }
+}
+
+// ==================
+// 5. PRODUCT IMAGE
+// ==================
+.product-image {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-top: 100%; // Giữ hình vuông mà không dùng aspect-ratio
+  // Hoặc dùng height cố định theo chiều rộng container:
+  // height: 0;
+  // padding-bottom: 100%;
+  
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+}
+
+.product-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(var(--colorLv1), 0.85);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  z-index: 2;
+}
+
+// ==================
+// 6. PRODUCT CONTENT
+// ==================
+.product-content {
+  padding: 1.25rem 1.5rem 1.5rem;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  height: 100%;
+
+  @media (max-width: 1199px) {
+    gap: 0.825rem;
+    padding: 1rem 1.25rem;
+  }
+
+  @media (max-width: 767px) {
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+  }
+}
+
+.product-category {
+  color: rgb(var(--colorLv2));
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.product-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: rgb(var(--colorTitle));
+  line-height: 1.4;
+  margin-bottom: 0 !important;
+}
+
+.product-description {
+  color: rgb(var(--colorText));
+  line-height: 1.6;
+}
+
+// ==================
+// 7. FEATURES TAG
+// ==================
+.product-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  .feature-tag {
+    background: rgba(var(--colorLv1), 0.1);
+    color: rgb(var(--colorLv2));
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radiusNormal);
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+}
+
+// ==================
+// 8. PRODUCT FOOTER
+// ==================
+.product-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-top: 0.5rem;
+  border-top: 1px solid #f1f3f4;
+  margin-top: auto;
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+}
+
+// ==================
+// 9. PRICE & BUTTON
+// ==================
+.product-price {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  .current-price {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: rgb(var(--colorLv1));
+  }
+
+  .original-price {
+    font-size: 1rem;
+    color: rgb(var(--colorText));
+    text-decoration: line-through;
+  }
+}
+
+.add-to-cart {
+  background: -webkit-linear-gradient(transparent, transparent),
+    url(https://zenpot.storage.googleapis.com/storage/images/stock-van-go.webp)
+      left 0 no-repeat;
+  color: white;
+  border: none;
+  padding: 0.65rem 1.5rem 1rem 1.5rem;
+  border-radius: var(--radiusNormal);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(var(--colorLv1), 0.3);
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+// ==================
+// 10. PAGINATION
+// ==================
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 3rem;
+  margin-bottom: 0.75rem;
+
+  .pagination-btn {
+    background: white;
+    border: 2px solid #e9ecef;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radiusNormal);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    color: rgb(var(--colorTitle));
+
+    &:hover,
+    &.active {
+      border-color: rgb(var(--colorLv1));
+      background: rgb(var(--colorLv1));
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  svg {
+    width: 12.5px;
+    height: 12.5px;
+  }
+
+  @media(max-width: 1199px){
+    margin-top: 2.75rem;
+  }
+
+  @media(max-width: 990px){
+    margin-top: 2.25rem;
+  }
+
+  @media(max-width: 767px){
+    margin-top: 1.75rem;
+  }
+
+   @media(max-width: 577px){
+    margin-top: 1.25rem;
+  }
+}
+
+// ==================
+// 11. ANIMATIONS
+// ==================
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Delay animation cho từng card
+.product-card:nth-child(1) { animation-delay: 0.1s; }
+.product-card:nth-child(2) { animation-delay: 0.2s; }
+.product-card:nth-child(3) { animation-delay: 0.3s; }
+.product-card:nth-child(4) { animation-delay: 0.4s; }
+.product-card:nth-child(5) { animation-delay: 0.5s; }
+.product-card:nth-child(6) { animation-delay: 0.6s; }
+.product-card:nth-child(7) { animation-delay: 0.7s; }
+.product-card:nth-child(8) { animation-delay: 0.8s; }
+.product-card:nth-child(9) { animation-delay: 0.9s; }

@@ -1,0 +1,154 @@
+.tocContentMain {
+    border-radius: var(--radiusSmall);
+    position: relative;
+    background: rgb(var(--colorBackgroundLv2));
+    box-shadow: 0 2px 7px rgba(var(--colorBackgroundLv2), 0.5);
+    border: 1px solid rgb(var(--colorBackgroundLv3));
+    &_title {
+        padding: 0.625rem 1rem;
+        cursor: pointer;
+        border-bottom: 1px solid var(--colorShadow);
+        color: rgb(var(--colorText));
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        svg {
+            width: 16px;
+            height: 16px;
+            color: rgb(var(--colorIcon));
+        }
+    }
+    &_list {
+        padding: 0.25rem 1rem 1rem;
+        font-size: calc(var(--fontSizeNormal) - 0.025rem);
+        max-height: 500px;
+        &:dir(ltr), [dir="ltr"] & {
+            text-align: left;
+        }
+        &:dir(rtl), [dir="rtl"] & {
+            text-align: right;
+        }
+        &_item {
+            display: flex;
+            padding-top: 0.5rem;
+            color: rgb(var(--colorText));
+            &:not(:first-child){
+                margin-top: 0.5rem;
+                border-top: 1px dashed var(--colorShadow);
+            }
+        }
+    }
+    &_close {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        top: 0;
+        right: 0;
+        &:dir(rtl), [dir="rtl"] & {
+            right: unset;
+            left: 0;
+        }
+        &:before {
+            content: '';
+            width: 16px;
+            height: 16px;
+            background-color: rgb(var(--colorIcon));
+            mask: var(--icon_close) no-repeat center;
+            mask-size: contain;
+            -webkit-mask: var(--icon_close) no-repeat center;
+            -webkit-mask-size: contain;
+        }
+        &.hidden {
+            display: flex !important;
+            &::before {
+                content: '';
+                width: 16px;
+                height: 16px;
+                background-color: rgb(var(--colorIcon));
+                mask: var(--icon_plus) no-repeat center;
+                mask-size: contain;
+                -webkit-mask: var(--icon_plus) no-repeat center;
+                -webkit-mask-size: contain;
+            }
+        }
+    }
+    &.tocFixed {
+        display: none;
+        position: fixed;
+        height: 100%;
+        max-width: 20rem;
+        min-width: 17rem; /* là chiều ngang của headerSide */
+        z-index: 101;
+        top: 128px;
+        box-shadow: 0 0 7px rgb(var(--colorShadow));
+        left: 0;
+        &:dir(rtl), [dir="rtl"] & {
+            left: unset;
+            right: 0;
+        }
+        .tocContentMain_list {
+            display: block !important;
+        }
+    }
+    @media(max-width: 991px){
+        &_title {
+            padding: 0.5rem 0.75rem;
+        }
+        &_list {
+            padding: 0.25rem 0.75rem 0.75rem;
+        }
+    }
+    @media(max-width: 767px){
+        &_title {
+            padding: 0.5rem;
+        }
+        &_list {
+            padding: 0.25rem 0.5rem 0.5rem;
+        }
+    }
+}
+.tocFixedIcon {
+    display: none;
+    position: fixed;
+    width: 32px;
+    height: 32px;
+    background: rgb(var(--colorBackgroundLv2));
+    border-radius: var(--radiusSmall);
+    cursor: pointer;
+    border: 1px solid rgb(var(--colorBackgroundLv3));
+    z-index: 100;
+    opacity: var(--opacityNormal);
+    margin-bottom: 0 !important;
+    top: 50%;
+    left: 0;
+    &:dir(rtl), [dir="rtl"] & {
+        left: unset;
+        right: 0;
+    }
+    &:hover {
+        opacity: 1;
+    }
+    > div {
+        text-align: center;
+        display: flex;
+        align-items: center;
+        height: 100%;
+        justify-content: center;
+        svg {
+            width: 18px;
+            height: 18px;
+            color: rgb(var(--colorIcon));
+        }
+    }
+    @media(max-width: 767px){
+        left: 0.25rem !important;
+    }
+}
+.contentElement {
+    max-width: 660px;
+    margin: 0 auto;
+}

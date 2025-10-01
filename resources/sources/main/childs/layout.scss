@@ -1,0 +1,98 @@
+.layoutPageCategoryBlog, .layoutPageMyAccount {
+    display: flex;
+    align-items: stretch;
+    gap: 2.5rem;
+    justify-content: center;
+    &_main {
+        flex-grow: 1;
+        width: calc(100% - 320px - 2.5rem);
+    }
+    &_sidebar {
+        flex: 0 0 320px;
+        width: 320px;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        top: 1.25rem;
+        position: relative;
+    }
+    @media(max-width:1199px){
+        gap: 2rem;
+        &_main {
+            width: calc(100% - 280px - 2rem);
+        }
+        &_sidebar {
+            flex: 0 0 280px;
+            width: 280px;
+        }
+    }
+    @media(max-width: 991px){
+        gap: 1.25rem;
+        flex-direction: column;
+        &_main {
+            width: 100%;
+        }
+        &_sidebar {
+            width: 100%;
+            flex: unset;
+            gap: 1.25rem;
+        }
+    }
+    @media(max-width: 767px){
+        gap: 1rem;
+        flex-direction: column;
+        &_sidebar {
+            gap: 1rem;
+        }
+    }
+}
+
+.mainContentBox {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    &_desc {
+        // margin-bottom: 1rem;
+    }
+    &_filter {
+        @include badgeItem;
+    }
+    @media(max-width: 767px){
+        gap: 1.25rem;
+    }
+    @media(max-width: 577px){
+        gap: 1rem;
+    }
+}
+
+.sidebarBox {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    &_title {
+        color: rgb(var(--colorTitle));
+        font-family: var(--fontTitle);
+        font-size: calc(var(--fontSizeNormal) + 0.35rem);
+        font-weight: 800;
+        line-height: 1.5;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        svg {
+            width: 1.5rem;
+            height: 1.5rem;
+            color: rgb(var(--colorIcon));
+        }
+    }
+    &_box {
+        &_tags {
+            @include badgeItem;
+        }
+    }
+    @media(max-width: 990px){
+        gap: 0.75rem;
+    }
+    @media(max-width: 767px){
+        gap: 0.5rem;
+    }
+}
