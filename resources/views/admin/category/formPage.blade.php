@@ -40,7 +40,7 @@
             $lock = $language=='vi' ? '' : 'disabled';
         @endphp
         <div class="formBox_full_item">
-            <label class="form-label inputRequired">Loại danh mục</label>
+            <label class="form-label inputRequired">Loại</label>
             <div class="{{ !empty($flagCopySource)&&$flagCopySource==true ? 'boxInputSuccess' : '' }}">
                 <select class="select2 form-select select2-hidden-accessible" name="category_type" {{ $lock }}>
                     @foreach(config('main_'.env('APP_NAME').'.category_type') as $categoryType)

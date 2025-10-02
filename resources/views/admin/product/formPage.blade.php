@@ -54,38 +54,9 @@
                     <i class="explainInput" data-feather='alert-circle'></i>
                     <label class="form-label inputRequired" for="code">Mã sản phẩm</label>
                 </span>
-                <input type="number" min="0" id="code" class="form-control {{ !empty($flagCopySource)&&$flagCopySource==true ? 'inputSuccess' : '' }}" name="code" value="{{ old('code') ?? $item->code ?? null }}" required />
+                <input type="text" id="code" class="form-control {{ !empty($flagCopySource)&&$flagCopySource==true ? 'inputSuccess' : '' }}" name="code" value="{{ old('code') ?? $item->code ?? null }}" required />
             </div>
-            <!-- category/style/event -->
-            {{-- @foreach(config('main_'.env('APP_NAME').'.category_type') as $categoryType)
-                <div class="formBox_full_item">
-                    <label class="form-label">{{ $categoryType['name'] }}</label>
-                    <div class="{{ !empty($flagCopySource)&&$flagCopySource==true ? 'boxInputSuccess' : '' }}">
-                        <select class="select2 form-select select2-hidden-accessible" name="{{ $categoryType['key'] }}[]" multiple="true">
-                            <option value="">- Lựa chọn -</option>
-                            @if(!empty($categories))
-                                @foreach($categories as $category)
-                                    @if(!empty($category->seo->type)&&$category->seo->type==$categoryType['key'])
-                                        @php
-                                            $selected   = null;
-                                            if(!empty($item->categories)){
-                                                foreach($item->categories as $c) {
-                                                    if(!empty($c->infoCategory->id)&&$c->infoCategory->id==$category->id) {
-                                                        $selected = ' selected';
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                            /* tất cả tag */
-                                        @endphp
-                                        <option value="{{ $category->id }}"{{ $selected }}>{{ $category->seo->title }}</option>
-                                    @endif
-                                @endforeach
-                            @endif
-                        </select>
-                    </div>
-                </div>
-            @endforeach --}}
+            <!-- One Row -->
             @foreach(config('main_'.env('APP_NAME').'.category_type') as $categoryType)
                 <div class="formBox_full_item">
                     <label class="form-label">{{ $categoryType['name'] }}</label>
@@ -118,36 +89,6 @@
                 </div>
             @endforeach
             <!-- One row -->
-            {{-- <div class="formBox_full_item">
-                @php
-                    $arrayTagName           = [];
-                    if(!empty($item->tags)){
-                        foreach($item->tags as $tag){
-                            if(!empty($tag->infoTag->seo->title)) $arrayTagName[] = $tag->infoTag->seo->title;
-                        }
-                    }
-                    $strTagName             = implode(',', $arrayTagName);
-                    /* action & prompt */
-                    $chatgptDataAndEvent = [];
-                    foreach($prompts as $prompt){
-                        if($prompt->reference_name=='tag'){
-                            if($prompt->type=='auto_content_for_image'){
-                                $chatgptDataAndEvent = \App\Helpers\Charactor::generateChatgptDataAndEvent($item, $prompt, $language, 'tag');
-                                break;
-                            }
-                        }
-                    }
-                @endphp
-                <label for="tag" class="form-label">
-                    Tag name
-                    @if(!empty($chatgptDataAndEvent['eventChatgpt']))
-                        <i class="fa-solid fa-arrow-rotate-left reloadContentIcon" onclick="{{ $chatgptDataAndEvent['eventChatgpt'] ?? null }}"></i>
-                    @endif
-                </label>
-                <div class="{{ !empty($flagCopySource)&&$flagCopySource==true ? 'boxInputSuccess' : '' }}">
-                    <input id="tag" name="tag" class="form-control" placeholder="Nhập tag name" value="{{ $strTagName }}" {{ $chatgptDataAndEvent['dataChatgpt'] ?? null }} />  
-                </div>
-            </div> --}}
             <div class="formBox_full_item">
                 @php
                     $arrayTagName = [];
@@ -178,9 +119,6 @@
                 @endphp
                 <label for="tag" class="form-label">
                     Tag name
-                    @if(!empty($chatgptDataAndEvent['eventChatgpt']))
-                        <i class="fa-solid fa-arrow-rotate-left reloadContentIcon" onclick="{{ $chatgptDataAndEvent['eventChatgpt'] ?? null }}"></i>
-                    @endif
                 </label>
                 <div class="{{ !empty($flagCopySource) && $flagCopySource == true ? 'boxInputSuccess' : '' }}">
                     <input id="tag" name="tag" class="form-control" placeholder="Nhập tag name" value="{{ $strTagName }}" {{ $chatgptDataAndEvent['dataChatgpt'] ?? null }} />
@@ -188,7 +126,7 @@
             </div>            
             <!-- One Row -->
             <div class="formBox_full_item">
-                <label class="form-label inputRequired" for="price">Giá trọn bộ $</label>
+                <label class="form-label inputRequired" for="price">Giá mặc định (đ)</label>
                 <input type="text" class="form-control {{ !empty($flagCopySource)&&$flagCopySource==true ? 'inputSuccess' : '' }}" id="price" name="price" value="{{ old('price') ?? $item->price ?? null }}" required />
             </div>
         @endif

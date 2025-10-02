@@ -5,7 +5,7 @@
         <div class="gallery-section slide-in-left">
             <div class="main-gallery">
                 <div class="main-image-container" onclick="openZoom()">
-                    <img id="mainImage" class="main-image" src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=600&h=500&fit=crop" alt="Chậu gỗ ZenPot" loading="lazy" />
+                    <img id="mainImage" class="main-image" src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-test.webp" alt="Chậu gỗ ZenPot" loading="lazy" />
                     <div class="zoom-indicator">
                         <svg><use xlink:href="#icon_magnifying-glass-plus"></use></svg> Zoom để xem chi tiết
                     </div>
@@ -20,31 +20,16 @@
             
             <div class="thumbnail-gallery">
                 <div class="thumbnail active" onclick="setMainImage(0)">
-                    <img src="https://images.unsplash.com/photo-1485955900006-10f4d324d411" alt="Thumbnail 1" loading="lazy" />
+                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-test.webp" alt="Thumbnail 1" loading="lazy" />
                 </div>
                 <div class="thumbnail" onclick="setMainImage(1)">
-                    <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b" alt="Thumbnail 2" loading="lazy" />
+                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-test-2.webp" alt="Thumbnail 2" loading="lazy" />
                 </div>
                 <div class="thumbnail" onclick="setMainImage(2)">
-                    <img src="https://images.unsplash.com/photo-1606041008023-472dfb5e530f" alt="Thumbnail 3" loading="lazy" />
+                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-test.webp" alt="Thumbnail 3" loading="lazy" />
                 </div>
                 <div class="thumbnail" onclick="setMainImage(3)">
-                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96" alt="Thumbnail 4" loading="lazy" />
-                </div>
-                <div class="thumbnail" onclick="setMainImage(4)">
-                    <img src="https://images.unsplash.com/photo-1586953208448-b95a79798f07" alt="Thumbnail 5" loading="lazy" />
-                </div>
-                <div class="thumbnail" onclick="setMainImage(5)">
-                    <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b" alt="Thumbnail 2" loading="lazy" />
-                </div>
-                <div class="thumbnail" onclick="setMainImage(6)">
-                    <img src="https://images.unsplash.com/photo-1606041008023-472dfb5e530f" alt="Thumbnail 3" loading="lazy" />
-                </div>
-                <div class="thumbnail" onclick="setMainImage(7)">
-                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96" alt="Thumbnail 4" loading="lazy" />
-                </div>
-                <div class="thumbnail" onclick="setMainImage(8)">
-                    <img src="https://images.unsplash.com/photo-1586953208448-b95a79798f07" alt="Thumbnail 5" loading="lazy" />
+                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-test-2.webp" alt="Thumbnail 4" loading="lazy" />
                 </div>
             </div>
 
@@ -110,7 +95,7 @@
                 <div class="quick-info">
                     <div class="quick-info-row">
                         <div class="quick-info-label">Mã sản phẩm</div>
-                        <div class="quick-info-value">ZP-001</div>
+                        <div class="quick-info-value">{{ $item->code ?? '--' }}</div>
                     </div>
                     <div class="quick-info-row">
                         <div class="quick-info-label">Kích thước (phủ bì)</div>
@@ -186,19 +171,19 @@
             <div class="hide-990">
                 <ul class="features-list">
                     <li>
-                        <img src="https://zenpot.storage.googleapis.com/storage/images/mien-phi-ship-toan-quoc-large.webp" alt="" title="" loading="lazy" />
+                        <img src="https://zenpot.storage.googleapis.com/storage/images/mien-phi-ship-toan-quoc.webp" alt="" title="" loading="lazy" />
                         <div>Miễn phí vận chuyển toàn quốc</div>
                     </li>
                     <li>
-                        <img src="https://zenpot.storage.googleapis.com/storage/images/doi-tra-trong-vong-14-ngay-large.webp" alt="" title="" loading="lazy" />
+                        <img src="https://zenpot.storage.googleapis.com/storage/images/doi-tra-trong-vong-14-ngay.webp" alt="" title="" loading="lazy" />
                         <div>Đổi trả miễn phí trong 15 ngày</div>
                     </li>
                     <li>
-                        <img src="https://zenpot.storage.googleapis.com/storage/images/bao-hanh-24-thang-large.webp" alt="" title="" loading="lazy" />
+                        <img src="https://zenpot.storage.googleapis.com/storage/images/bao-hanh-24-thang.webp" alt="" title="" loading="lazy" />
                         <div>Bảo hành 1 đổi 1 trong 24 tháng</div>
                     </li>
                     <li>
-                        <img src="https://zenpot.storage.googleapis.com/storage/images/ho-tro-247-large.webp" alt="" title="" loading="lazy" />
+                        <img src="https://zenpot.storage.googleapis.com/storage/images/ho-tro-247.webp" alt="" title="" loading="lazy" />
                         <div>Tư vấn và hỗ trợ 8h00-21h00</div>
                     </li>
                 </ul>

@@ -185,13 +185,20 @@ class ProductController extends Controller {
             }
         }
         /* lấy thông tin item */
-        $item               = Product::select('*')
-                                ->where('id', $id)
-                                ->with(['files' => function($query) use($keyTable){
-                                    $query->where('relation_table', $keyTable);
-                                }])
-                                ->with('seo', 'seos', 'prices.wallpapers.infoWallpaper', 'categories')
-                                ->first();
+        $item   = Product::where('product_info.id', $id)
+                    ->with([
+                        'files' => function($query) use($keyTable){
+                            $query->where('relation_table', $keyTable);
+                        },
+                        'seo',
+                        'seos',
+                        'prices.wallpapers.infoWallpaper',
+                        'categories',
+                        'translate' => function($query) use ($language) {
+                            $query->where('language', $language);
+                        }
+                    ])
+                    ->first();
         if(empty($item)) $flagView = false;
         if($flagView==true){
             /* chức năng copy source */
@@ -231,8 +238,6 @@ class ProductController extends Controller {
                                     ->get();
             /* gộp lại thành parents và lọc bỏ page hinh-nen-dien-thoai */
             $parents            = Category::all();
-            $wallpapers         = Wallpaper::select('*')
-                                    ->get();
             $categories         = $parents;
             /* trang canonical -> cùng là sản phẩm */
             $idProduct          = $item->id ?? 0;
@@ -256,7 +261,7 @@ class ProductController extends Controller {
             $type               = $request->get('type') ?? $type;
             /* list danh sách trang chưa đủ content (html) */
             $languageNotEnoughContent = CategoryController::getListPageNotEnoughContent($item);
-            return view('admin.product.view', compact('item', 'itemSeo', 'itemSourceToCopy', 'itemSeoSourceToCopy', 'prompts', 'language', 'wallpapers', 'type', 'categories', 'sources', 'parents', 'arrayTag', 'countChild', 'languageNotEnoughContent', 'message'));
+            return view('admin.product.view', compact('item', 'itemSeo', 'itemSourceToCopy', 'itemSeoSourceToCopy', 'prompts', 'language', 'type', 'categories', 'sources', 'parents', 'arrayTag', 'countChild', 'languageNotEnoughContent', 'message'));
         }else {
             return redirect()->route('admin.product.list');
         }

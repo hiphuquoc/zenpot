@@ -9,7 +9,7 @@
   <meta name="author" content="Hitour">
   <title>Trang quản trị nội dung {{ config('main_'.env('APP_NAME').'.company_name') }}</title>
   <!-- Favicon -->
-  <link rel="shortcut icon" href="https://hoptackinhdoanh.storage.googleapis.com/storage/images/favicon-hoptackinhdoanh.webp" type="image/x-icon" />
+  <link rel="shortcut icon" href="{{ config('main_'.env('APP_NAME').'.favicon') }}" type="image/x-icon" />
   <!-- BEGIN: Vendor CSS-->
   <link rel="stylesheet" type="text/css" href="{{ asset('sources/admin/app-assets/vendors/css/vendors.min.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('sources/admin/app-assets/vendors/css/pickers/pickadate/pickadate.css') }}">

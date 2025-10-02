@@ -28,6 +28,7 @@ return [
                                 ]
                             ],
     'logo_main'             => 'https://hoptackinhdoanh.storage.googleapis.com/storage/images/logo-hoptackinhdoanh.webp',
+    'favicon'           => 'https://zenpot.storage.googleapis.com/storage/images/favicon-zenpot.webp',
     'products'          => [
         [
             'type'      => 'Product',
@@ -108,19 +109,23 @@ return [
     'category_type' => [
         [
             'key' => 'category_info', /* mặc định nằm ở trên */
-            'key_filter_language'   => 'filter_by_themes',
-            'name' => 'Chủ đề'
+            'key_filter_language'   => 'filter_by_category',
+            'name' => 'Danh mục'
+        ],
+    ],
+    'condition' => [
+        [
+            'key' => '1',
+            'name' => 'Còn hàng'
         ],
         [
-            'key' => 'style_info',
-            'key_filter_language'   => 'filter_by_styles',
-            'name' => 'Phong cách'
+            'key' => '2',
+            'name' => 'Đặt trước'
         ],
         [
-            'key' => 'event_info',
-            'key_filter_language'   => 'filter_by_events',
-            'name' => 'Sự kiện'
-        ]
+            'key' => '3',
+            'name' => 'Hết hàng'
+        ],
     ],
     'sort_type' => [
         [

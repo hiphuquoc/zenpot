@@ -5,21 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductPrice extends Model {
+class ProductTranslate extends Model {
     use HasFactory;
-    protected $table        = 'product_price';
+    protected $table        = 'product_info_translate';
     protected $fillable     = [
-        'code_name',
         'product_info_id',
-        'price',
-        'instock'
+        'language',
+        'material',
+        'usage'
     ];
     public $timestamps = false;
 
     public static function insertItem($params){
         $id             = 0;
         if(!empty($params)){
-            $model      = new ProductPrice();
+            $model      = new ProductTranslate();
             foreach($params as $key => $value) {
                 if(in_array($key, self::$fillable)) $model->{$key}  = $value;
             }
@@ -39,9 +39,5 @@ class ProductPrice extends Model {
             $flag       = $model->update();
         }
         return $flag;
-    }
-
-    public function wallpapers(){
-        return $this->hasMany(\App\Models\RelationProductPriceWallpaperInfo::class, 'product_price_id', 'id');
     }
 }

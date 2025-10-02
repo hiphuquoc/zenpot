@@ -88,11 +88,10 @@
     <script type="text/javascript">
         // Image gallery data
         const images = [
-            'https://images.unsplash.com/photo-1485955900006-10f4d324d411',
-            'https://images.unsplash.com/photo-1416879595882-3373a0480b5b',
-            'https://images.unsplash.com/photo-1606041008023-472dfb5e530f',
-            'https://images.unsplash.com/photo-1578662996442-48f60103fc96',
-            'https://images.unsplash.com/photo-1586953208448-b95a79798f07',
+            'https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-test.webp',
+            'https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-test-2.webp',
+            'https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-test.webp',
+            'https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-test-2.webp',
         ];
 
         let currentImageIndex = 0;
@@ -259,28 +258,5 @@
                 }).format(currentPrice);
             }, intervalTime);
         });
-
-        // // Auto-rotate gallery (optional)
-        // let autoRotateInterval;
-        
-        // function startAutoRotate() {
-        //     autoRotateInterval = setInterval(() => {
-        //         changeImage(1);
-        //     }, 5000); // Change image every 5 seconds
-        // }
-        
-        // function stopAutoRotate() {
-        //     clearInterval(autoRotateInterval);
-        // }
-        
-        // // Start auto-rotate on load, stop on user interaction
-        // setTimeout(startAutoRotate, 3000);
-        
-        // document.querySelectorAll('.thumbnail, .gallery-nav').forEach(element => {
-        //     element.addEventListener('click', () => {
-        //         stopAutoRotate();
-        //         setTimeout(startAutoRotate, 10000); // Resume after 10 seconds
-        //     });
-        // });
     </script>
 @endpush

@@ -76,6 +76,19 @@
                             </div>
                         </div>
                     </div>
+                    <!-- thông số -->
+                    <div class="pageAdminWithRightSidebar_main_content_item width100">
+                        <div class="card">
+                            <div class="card-header border-bottom">
+                                <h4 class="card-title">Thông số</h4>
+                            </div>
+                            <div class="card-body">
+
+                                @include('admin.product.formParameter')
+                                
+                            </div>
+                        </div>
+                    </div>
                     <!-- nội dung -->
                     @include('admin.form.formFilterContent')
                     <!-- tùy biến giá -->

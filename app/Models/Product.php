@@ -147,4 +147,8 @@ class Product extends Model {
     public function tags(){
         return $this->hasMany(\App\Models\RelationTagInfoOrther::class, 'reference_id', 'id')->where('reference_type', 'product_info');
     }
+
+    public function translate(){
+        return $this->hasOne(\App\Models\ProductTranslate::class, 'product_info_id', 'id');
+    }
 }

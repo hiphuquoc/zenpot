@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://cdn.wallsora.com" crossorigin>
 <link rel="dns-prefetch" href="https://cdn.wallsora.com"> --}}
 <!-- Favicon -->
-<link rel="shortcut icon" href="https://zenpot.storage.googleapis.com/storage/images/favicon-zenpot.webp" type="image/x-icon" />
+<link rel="shortcut icon" href="{{ config('main_'.env('APP_NAME').'.favicon') }}" type="image/x-icon" />
 <!-- view mode -->
 <script src="{{ asset('js/viewMode.js') }}" async></script>
 
