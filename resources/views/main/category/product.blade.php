@@ -3,7 +3,7 @@
     <!-- Product 1 -->
     <div class="product-card">
         <a href="/san-pham-zenpot/san-pham-test" class="product-image">
-            <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=300&fit=crop&crop=center" alt="Chậu gỗ để bàn" loading="lazy" />
+            <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-test.webp" alt="Chậu gỗ để bàn" loading="lazy" />
             <div class="product-badge">Bán chạy</div>
         </a>
         <div class="product-content">
@@ -31,7 +31,7 @@
     <!-- Product 2 -->
     <div class="product-card">
         <a href="/san-pham-zenpot/san-pham-test" class="product-image">
-            <img src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=400&h=300&fit=crop&crop=center" alt="Chậu bonsai" loading="lazy" />
+            <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-test-2.webp" alt="Chậu bonsai" loading="lazy" />
             <div class="product-badge">Mới</div>
         </a>
         <div class="product-content">
@@ -58,7 +58,7 @@
     <!-- Product 3 -->
     <div class="product-card">
         <a href="/san-pham-zenpot/san-pham-test" class="product-image">
-            <img src="https://images.unsplash.com/photo-1463936575829-25148e1db1b8?w=400&h=300&fit=crop&crop=center" alt="Máng gỗ decor" loading="lazy" />
+            <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-test.webp" alt="Máng gỗ decor" loading="lazy" />
         </a>
         <div class="product-content">
             <div class="product-category">Decor</div>
@@ -85,7 +85,7 @@
     <!-- Product 4 -->
     <div class="product-card">
         <a href="/san-pham-zenpot/san-pham-test" class="product-image">
-            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=500&fit=crop" alt="Chậu gỗ lớn" loading="lazy" />
+            <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-test-2.webp" alt="Chậu gỗ lớn" loading="lazy" />
         </a>
         <div class="product-content">
             <div class="product-category">Chậu lớn</div>
@@ -111,7 +111,7 @@
     <!-- Product 5 -->
     <div class="product-card">
         <a href="/san-pham-zenpot/san-pham-test" class="product-image">
-            <img src="https://images.unsplash.com/photo-1606041008023-472dfb5e530f?w=400&h=300&fit=crop&crop=center" alt="Set chậu gỗ" loading="lazy" />
+            <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-test.webp" alt="Set chậu gỗ" loading="lazy" />
             <div class="product-badge">Combo</div>
         </a>
         <div class="product-content">
@@ -139,7 +139,7 @@
     <!-- Product 6 -->
     <div class="product-card">
         <a href="/san-pham-zenpot/san-pham-test" class="product-image">
-            <img src="https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&h=300&fit=crop&crop=center" alt="Chậu gỗ vintage" loading="lazy" />
+            <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-test-2.webp" alt="Chậu gỗ vintage" loading="lazy" />
         </a>
         <div class="product-content">
             <div class="product-category">Vintage</div>
