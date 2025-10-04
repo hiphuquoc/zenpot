@@ -245,12 +245,6 @@
   padding-top: 0.5rem;
   border-top: 1px solid #f1f3f4;
   margin-top: auto;
-
-  @media (max-width: 767px) {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: stretch;
-  }
 }
 
 // ==================
