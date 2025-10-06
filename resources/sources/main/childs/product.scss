@@ -144,7 +144,7 @@
   position: relative;
   overflow: hidden;
   width: 100%;
-  padding-top: 75%; // Giữ hình vuông mà không dùng aspect-ratio
+  padding-top: 100%; // Giữ hình vuông mà không dùng aspect-ratio
   // Hoặc dùng height cố định theo chiều rộng container:
   // height: 0;
   // padding-bottom: 100%;

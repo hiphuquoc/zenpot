@@ -5,7 +5,7 @@
         <div class="gallery-section slide-in-left">
             <div class="main-gallery">
                 <div class="main-image-container" onclick="openZoom()">
-                    <img id="mainImage" class="main-image" src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-test.webp" alt="Chậu gỗ ZenPot" loading="lazy" />
+                    <img id="mainImage" class="main-image" src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-4.webp" alt="Chậu gỗ ZenPot" loading="lazy" />
                     <div class="zoom-indicator">
                         <svg><use xlink:href="#icon_magnifying-glass-plus"></use></svg> Zoom để xem chi tiết
                     </div>
@@ -20,16 +20,37 @@
             
             <div class="thumbnail-gallery">
                 <div class="thumbnail active" onclick="setMainImage(0)">
-                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-test.webp" alt="Thumbnail 1" loading="lazy" />
+                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-4.webp" alt="Thumbnail 1" loading="lazy" />
                 </div>
                 <div class="thumbnail" onclick="setMainImage(1)">
-                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-test-2.webp" alt="Thumbnail 2" loading="lazy" />
+                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-2.webp" alt="Thumbnail 2" loading="lazy" />
                 </div>
                 <div class="thumbnail" onclick="setMainImage(2)">
-                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-test.webp" alt="Thumbnail 3" loading="lazy" />
+                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-3.webp" alt="Thumbnail 3" loading="lazy" />
                 </div>
                 <div class="thumbnail" onclick="setMainImage(3)">
-                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-test-2.webp" alt="Thumbnail 4" loading="lazy" />
+                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-1.webp" alt="Thumbnail 4" loading="lazy" />
+                </div>
+                <div class="thumbnail" onclick="setMainImage(4)">
+                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-5.webp" alt="Thumbnail 4" loading="lazy" />
+                </div>
+                <div class="thumbnail" onclick="setMainImage(5)">
+                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-21.webp" alt="Thumbnail 4" loading="lazy" />
+                </div>
+                <div class="thumbnail" onclick="setMainImage(6)">
+                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-22.webp" alt="Thumbnail 4" loading="lazy" />
+                </div>
+                <div class="thumbnail" onclick="setMainImage(7)">
+                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-23.webp" alt="Thumbnail 4" loading="lazy" />
+                </div>
+                <div class="thumbnail" onclick="setMainImage(8)">
+                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-24.webp" alt="Thumbnail 4" loading="lazy" />
+                </div>
+                <div class="thumbnail" onclick="setMainImage(9)">
+                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-25.webp" alt="Thumbnail 4" loading="lazy" />
+                </div>
+                <div class="thumbnail" onclick="setMainImage(10)">
+                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-26.webp" alt="Thumbnail 4" loading="lazy" />
                 </div>
             </div>
 

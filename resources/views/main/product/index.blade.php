@@ -88,10 +88,18 @@
     <script type="text/javascript">
         // Image gallery data
         const images = [
-            'https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-test.webp',
-            'https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-test-2.webp',
-            'https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-test.webp',
-            'https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-test-2.webp',
+            'https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-4.webp',
+            'https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-2.webp',
+            'https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-3.webp',
+            'https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-1.webp',
+            'https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-5.webp',
+
+            'https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-21.webp',
+            'https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-22.webp',
+            'https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-23.webp',
+            'https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-24.webp',
+            'https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-25.webp',
+            'https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-26.webp',
         ];
 
         let currentImageIndex = 0;
