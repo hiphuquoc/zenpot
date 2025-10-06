@@ -63,7 +63,7 @@ class SearchController extends Controller {
                         ->whereHas('seos.infoSeo', function($query) use($language){
                             $query->where('language', $language);
                         })
-                        ->whereHas('prices.wallpapers', function(){
+                        ->whereHas('prices.files', function(){
 
                         })
                         ->get();

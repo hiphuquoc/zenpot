@@ -109,7 +109,7 @@ class ChatGptController extends Controller {
             if($infoPrompt->reference_table=='product_info'){
                 $item       = Product::select('*')
                                 ->where('id', $idTable)
-                                ->with('prices.wallpapers.infoWallpaper')
+                                ->with('prices.files')
                                 ->first();
                 $urlImage   = \App\Helpers\Image::getUrlImageCloud($item->prices[0]->wallpapers[0]->infoWallpaper->file_cloud_source);
             }

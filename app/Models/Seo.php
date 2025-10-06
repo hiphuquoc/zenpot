@@ -233,11 +233,6 @@ class Seo extends Model {
         return $this->hasMany(\App\Models\SeoContent::class, 'seo_id', 'id')->orderBy('ordering')->orderBy('id');
     }
 
-    // post_info dùng cấu trúc content riêng
-    public function postContents(){
-        return $this->hasMany(\App\Models\PostContent::class, 'seo_id', 'id')->orderBy('ordering')->orderBy('id');
-    }
-
     public function source(){
         return $this->hasOne(\App\Models\Seo::class, 'id', 'link_canonical');
     }

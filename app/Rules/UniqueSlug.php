@@ -30,14 +30,16 @@ class UniqueSlug implements Rule {
             $infoPageMatch = HelperController::getFullInfoPageByIdSeo($idSeoMatch->id);
             $this->languageMatch  = '';
             $this->titleMatch     = '';
-            foreach ($infoPageMatch->seos as $seo) {
-                if (!empty($seo->infoSeo->language) && $seo->infoSeo->language == $language) {
-                    $this->languageMatch = $seo->infoSeo->language;
-                    $this->titleMatch = $infoPageMatch->seo->title;
-                    break;
+            if(!empty($infoPageMatch->seos)) {
+                foreach ($infoPageMatch->seos as $seo) {
+                    if (!empty($seo->infoSeo->language) && $seo->infoSeo->language == $language) {
+                        $this->languageMatch = $seo->infoSeo->language;
+                        $this->titleMatch = $infoPageMatch->seo->title;
+                        break;
+                    }
                 }
+                return false;
             }
-            return false;
         }
         return true;
     }

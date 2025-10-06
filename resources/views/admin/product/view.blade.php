@@ -83,9 +83,9 @@
                                 <h4 class="card-title">Thông số</h4>
                             </div>
                             <div class="card-body">
-
-                                @include('admin.product.formParameter')
-                                
+                                @include('admin.product.formParameter', [
+                                    'price' => $price ?? [],
+                                ])
                             </div>
                         </div>
                     </div>
@@ -158,46 +158,5 @@
 @push('scriptCustom')
     <script type="text/javascript">
         $('.pageAdminWithRightSidebar_main').repeater();
-
-        document.addEventListener('DOMContentLoaded', function() {
-            @if(!empty($item->prices)&&$item->prices->isNotEmpty())
-                @foreach($item->prices as $price)
-                    loadWallpaperByProductPrice('{{ $price->id }}');
-                @endforeach
-            @endif
-        });
-
-        function loadWallpaperByProductPrice(idProductPrice){
-            $.ajax({
-                url         : "{{ route('admin.productPrice.loadWallpaperByProductPrice') }}",
-                type        : "post",
-                dataType    : "html",
-                data        : { 
-                    '_token'    : '{{ csrf_token() }}',
-                    product_price_id : idProductPrice 
-                }
-            }).done(function(response){
-                $('#js_loadWallpaperByProductPrice_'+idProductPrice).html(response);
-            });
-        }
-
-        function deleteWallpaperToProductPrice(idBox, idProductPrice, idWallpaper){
-            $.ajax({
-                url: "{{ route('admin.productPrice.deleteWallpaperToProductPrice') }}",
-                type: 'post',
-                dataType: 'json',
-                data: {
-                    wallpaper_id : idWallpaper,
-                    product_price_id : idProductPrice
-                },
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-            }).done(function (response) {
-                if(response) $('#'+idBox).remove();
-            }).fail(function (jqXHR, textStatus, errorThrown) {
-                console.error("Ajax request failed: " + textStatus, errorThrown);
-            });
-        }
     </script>
 @endpush

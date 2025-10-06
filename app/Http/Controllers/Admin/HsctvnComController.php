@@ -4,21 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Admin\ChatGptController;
-use Intervention\Image\ImageManagerStatic;
 use App\Helpers\Charactor;
-use App\Helpers\Upload;
-use App\Helpers\Url;
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\DomCrawler\Crawler;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
 use App\Models\Seo;
-use App\Models\Post;
-use App\Models\Exchange;
-use App\Models\ExchangeTag;
-use App\Models\Crawl;
-use App\Models\SystemFile;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;

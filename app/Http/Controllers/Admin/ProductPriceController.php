@@ -4,64 +4,34 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Services\BuildInsertUpdateModel;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Models\ProductPrice;
-use App\Models\Wallpaper;
-use App\Models\RelationProductPriceWallpaperInfo;
+use App\Models\SystemFile;
 
 class ProductPriceController extends Controller {
 
-    public function loadWallpaperByProductPrice(Request $request){
-        $response = '';
-        if(!empty($request->get('product_price_id'))){
-            $idProductPrice = $request->get('product_price_id');
-            $wallpapers     = Wallpaper::select('wallpaper_info.*')
-                                ->join('relation_product_price_wallpaper_info', 'wallpaper_info.id', '=', 'relation_product_price_wallpaper_info.wallpaper_info_id')
-                                ->where('relation_product_price_wallpaper_info.product_price_id', $idProductPrice)
-                                ->get();
-            $response = view('admin.product.showWallpaper', [
-                'wallpapers'        => $wallpapers,
-                'idProductPrice'    => $idProductPrice
-            ])->render();
+    public function loadImageForProductPrice(Request $request){
+        $response       = '';
+        $idProductPrice = $request->get('product_price_id') ?? 0;
+        $prefixNameInput     = $request->get('prefix_name_input') ?? '';
+        if(!empty($idProductPrice)){
+            $files      = SystemFile::select('*')
+                            ->where('attachment_id', $idProductPrice)
+                            ->where('relation_table', 'product_price')
+                            ->get();
+            foreach($files as $file){
+                $imageUrlSmall = !empty($file->file_path) ? \App\Helpers\Image::getUrlImageSmallByUrlImage($file->file_path) : config('image.default');
+                $response .= '<div class="imageProductPrice_item">
+                                        <img id="imageUpload" src="'.$imageUrlSmall.'" />
+                                        <input type="hidden" name="'.$prefixNameInput.'[product_price_file_uploaded][]" value="'.$file->id.'" />
+                                        <div class="imageProductPrice_item_removeIcon">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </div>
+                                    </div>';
+            }
         }
         return $response;
-    }
-
-    public function addWallpaperToProductPrice(Request $request){
-        $action             = $request->get('action');
-        /* đầu tiên sẽ delete tất cả */
-        RelationProductPriceWallpaperInfo::select('*')
-            ->where('wallpaper_info_id', $request->get('wallpaper_id'))
-            ->where('product_price_id', $request->get('product_price_id'))
-            ->delete();
-        /* nếu là create thì tạo lại */
-        if($action=='create'){
-            RelationProductPriceWallpaperInfo::insertItem([
-                'wallpaper_info_id' => $request->get('wallpaper_id'),
-                'product_price_id'  => $request->get('product_price_id')
-            ]);
-        }
-        /* không quan tâm hành động, trả về flag có hay không tồn tại relation để hiện thị selected */
-        $tmp    = RelationProductPriceWallpaperInfo::select('*')
-                    ->where('wallpaper_info_id', $request->get('wallpaper_id'))
-                    ->where('product_price_id', $request->get('product_price_id'))
-                    ->first();
-        $flagHas    = !empty($tmp) ? true : false;
-
-        return response()->json($flagHas);
-    }
-
-    public function deleteWallpaperToProductPrice(Request $request){
-        $flag       = false;
-        if(!empty($request->get('wallpaper_id'))&&!empty($request->get('product_price_id'))){
-            $flag   = RelationProductPriceWallpaperInfo::select('*')
-                        ->where('wallpaper_info_id', $request->get('wallpaper_id'))
-                        ->where('product_price_id', $request->get('product_price_id'))
-                        ->delete();
-        }
-        return $flag;
     }
 }

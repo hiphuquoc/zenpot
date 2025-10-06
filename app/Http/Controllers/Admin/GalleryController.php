@@ -13,32 +13,35 @@ use Illuminate\Support\Facades\DB;
 
 class GalleryController extends Controller {
 
-    public static function upload($arrayImage, $params = null){
-        $result     = [];
-        if(!empty($arrayImage)){
-            // ===== folder upload
-            $folderUpload       = config('main_'.env('APP_NAME').'.google_cloud_storage.wallpapers');
-            $fileExtension      = config('image.extension');
-            $i                  = 0;
-            foreach($arrayImage as $image){
-                $fileNameNonExtesion    = $params['name'].'-'.time().'-'.$i;
-                $fileName               = $fileNameNonExtesion.'.'.$fileExtension;
-                $dataPath               = Upload::uploadWallpaper($image, $fileName, $folderUpload);
-                if(!empty($dataPath)){
-                    /* lưu CSDL */
-                    SystemFile::insertItem([
-                        'attachment_id'         => $params['attachment_id'],
-                        'relation_table'        => $params['relation_table'],
-                        'file_name'             => $fileNameNonExtesion,
-                        'file_path'             => $dataPath,
-                        'file_extension'        => $fileExtension,
-                        'file_type'             => $params['file_type'],
-                    ]);
-                    ++$i;
-                }
-                
+    public static function upload(array $arrayImage, array $params = []): array {
+        $result = [];
+        if (empty($arrayImage)) return $result;
+
+        // ===== folder & extension
+        $folderUpload   = config('main_'.env('APP_NAME').'.google_cloud_storage.wallpapers');
+        $fileExtension  = config('image.extension');
+
+        foreach ($arrayImage as $i => $image) {
+            $fileNameWithoutExt = $params['name'] . '-' . time() . '-' . $i;
+            $fileName           = $fileNameWithoutExt . '.' . $fileExtension;
+
+            $dataPath = Upload::uploadWallpaper($image, $fileName, $folderUpload);
+
+            if (!empty($dataPath)) {
+                // Lưu DB
+                SystemFile::insertItem([
+                    'attachment_id'  => $params['attachment_id'] ?? null,
+                    'relation_table' => $params['relation_table'] ?? null,
+                    'file_name'      => $fileNameWithoutExt,
+                    'file_path'      => $dataPath,
+                    'file_extension' => $fileExtension,
+                    'file_type'      => $params['file_type'] ?? null,
+                ]);
+
+                $result[] = $dataPath;
             }
         }
+
         return $result;
     }
 

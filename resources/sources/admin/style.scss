@@ -2191,10 +2191,27 @@ html .content {
 
 .imageProductPrice {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 1rem;
     margin-top: 1rem;
     &_item {
-
+        position: relative; 
+        border-radius: 12px;
+        overflow: hidden;
+        &_removeIcon {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            width: 28px;
+            height: 28px;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(red, 0.5);
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+        }
     }
 }

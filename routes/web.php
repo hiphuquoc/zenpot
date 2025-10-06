@@ -30,6 +30,7 @@ use App\Http\Controllers\Admin\ExchangeController;
 use App\Http\Controllers\Admin\ExchangeTagController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductPriceController;
 use App\Http\Controllers\Admin\CategoryBlogController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\PostController;
@@ -149,9 +150,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('he-thong')->group(function ()
     });
     /* product price */
     Route::prefix('productPrice')->group(function(){
-        Route::post('/loadWallpaperByProductPrice', [ProductPriceController::class, 'loadWallpaperByProductPrice'])->name('admin.productPrice.loadWallpaperByProductPrice');
-        Route::post('/addWallpaperToProductPrice', [ProductPriceController::class, 'addWallpaperToProductPrice'])->name('admin.productPrice.addWallpaperToProductPrice');
-        Route::post('/deleteWallpaperToProductPrice', [ProductPriceController::class, 'deleteWallpaperToProductPrice'])->name('admin.productPrice.deleteWallpaperToProductPrice');
+        Route::post('/loadImageForProductPrice', [ProductPriceController::class, 'loadImageForProductPrice'])->name('admin.productPrice.loadImageForProductPrice');
     });
     /* category */
     Route::prefix('category')->group(function(){

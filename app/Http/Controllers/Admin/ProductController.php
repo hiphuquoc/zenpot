@@ -15,14 +15,14 @@ use App\Models\Tag;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\ProductPrice;
-use App\Models\Wallpaper;
+use App\Models\SystemFile;
 use App\Models\RelationCategoryProduct;
 use App\Models\RelationSeoProductInfo;
 use App\Models\Prompt;
 use App\Models\SeoContent;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\IndexController;
-use App\Models\RelationProductPriceWallpaperInfo;
+use App\Models\ProductTranslate;
 use App\Jobs\CopyMultiProductJob;
 
 class ProductController extends Controller {
@@ -65,13 +65,28 @@ class ProductController extends Controller {
             if($language=='vi'){
                 /* insert hoặc update product_info */
                 $infoProduct    = $this->BuildInsertUpdateModel->buildArrayTableProductInfo($request->all(), $idSeo);
-                if(empty($idProduct)){ /* check xem create product hay update product */
-                    $idProduct      = Product::insertItem($infoProduct);
-                }else {
+                if (empty($idProduct)) {
+                    // Tạo mới sản phẩm
+                    $idProduct = Product::insertItem($infoProduct);
+                } else {
+                    // Cập nhật sản phẩm
                     Product::updateItem($idProduct, $infoProduct);
+
+                    // Xóa bản dịch cũ (theo ngôn ngữ)
+                    ProductTranslate::where('product_info_id', $idProduct)
+                        ->where('language', $language)
+                        ->delete();
                 }
+
+                // Thêm bản dịch mới
+                ProductTranslate::insertItem([
+                    'product_info_id' => $idProduct,
+                    'language'        => $language,
+                    'material'        => $request->get('material') ?? '',
+                    'usage'           => $request->get('usage') ?? '',
+                ]);
                 /* lưu tag name */
-                FreeWallpaperController::createOrGetTagName($idProduct, 'product_info', $request->get('tag'));
+                TagController::createOrGetTagName($idProduct, 'product_info', $request->get('tag'));
                 /* update product_price 
                     => xóa các product_price nào id không tồn tại trong mảng mới 
                     => nào có tồn tại thì update - nào không thì thêm mới 
@@ -84,28 +99,56 @@ class ProductController extends Controller {
                 $productPriceDelete = ProductPrice::select('*')
                                         ->where('product_info_id', $idProduct)
                                         ->whereNotIn('id', $priceSave)
-                                        ->with('wallpapers')
+                                        ->with('files')
                                         ->get();
                 /* duyệt mảng delete files */
                 foreach($productPriceDelete as $productPrice) {
-                    RelationProductPriceWallpaperInfo::select('*')
-                        ->where('product_price_id', $productPrice->id)
-                        ->delete();
+                    // xóa ảnh của phiên bản này
+                    $removeFiles = SystemFile::select('*')
+                        ->where('attachment_id', $productPrice->id)
+                        ->where('relation_table', 'product_price')
+                        ->get();
+                    foreach($removeFiles as $removeFile) GalleryController::removeById($removeFile->id);
                     /* xóa product price */
                     $productPrice->delete();
                 }
                 /* update lại các product price còn lại */
-                foreach($request->get('prices') as $price){
-                    if(!empty($price['code_name'])&&!empty($price['price'])){
-                        if(!empty($price['id'])&&$type=='edit'){
-                            /* update */
-                            $dataPrice              = $this->BuildInsertUpdateModel->buildArrayTableProductPrice($price, $idProduct, 'update');
-                            ProductPrice::updateItem($price['id'], $dataPrice);
-                        }else {
-                            /* insert */
-                            $dataPrice              = $this->BuildInsertUpdateModel->buildArrayTableProductPrice($price, $idProduct, 'insert');
-                            ProductPrice::insertItem($dataPrice);
-                        }
+                foreach ($request->get('prices', []) as $key => $price) {
+                    // Bỏ qua nếu thiếu dữ liệu cơ bản
+                    if (empty($price['code_name']) || empty($price['price'])) {
+                        continue;
+                    }
+
+                    $isUpdate = !empty($price['id']) && $type === 'edit';
+                    $mode     = $isUpdate ? 'update' : 'insert';
+
+                    // Build data cho product_price
+                    $dataPrice = $this->BuildInsertUpdateModel->buildArrayTableProductPrice($price, $idProduct, $mode);
+
+                    // Insert / Update
+                    if ($isUpdate) {
+                        $idPrice = $price['id'];
+                        ProductPrice::updateItem($idPrice, $dataPrice);
+                        $arrayProductPriceRemain = $price['product_price_file_uploaded'] ?? [];
+                        // xóa các ảnh không còn trong mảng (trường hợp này delete input bằng ajax trong html)
+                        $productPriceImageDelete = SystemFile::select('*')
+                            ->where('attachment_id', $idPrice)
+                            ->where('relation_table', 'product_price')
+                            ->whereNotIn('id', $arrayProductPriceRemain)
+                            ->get();
+                        foreach($productPriceImageDelete as $fDelete)  GalleryController::removeById($fDelete->id);
+                    } else {
+                        $idPrice = ProductPrice::insertItem($dataPrice); // giả sử insertItem trả về id
+                    }
+
+                    // Upload ảnh liên quan (nếu có)
+                    $uploadedImages = $request->file("prices.$key.product_price_file") ?? [];
+                    if (!empty($uploadedImages)) {
+                        GalleryController::upload($uploadedImages, [
+                            'name'  => 'product_price_file_'.$idPrice,
+                            'attachment_id'  => $idPrice,
+                            'relation_table' => 'product_price',
+                        ]);
                     }
                 }
                 /* chủ đề */
@@ -192,7 +235,7 @@ class ProductController extends Controller {
                         },
                         'seo',
                         'seos',
-                        'prices.wallpapers.infoWallpaper',
+                        'prices.files',
                         'categories',
                         'translate' => function($query) use ($language) {
                             $query->where('language', $language);
@@ -210,7 +253,7 @@ class ProductController extends Controller {
                                     ->with(['files' => function($query) use($keyTable){
                                         $query->where('relation_table', $keyTable);
                                     }])
-                                    ->with('seo', 'seos', 'prices.wallpapers.infoWallpaper', 'categories')
+                                    ->with('seo', 'seos', 'prices.files', 'categories')
                                     ->first();
             $itemSeoSourceToCopy    = [];
             if(!empty($itemSourceToCopy->seos)){
@@ -354,7 +397,7 @@ class ProductController extends Controller {
                             ->with(['files' => function($query){
                                 $query->where('relation_table', 'seo.type');
                             }])
-                            ->with('seo', 'seos', 'seo.contents', 'prices.wallpapers')
+                            ->with('seo', 'seos', 'seo.contents', 'prices.files')
                             ->first();
                         
             if (!$info) return false;

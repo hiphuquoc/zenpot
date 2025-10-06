@@ -19,7 +19,7 @@ class Category extends BaseCategory {
 
     /* index dữ liệu SearchData */
     public function toSearchableArray() {
-        $this->loadMissing(['seo', 'seos.infoSeo', 'tags.infoTag', 'products.infoProduct', 'freeWallpapers.infoFreeWallpaper']);
+        $this->loadMissing(['seo', 'seos.infoSeo', 'tags.infoTag', 'products.infoProduct']);
 
         return [
             'id'                => $this->id,
@@ -27,7 +27,6 @@ class Category extends BaseCategory {
             'seos'              => $this->seos->pluck('infoSeo.title')->filter()->values()->toArray(),
             'tags'              => $this->tags->pluck('infoTag.seos.infoSeo.title')->filter()->values()->toArray(),
             'products'          => $this->products->pluck('infoProduct.seos.infoSeo.title')->filter()->values()->toArray(),
-            'freeWallpapers'    => $this->products->pluck('infoFreeWallpaper.seos.infoSeo.title')->filter()->values()->toArray(),
         ];
     }
 

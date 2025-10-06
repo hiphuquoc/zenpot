@@ -51,8 +51,14 @@ class BuildInsertUpdateModel {
 
     public static function buildArrayTableProductInfo($dataForm, $seoId){
         $result                                         = [];
-        $result['code']   = $dataForm['code'];
         if(!empty($seoId)) $result['seo_id']            = $seoId;
+        $result['code']   = $dataForm['code'];
+        if(!empty($dataForm['sold'])) $result['sold'] = $dataForm['sold'];
+        if(!empty($dataForm['heart'])) $result['heart'] = $dataForm['heart'];
+        if(!empty($dataForm['size'])) $result['size'] = $dataForm['size'];
+        if(!empty($dataForm['capacity'])) $result['capacity'] = $dataForm['capacity'];
+        if(!empty($dataForm['weight'])) $result['weight'] = $dataForm['weight'];
+        if(!empty($dataForm['condition'])) $result['condition'] = $dataForm['condition'];
         $result['price'] = $dataForm['price'];
         return $result;
     }

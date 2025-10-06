@@ -3,7 +3,6 @@
 namespace App\Helpers;
 
 use Intervention\Image\ImageManagerStatic;
-use App\Models\SystemFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File as FileFacade;
 use Illuminate\Http\UploadedFile;
@@ -23,7 +22,7 @@ class Upload {
             $filename       = $name.'-'.time().'.'.$extension;
             $fileUrl        = $folderUpload.$filename;
             // save image resize
-            ImageManagerStatic::make($image->getRealPath())
+            ImageManagerStatic::make($image->getRealPath())->orientate() // orientate tự động xoay đúng chiều
                 ->encode($extension, config('image.quality'))
                 ->save(Storage::path($fileUrl));
             $result         = $fileUrl;
@@ -75,7 +74,7 @@ class Upload {
             $fileUrl            = $folderUpload . $filenameWithExt;
             $gcsDisk            = Storage::disk('gcs');
             // Resize and save the main image
-            $imageTmp           = ImageManagerStatic::make($image->getRealPath());
+            $imageTmp           = ImageManagerStatic::make($image->getRealPath())->orientate(); // orientate tự động xoay đúng chiều
             $percentPixel       = $imageTmp->width() / $imageTmp->height();
             $widthImage         = $imageTmp->width();
             $heightImage        = $imageTmp->height();
@@ -130,7 +129,7 @@ class Upload {
             $fileUrl            = $folderUpload . $filename;
             $gcsDisk            = Storage::disk('gcs');
             // Resize and save the main image
-            $imageTmp           = ImageManagerStatic::make($image->getRealPath());
+            $imageTmp           = ImageManagerStatic::make($image->getRealPath())->orientate(); // orientate tự động xoay đúng chiều
             $widthImage         = $imageTmp->width();
             $heightImage        = $imageTmp->height();
             $gcsDisk->put($fileUrl, $imageTmp->encode($extension, config('image.quality'))->resize($widthImage, $heightImage)->stream());

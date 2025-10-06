@@ -13,7 +13,12 @@ class Product extends Model {
         'seo_id',
         'code',
         'sold',
+        'heart',
         'price',
+        'size',
+        'capacity',
+        'weight',
+        'condition',
         'notes',
     ];
     public $timestamps = true;

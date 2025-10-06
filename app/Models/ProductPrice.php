@@ -12,7 +12,7 @@ class ProductPrice extends Model {
         'code_name',
         'product_info_id',
         'price',
-        'instock'
+        'instock',
     ];
     public $timestamps = false;
 
@@ -20,9 +20,7 @@ class ProductPrice extends Model {
         $id             = 0;
         if(!empty($params)){
             $model      = new ProductPrice();
-            foreach($params as $key => $value) {
-                if(in_array($key, self::$fillable)) $model->{$key}  = $value;
-            }
+            foreach($params as $key => $value) $model->{$key}  = $value;
             $model->save();
             $id         = $model->id;
         }
@@ -33,15 +31,13 @@ class ProductPrice extends Model {
         $flag           = false;
         if(!empty($id)&&!empty($params)){
             $model      = self::find($id);
-            foreach($params as $key => $value) {
-                if(in_array($key, self::$fillable)) $model->{$key}  = $value;
-            }
+            foreach($params as $key => $value) $model->{$key}  = $value;
             $flag       = $model->update();
         }
         return $flag;
     }
 
-    public function wallpapers(){
-        return $this->hasMany(\App\Models\RelationProductPriceWallpaperInfo::class, 'product_price_id', 'id');
+    public function files(){
+        return $this->hasMany(\App\Models\SystemFile::class, 'attachment_id', 'id')->where('relation_table', 'product_price');
     }
 }

@@ -11,18 +11,14 @@ use Illuminate\Support\Facades\Storage;
 use App\Helpers\Upload;
 use App\Http\Requests\TagRequest;
 use App\Models\Seo;
-use App\Models\LanguageTagInfo;
 use App\Models\Prompt;
 use App\Models\Tag;
 use App\Models\Category;
-use App\Models\CategoryBlog;
-use App\Http\Controllers\Admin\SliderController;
-use App\Http\Controllers\Admin\GalleryController;
 use App\Models\FAQ;
-use App\Models\RelationEnCategoryInfoEnCategoryBlogInfo;
 use App\Models\RelationCategoryInfoTagInfo;
 use App\Models\RelationSeoTagInfo;
-use App\Models\SeoContent;
+use App\Models\RelationTagInfoOrther;
+use App\Helpers\Charactor;
 
 use Laravel\Scout\EngineManager;
 use Meilisearch\Client as MeilisearchClient;
@@ -125,8 +121,6 @@ class TagController extends Controller {
             $idTag              = $request->get('tag_info_id');
             $language           = $request->get('language');
             $type               = $request->get('type');
-            $sign               = $request->get('sign') ?? null;
-            $icon               = $request->get('icon') ?? null;
             /* check xem là create seo hay update seo */
             $action             = !empty($idSeo)&&$type=='edit' ? 'edit' : 'create';
             /* upload image */
@@ -157,14 +151,10 @@ class TagController extends Controller {
                     $idTag          = Tag::insertItem([
                         'flag_show' => $flagShow,
                         'seo_id'    => $idSeo,
-                        'sign'      => $sign,
-                        'icon'      => $icon,
                     ]);
                 }else {
                     Tag::updateItem($idTag, [
                         'flag_show' => $flagShow,
-                        'sign'      => $sign,
-                        'icon'      => $icon,
                     ]);
                 }
                 /* insert relation_category_info_tag_info */
@@ -231,6 +221,79 @@ class TagController extends Controller {
         }
         $request->session()->put('message', $message);
         return redirect()->route('admin.tag.view', ['id' => $idTag, 'language' => $language]);
+    }
+
+    public static function createOrGetTagName($idWallpaper, $table, $jsonTagName = null){
+        if(!empty($idWallpaper)){
+            RelationTagInfoOrther::select('*')
+                ->where('reference_type', $table)
+                ->where('reference_id', $idWallpaper)
+                ->delete();
+            $tag    = !empty($jsonTagName) ? json_decode($jsonTagName, true) : [];
+            foreach($tag as $t){
+                $nameTag    = strtolower($t['value']);
+                /* kiểm tra xem tag name đã tồn tại chưa */
+                $infoTag = Tag::select('*')
+                    ->whereHas('seo', function ($query) use ($nameTag) {
+                        $query->whereRaw('LOWER(title) = ?', [$nameTag]);
+                    })
+                    ->with('seo')
+                    ->first();
+                $idTag      = $infoTag->id ?? 0;
+                /* chưa tồn tại -> tạo và láy ra */
+                if(empty($idTag)) $idTag  = self::createSeoTmp($nameTag);
+                /* insert relation */
+                RelationTagInfoOrther::insertItem([
+                    'tag_info_id'       => $idTag,
+                    'reference_type'    => $table,
+                    'reference_id'      => $idWallpaper
+                ]);
+            }
+        }
+    }
+
+    public static function createSeoTmp($nameTag){
+        $idTag      = 0;
+        /* tạo bảng seo tạm */
+        $slug       = config('main_'.env('APP_NAME').'.auto_fill.slug.vi').'-'.Charactor::convertStrToUrl($nameTag);
+        /* lấy thông tin trang cha */
+        $infoParent = Category::select('*')
+                        ->whereHas('seos.infoSeo', function($query){
+                            $query->where('level', 1);
+                        })
+                        ->first();
+        $level      = $infoParent->seo->level + 1;
+        $parent     = $infoParent->seo->id;
+        $slugFull   = $infoParent->seo->slug_full.'/'.$slug;
+        /* kiểm tra slug trùng */
+        $flag       = Seo::select('*')
+                        ->where('slug_full', $slugFull)
+                        ->first();
+        if(empty($flag)){
+            $idSeo      = Seo::insertItem([
+                'title'                     => $nameTag,
+                'seo_title'                 => $nameTag,
+                'level'                     => $level,
+                'parent'                    => $parent,
+                'type'                      => 'tag_info',
+                'slug'                      => $slug,
+                'slug_full'                 => $slugFull,
+                'rating_author_name'        => 1,
+                'rating_author_star'        => 5,
+                'rating_aggregate_count'    => rand(100,5000),
+                'rating_aggregate_star'     => '4.'.rand(5, 9),
+                'created_by'                => Auth::user()->id ?? 1,
+                'language'                  => 'vi'
+            ]);
+            /* tạo bảng tag */
+            $idTag      = Tag::insertItem(['seo_id' => $idSeo]);
+            /* tạo Relation */
+            RelationSeoTagInfo::insertItem([
+                'seo_id'        => $idSeo,
+                'tag_info_id'   => $idTag
+            ]);
+        }
+        return $idTag;
     }
 
     public function delete(Request $request) {

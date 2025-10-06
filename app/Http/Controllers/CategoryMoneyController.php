@@ -138,7 +138,7 @@ class CategoryMoneyController extends Controller {
         // Khởi tạo query
         $query = Product::select('product_info.*')
             ->join('seo', 'seo.id', '=', 'product_info.seo_id')
-            ->whereHas('prices.wallpapers', function () {})
+            ->whereHas('prices.files', function () {})
             ->whereHas('seos.infoSeo', function ($subQuery) use ($language, $keySearch) {
                 $subQuery->where('language', $language)
                     ->where('title', 'like', '%' . $keySearch . '%');

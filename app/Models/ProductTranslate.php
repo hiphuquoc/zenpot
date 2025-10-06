@@ -20,9 +20,7 @@ class ProductTranslate extends Model {
         $id             = 0;
         if(!empty($params)){
             $model      = new ProductTranslate();
-            foreach($params as $key => $value) {
-                if(in_array($key, self::$fillable)) $model->{$key}  = $value;
-            }
+            foreach($params as $key => $value) $model->{$key}  = $value;
             $model->save();
             $id         = $model->id;
         }
@@ -33,9 +31,7 @@ class ProductTranslate extends Model {
         $flag           = false;
         if(!empty($id)&&!empty($params)){
             $model      = self::find($id);
-            foreach($params as $key => $value) {
-                if(in_array($key, self::$fillable)) $model->{$key}  = $value;
-            }
+            foreach($params as $key => $value) $model->{$key}  = $value;
             $flag       = $model->update();
         }
         return $flag;

@@ -117,8 +117,6 @@ class CategoryController extends Controller {
             $language           = $request->get('language');
             $categoryType       = $request->get('category_type') ?? null;
             $type               = $request->get('type');
-            $sign               = $request->get('sign') ?? null;
-            $icon               = $request->get('icon') ?? null;
             // check xem là create seo hay update seo 
             $action             = !empty($idSeo)&&$type=='edit' ? 'edit' : 'create';
             // upload image 
@@ -149,12 +147,10 @@ class CategoryController extends Controller {
                     $idCategory          = Category::insertItem([
                         'flag_show'     => $flagShow,
                         'seo_id'        => $idSeo,
-                        'icon'          => $icon,
                     ]);
                 }else {
                     Category::updateItem($idCategory, [
                         'flag_show'     => $flagShow,
-                        'icon'          => $icon,
                     ]);
                 }
                 // insert relation_category_info_tag_info 

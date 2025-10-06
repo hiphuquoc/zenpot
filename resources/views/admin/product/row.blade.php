@@ -71,12 +71,12 @@
                         @php
                             /* lấy ảnh Small */
                             $imageSmall = config('image.default');
-                            if(!empty($price->wallpapers[0]->infoWallpaper->file_cloud_wallpaper)) $imageSmall  = \App\Helpers\Image::getUrlImageSmallByUrlImage($price->wallpapers[0]->infoWallpaper->file_cloud_wallpaper);
+                            if(!empty($price->files[0]->infoWallpaper->file_cloud_wallpaper)) $imageSmall  = \App\Helpers\Image::getUrlImageSmallByUrlImage($price->files[0]->infoWallpaper->file_cloud_wallpaper);
                         @endphp     
                         <img src="{{ $imageSmall }}" />
-                        @if($price->wallpapers->count()>1)
+                        @if(!empty($price->files)&&$price->files->count()>1)
                             <div class="priceProductBox_item_image_count">
-                                {{ $price->wallpapers->count() }}<i class="fa-regular fa-image"></i>
+                                {{ $price->files->count() }}<i class="fa-regular fa-image"></i>
                             </div>
                         @endif
                         <div class="priceProductBox_item_image_price">
