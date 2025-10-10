@@ -39,13 +39,13 @@
                     @foreach($price->files as $file)
                         @php
                             $imageMini  = \App\Helpers\Image::getUrlImageMiniByUrlImage($file->file_path);
-                            $imageSmall = \App\Helpers\Image::getUrlImageSmallByUrlImage($file->file_path);
+                            $imageSource = \App\Helpers\Image::getUrlImageCloud($file->file_path);
                             $active     = $i==0 ? 'active' : '';
                         @endphp
                         <div class="thumbnail {{ $active }}" 
                             data-price-index="{{ $priceIndex }}" 
                             data-file-index="{{ $fileIndex }}">
-                            <img class="lazyload" src="{{ $imageMini }}" data-src="{{ $imageSmall }}" alt="" loading="lazy" />
+                            <img class="lazyload" src="{{ $imageMini }}" data-src="{{ $imageSource }}" alt="" loading="lazy" />
                         </div>
                         @php $fileIndex++; @endphp
                         @php $i++; @endphp
@@ -114,14 +114,12 @@
                             // sale off
                             $saleOff    = \App\Helpers\Number::calculatorSaleOffPercent($item->price, $price->price);
                         @endphp
-                        @foreach($item->prices as $price)
-                            <div class="price-section {{ $loop->first ? 'active' : '' }}" 
-                                data-price-index="{{ $loop->index }}">
-                                <span class="current-price">{{ \App\Helpers\Number::getFormatPriceByLanguage($price->price, $language) }}</span>
-                                <span class="original-price">{{ \App\Helpers\Number::getFormatPriceByLanguage($item->price, $language) }}</span>
-                                <span class="discount-badge">{{ \App\Helpers\Number::calculatorSaleOffPercent($item->price, $price->price) }}</span>
-                            </div>
-                        @endforeach
+                        <div class="price-section {{ $loop->first ? 'active' : '' }}" 
+                            data-price-index="{{ $loop->index }}">
+                            <span class="current-price">{{ \App\Helpers\Number::getFormatPriceByLanguage($price->price, $language) }}</span>
+                            <span class="original-price">{{ \App\Helpers\Number::getFormatPriceByLanguage($item->price, $language) }}</span>
+                            <span class="discount-badge">{{ \App\Helpers\Number::calculatorSaleOffPercent($item->price, $price->price) }}</span>
+                        </div>
                     @endforeach
                 @endif
 
@@ -189,10 +187,4 @@
         </div>
         
     </div>
-</div>
-
-<!-- Zoom Modal -->
-<div class="zoom-modal" id="zoomModal" onclick="closeZoom()">
-    <span class="zoom-close">&times;</span>
-    <img id="zoomImage" src="" alt="Zoomed image" loading="lazy" />
 </div>

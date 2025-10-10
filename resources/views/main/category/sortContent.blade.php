@@ -32,8 +32,8 @@
                 @endforeach
             </div>
         </div>
-        <!-- Chủ đề/phong cách/sự kiện -->
-        @include('main.category.selectCustom')
+        {{-- <!-- Chủ đề/phong cách/sự kiện -->
+        @include('main.category.selectCustom') --}}
     </div>
 
     <div class="sortBox_right">

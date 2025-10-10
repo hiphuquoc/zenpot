@@ -14,7 +14,7 @@ class Number {
         }
 
         // Nếu không giảm (hoặc giá tăng), vẫn hiển thị dấu đúng logic
-        $formatted = ($result >= 0 ? '-' : '+') . abs(round($result, 2)) . '%';
+        $formatted = ($result >= 0 ? '-' : '+') . abs(round($result, 0)) . '%';
         return $formatted;
     }
 

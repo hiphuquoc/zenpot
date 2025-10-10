@@ -21,18 +21,40 @@
                     @break;
                 @endforeach
                 <!-- tag -->
-                <div class="product-badge">Bán chạy</div>
+                @if(!empty($wallpaper->tags)&&$wallpaper->tags->isNotEmpty())
+                    @foreach($wallpaper->tags as $tag)
+                        @foreach($tag->infoTag->seos as $seo)
+                            @if(!empty($seo->infoSeo->language)&&$seo->infoSeo->language==$language)
+                                <div class="product-badge">{{ $seo->infoSeo->title }}</div>
+                                @break;
+                            @endif
+                        @endforeach
+                        @break;
+                    @endforeach
+                @endif
             </a>
             <div class="product-content">
                 <!-- category main -->
-                <div class="product-category">Chậu để bàn</div>
+                @if(!empty($wallpaper->categories)&&$wallpaper->categories->isNotEmpty())
+                    @foreach($wallpaper->categories as $category)
+                        @foreach($category->infoCategory->seos as $seo)
+                            @if(!empty($seo->infoSeo->language)&&$seo->infoSeo->language==$language)
+                                <div class="product-category">{{ $seo->infoSeo->title }}</div>
+                                @break;
+                            @endif
+                        @endforeach
+                        @break;
+                    @endforeach
+                @endif
                 <a href="/{{ $url }}"><h3 class="product-name maxLine_2">{{ $altImage }}</h3></a>
                 <p class="product-description maxLine_3">{{ $description }}</p>
                 @if(!empty($wallpaper->categories)&&$wallpaper->categories->isNotEmpty())
                 <!-- category list -->
                 <div class="product-features">
+                    @php
+                        $maxShow = 4;
+                    @endphp
                     @foreach($wallpaper->categories as $category)
-
                         @foreach($category->infoCategory->seos as $cSeo)
                             @if(!empty($cSeo->infoSeo->language)&&$cSeo->infoSeo->language==$language)
                                 <span class="feature-tag">{{ $cSeo->infoSeo->title ?? '' }}</span>
@@ -40,10 +62,14 @@
                             @endif
                         @endforeach
 
-                        @if($loop->index==3)
+                        @if(($loop->index + 1)==$maxShow)
                             @break;
                         @endif
                     @endforeach
+
+                    @if(!empty($wallpaper->categories)&&$wallpaper->categories->count()>$maxShow)
+                        <span class="feature-tag">...</span>
+                    @endif
                 </div>
                 @endif
                 <div class="product-footer">
@@ -58,8 +84,8 @@
                         }
                     @endphp
                     <div class="product-price">
-                        <span class="current-price">{{ $pOrigin }}</span>
                         <span class="original-price">{{ $pMax }}</span>
+                        <span class="current-price">{{ $pOrigin }}</span>
                     </div>
                     <!-- add to cart -->
                     <button class="add-to-cart" onclick="setMessageModal('{{ config('data_language_1.'.$language.'.notice_construction_create_post_title') }}', '{{ config('data_language_1.'.$language.'.notice_construction_create_post_body') }}');">

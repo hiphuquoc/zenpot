@@ -76,6 +76,14 @@
             'language'  => $language
         ])
     </div> --}}
+    <!-- ZOOM MODAL -->
+    <div id="zoomModal" class="zoom-modal" aria-hidden="true" role="dialog">
+    <button type="button" class="zoom-close" aria-label="Close">&times;</button>
+    <button type="button" class="zoom-nav prev" aria-label="Previous">&#10094;</button>
+    <img id="zoomImage" class="zoom-image" src="" alt="Zoomed image">
+    <button type="button" class="zoom-nav next" aria-label="Next">&#10095;</button>
+    </div>
+
 @endpush
 @push('bottom')
     <!-- Header bottom -->
@@ -83,226 +91,260 @@
     <!-- === START:: Zalo Ring === -->
     {{-- @include('main.snippets.zaloRing') --}}
     <!-- === END:: Zalo Ring === -->
+
+    
+
 @endpush
 @push('scriptCustom')
     <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', function() {
-            // ===== 1. DỮ LIỆU ẢNH =====
-            const images = [
-                @foreach($item->prices as $price)
-                    @foreach($price->files as $file)
-                        @php
-                            $imageSource = \App\Helpers\Image::getUrlImageCloud($file->file_path);
-                        @endphp
-                        "{{ $imageSource }}",
-                    @endforeach
-                @endforeach
-            ];
-
-            let currentImageIndex = 0;
+        document.addEventListener('DOMContentLoaded', function () {
+            // Elements
             const mainImageEl = document.getElementById('mainImage');
             const zoomModal = document.getElementById('zoomModal');
             const zoomImage = document.getElementById('zoomImage');
-            const quantityInput = document.getElementById('quantityInput');
-            const priceElement = document.querySelector('.current-price');
+            const galleryContainer = document.querySelector('.main-image-container');
+            const sizeOptions = Array.from(document.querySelectorAll('.size-option'));
+            const priceSections = Array.from(document.querySelectorAll('.price-section'));
+            let thumbnailEls = Array.from(document.querySelectorAll('.thumbnail')); // array of div.thumbnail
+            const mainGalleryPrev = document.querySelector('.main-gallery .gallery-nav.prev') || document.querySelector('.gallery-nav.prev');
+            const mainGalleryNext = document.querySelector('.main-gallery .gallery-nav.next') || document.querySelector('.gallery-nav.next');
+            const zoomPrev = document.querySelector('#zoomModal .zoom-nav.prev') || document.querySelector('.zoom-nav.prev');
+            const zoomNext = document.querySelector('#zoomModal .zoom-nav.next') || document.querySelector('.zoom-nav.next');
+            const zoomClose = document.querySelector('#zoomModal .zoom-close') || document.querySelector('.zoom-close');
 
-            // ===== 2. GALLERY =====
-            function setMainImage(index) {
-                if (!images.length || !mainImageEl) return;
-                currentImageIndex = index;
-                mainImageEl.src = images[index];
-                document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
-                    thumb.classList.toggle('active', i === index);
+            // State
+            let currentThumb = document.querySelector('.thumbnail.active img') || document.querySelector('.thumbnail img') || null;
+            let allGalleryImages = []; // list of data-src/src strings
+            let currentZoomIndex = 0;
+            const FADE_DELAY = 200; // ms (should be about half of CSS transition)
+
+            // Helper: normalize image src (data-src preferred)
+            function imgSrcOf(imgEl) {
+                if (!imgEl) return '';
+                return imgEl.getAttribute('data-src') || imgEl.getAttribute('src') || '';
+            }
+
+            // Helper: fade replace image element source
+            function fadeReplaceImage(el, newSrc, delay = FADE_DELAY) {
+                if (!el || !newSrc) return;
+                const cur = el.getAttribute('src') || '';
+                if (cur === newSrc) return;
+                el.classList.add('fade-out');
+                setTimeout(() => {
+                    el.setAttribute('src', newSrc);
+                    // also set data-src if element uses it (useful)
+                    el.setAttribute('data-src', newSrc);
+                    el.classList.remove('fade-out');
+                }, delay);
+            }
+
+            // Ensure thumbnails list up-to-date (call when DOM changes dynamically)
+            function refreshThumbnails() {
+                thumbnailEls = Array.from(document.querySelectorAll('.thumbnail'));
+            }
+
+            // Set main image from a thumbnail <img> element
+            function setMainImage(imgEl) {
+                if (!imgEl || !mainImageEl) return;
+                const newSrc = imgSrcOf(imgEl);
+                if (!newSrc) return;
+
+                // Fade main image
+                fadeReplaceImage(mainImageEl, newSrc);
+
+                // Update active thumb classes
+                refreshThumbnails();
+                thumbnailEls.forEach(t => t.classList.remove('active'));
+                const parent = imgEl.closest('.thumbnail');
+                if (parent) parent.classList.add('active');
+
+                // update currentThumb reference
+                currentThumb = imgEl;
+
+                // If zoom is open, also update zoom image (sync)
+                if (zoomModal && zoomModal.classList.contains('active')) {
+                    // update allGalleryImages & currentZoomIndex
+                    allGalleryImages = Array.from(document.querySelectorAll('.thumbnail img')).map(i => imgSrcOf(i));
+                    currentZoomIndex = allGalleryImages.findIndex(s => s === newSrc);
+                    if (currentZoomIndex === -1) currentZoomIndex = 0;
+                    fadeReplaceImage(zoomImage, newSrc);
+                }
+            }
+
+            // Init main image if none
+            if (!currentThumb) {
+                const firstThumbImg = document.querySelector('.thumbnail img');
+                if (firstThumbImg) {
+                    currentThumb = firstThumbImg;
+                    // set initial main image to first thumb without heavy fade (direct)
+                    const s = imgSrcOf(firstThumbImg);
+                    if (s && mainImageEl) {
+                        mainImageEl.src = s;
+                        mainImageEl.dataset.src = s;
+                        firstThumbImg.closest('.thumbnail')?.classList.add('active');
+                    }
+                }
+            }
+
+            // Click on thumbnail (listen on thumbnail div so click anywhere counts)
+            refreshThumbnails();
+            thumbnailEls.forEach(thumb => {
+                thumb.addEventListener('click', (e) => {
+                    const img = thumb.querySelector('img');
+                    if (img) setMainImage(img);
                 });
-            }
+            });
 
-            function changeImage(direction) {
-                if (!images.length) return;
-                currentImageIndex += direction;
-                if (currentImageIndex >= images.length) currentImageIndex = 0;
-                if (currentImageIndex < 0) currentImageIndex = images.length - 1;
-                setMainImage(currentImageIndex);
-            }
-
-            // ===== 3. ZOOM =====
-            function openZoom() {
-                if (!zoomModal || !zoomImage || !images.length) return;
-                zoomImage.src = images[currentImageIndex];
-                zoomModal.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            }
-
-            function closeZoom() {
-                if (!zoomModal) return;
-                zoomModal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
-
-            // Gắn sự kiện zoom nếu có ảnh chính
-            if (mainImageEl) mainImageEl.addEventListener('click', openZoom);
-            if (zoomModal) zoomModal.addEventListener('click', closeZoom);
-
-            // ===== 4. THAY ĐỔI SỐ LƯỢNG =====
-            function changeQuantity(change) {
-                if (!quantityInput) return;
-                let value = parseInt(quantityInput.value) + change;
-                if (isNaN(value) || value < 1) value = 1;
-                quantityInput.value = value;
-            }
-
-            // ===== 5. TÙY CHỌN SIZE =====
-            const sizeOptions = document.querySelectorAll('.size-option');
+            // Options: select size/price -> activate price-section and set main image to first thumb of that price
             if (sizeOptions.length) {
-                sizeOptions.forEach(option => {
-                    option.addEventListener('click', function() {
-                        sizeOptions.forEach(opt => opt.classList.remove('active'));
-                        this.classList.add('active');
+                // initial display state for price sections: show only active
+                priceSections.forEach((sec, i) => {
+                    sec.style.display = sec.classList.contains('active') ? 'flex' : 'none';
+                });
+
+                sizeOptions.forEach(opt => {
+                    opt.addEventListener('click', () => {
+                        const priceIndex = opt.getAttribute('data-price-index');
+
+                        // Active option UI
+                        sizeOptions.forEach(o => o.classList.remove('active'));
+                        opt.classList.add('active');
+
+                        // Show/hide price sections (display) + toggle active class
+                        priceSections.forEach(sec => {
+                            const match = sec.getAttribute('data-price-index') === priceIndex;
+                            sec.classList.toggle('active', match);
+                            sec.style.display = match ? 'flex' : 'none';
+                        });
+
+                        // Find first thumbnail of this price-index and set main image
+                        const firstThumb = document.querySelector(`.thumbnail[data-price-index="${priceIndex}"]`);
+                        if (firstThumb) {
+                            const img = firstThumb.querySelector('img');
+                            if (img) setMainImage(img);
+                        }
                     });
                 });
             }
 
-            // ===== 6. YÊU THÍCH (WISHLIST) =====
-            const wishlistBtn = document.querySelector('.btn-icon');
-            if (wishlistBtn) {
-                wishlistBtn.addEventListener('click', function() {
-                    const icon = this.querySelector('i');
-                    if (!icon) return;
+            // Open Zoom modal
+            function openZoom() {
+                if (!zoomModal || !zoomImage || !mainImageEl) return;
+                // build gallery list
+                allGalleryImages = Array.from(document.querySelectorAll('.thumbnail img')).map(i => imgSrcOf(i));
+                const cur = mainImageEl.dataset.src || mainImageEl.src || '';
+                currentZoomIndex = allGalleryImages.findIndex(s => s === cur);
+                if (currentZoomIndex === -1) currentZoomIndex = 0;
+                // set zoom image and show
+                zoomImage.src = allGalleryImages[currentZoomIndex] || cur;
+                zoomModal.classList.add('active');
+                zoomModal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            }
 
-                    const isLiked = icon.classList.contains('fas');
-                    if (isLiked) {
-                        icon.classList.replace('fas', 'far');
-                        this.style.color = '#e74c3c';
-                        this.style.borderColor = '#e74c3c';
-                        this.style.background = 'transparent';
-                    } else {
-                        icon.classList.replace('far', 'fas');
-                        this.style.color = 'white';
-                        this.style.background = '#e74c3c';
-                    }
+            // Close zoom
+            function closeZoom() {
+                if (!zoomModal) return;
+                zoomModal.classList.remove('active');
+                zoomModal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            }
 
-                    this.style.transform = 'scale(1.1)';
-                    setTimeout(() => { this.style.transform = 'scale(1)'; }, 150);
+            // Change image inside zoom (and sync main gallery)
+            function zoomChangeImage(direction) {
+                if (!allGalleryImages.length) {
+                    allGalleryImages = Array.from(document.querySelectorAll('.thumbnail img')).map(i => imgSrcOf(i));
+                }
+                if (!allGalleryImages.length) return;
+                currentZoomIndex = (currentZoomIndex + direction + allGalleryImages.length) % allGalleryImages.length;
+                const newSrc = allGalleryImages[currentZoomIndex];
+
+                // try to find the thumbnail img element that matches newSrc
+                const thumbImgs = Array.from(document.querySelectorAll('.thumbnail img'));
+                const match = thumbImgs.find(i => imgSrcOf(i) === newSrc);
+
+                if (match) {
+                    // setMainImage will also update zoomImage if modal active
+                    setMainImage(match);
+                } else {
+                    // fallback: just update zoomImage
+                    fadeReplaceImage(zoomImage, newSrc);
+                }
+            }
+
+            // Events: open zoom on main image click
+            if (mainImageEl) mainImageEl.addEventListener('click', openZoom);
+
+            // Zoom controls
+            if (zoomClose) zoomClose.addEventListener('click', closeZoom);
+            if (zoomPrev) {
+                zoomPrev.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    zoomChangeImage(-1);
+                });
+            }
+            if (zoomNext) {
+                zoomNext.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    zoomChangeImage(1);
                 });
             }
 
-            // ===== 7. SCROLL ANIMATION =====
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-            document.querySelectorAll('.details-section').forEach(section => {
-                section.style.opacity = '0';
-                section.style.transform = 'translateY(30px)';
-                section.style.transition = 'all 0.6s ease';
-                observer.observe(section);
-            });
-
-            // ===== 8. BÀN PHÍM GALLERY =====
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'ArrowLeft') changeImage(-1);
-                if (e.key === 'ArrowRight') changeImage(1);
-                if (e.key === 'Escape') closeZoom();
-            });
-
-            // ===== 9. SWIPE GALLERY MOBILE =====
-            const gallery = document.querySelector('.main-image-container');
-            if (gallery) {
-                let startX, endX;
-                gallery.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-                gallery.addEventListener('touchend', e => {
-                    endX = e.changedTouches[0].clientX;
-                    const diff = startX - endX;
-                    if (Math.abs(diff) > 50) {
-                        diff > 0 ? changeImage(1) : changeImage(-1);
-                    }
+            // Click background to close (but not clicks on inner content)
+            if (zoomModal) {
+                zoomModal.addEventListener('click', (e) => {
+                    if (e.target === zoomModal) closeZoom();
                 });
             }
 
-            // ===== 10. HIỆU ỨNG LOAD ẢNH =====
+            // Next / Prev for main gallery (outside zoom)
+            function changeImage(direction) {
+                // rebuild thumbs list
+                const thumbsImgs = Array.from(document.querySelectorAll('.thumbnail img')).filter(Boolean);
+                if (!thumbsImgs.length) return;
+                let index = thumbsImgs.indexOf(currentThumb);
+                if (index === -1) index = 0;
+                index = (index + direction + thumbsImgs.length) % thumbsImgs.length;
+                const newImg = thumbsImgs[index];
+                if (newImg) setMainImage(newImg);
+            }
+
+            if (mainGalleryPrev) mainGalleryPrev.addEventListener('click', () => changeImage(-1));
+            if (mainGalleryNext) mainGalleryNext.addEventListener('click', () => changeImage(1));
+
+            // Swipe mobile for main gallery
+            if (galleryContainer) {
+                let startX = 0;
+                galleryContainer.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+                galleryContainer.addEventListener('touchend', e => {
+                    const diff = startX - e.changedTouches[0].clientX;
+                    if (Math.abs(diff) > 50) diff > 0 ? changeImage(1) : changeImage(-1);
+                });
+            }
+
+            // Keyboard handling: arrows for gallery or zoom, Esc closes zoom
+            document.addEventListener('keydown', (e) => {
+                if (zoomModal && zoomModal.classList.contains('active')) {
+                    if (e.key === 'ArrowLeft') zoomChangeImage(-1);
+                    if (e.key === 'ArrowRight') zoomChangeImage(1);
+                    if (e.key === 'Escape') closeZoom();
+                } else {
+                    if (e.key === 'ArrowLeft') changeImage(-1);
+                    if (e.key === 'ArrowRight') changeImage(1);
+                }
+            });
+
+            // Soft image-load effect: set opacity to 1 when loaded
             document.querySelectorAll('img').forEach(img => {
                 img.addEventListener('load', () => img.style.opacity = '1');
                 if (img.complete) img.style.opacity = '1';
             });
 
-            // ===== 11. GẮN SỰ KIỆN VÀO THUMBNAIL =====
-            document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
-                thumb.addEventListener('click', () => setMainImage(i));
+            // Ensure initial price-section display (if JS was loaded after HTML)
+            priceSections.forEach(sec => {
+                sec.style.display = sec.classList.contains('active') ? 'flex' : 'none';
             });
-
-            // ===== 12. THUMBNAIL VÀ GIÁ HIỂN THỊ THEO OPTION =====
-            const options = document.querySelectorAll('.size-option');
-            const priceSections = document.querySelectorAll('.price-section');
-            const thumbnails = document.querySelectorAll('.thumbnail');
-            const mainImage = document.getElementById('mainImage');
-
-            // Tạo mảng lưu ảnh đầu tiên của mỗi price
-            const priceFirstImages = [];
-            const prices = @json(
-                $item->prices->map(fn($price) =>
-                    $price->files->map(fn($file) =>
-                        \App\Helpers\Image::getUrlImageSmallByUrlImage($file->file_path)
-                    )
-                )
-            );
-
-            prices.forEach((files, i) => {
-                if (files.length > 0) priceFirstImages[i] = files[0];
-            });
-
-            // Khi click chọn option
-            options.forEach(option => {
-                option.addEventListener('click', () => {
-                    const index = option.getAttribute('data-price-index');
-
-                    // Cập nhật active cho option
-                    options.forEach(opt => opt.classList.remove('active'));
-                    option.classList.add('active');
-
-                    // Hiển thị đúng phần giá
-                    priceSections.forEach(section => {
-                        section.classList.toggle('active', section.dataset.priceIndex === index);
-                    });
-
-                    // Đổi ảnh gallery sang ảnh đầu tiên của price tương ứng
-                    if (priceFirstImages[index]) {
-                        mainImage.src = priceFirstImages[index];
-                        mainImage.dataset.src = priceFirstImages[index];
-                    }
-
-                    // Cập nhật active cho thumbnail
-                    thumbnails.forEach(th => {
-                        th.classList.toggle('active', th.dataset.priceIndex === index && th.dataset.fileIndex === "0");
-                    });
-                });
-            });
-
-            // Khởi tạo: ẩn giá khác, chỉ hiện giá đầu tiên
-            priceSections.forEach((section, i) => {
-                section.style.display = i === 0 ? 'flex' : 'none';
-            });
-
-            // Khi đổi option -> show/hide giá tương ứng
-            options.forEach(option => {
-                option.addEventListener('click', () => {
-                    const index = option.dataset.priceIndex;
-                    priceSections.forEach((section, i) => {
-                        section.style.display = i == index ? 'flex' : 'none';
-                    });
-                });
-            });
-            
-            // ===== 13. RESPONSIVE THANH BOTTOM ĐẶT HÀNG
-            const fixedBar = document.querySelector(".responsiveFixed");
-            if (fixedBar) {
-                setTimeout(() => {
-                fixedBar.classList.add("show");
-                }, 2000); // hiện sau 2 giây
-            }
         });
-    </script>
+        </script>
+
 @endpush
