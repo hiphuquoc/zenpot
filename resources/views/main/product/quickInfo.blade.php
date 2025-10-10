@@ -15,11 +15,11 @@
         <div class="quick-info-label">Khối lượng</div>
         <div class="quick-info-value">{{ $item->weight ?? '--' }} kg</div>
     </div>
-    <div class="quick-info-row">
+    <div class="quick-info-row special">
         <div class="quick-info-label">Chất liệu</div>
         <div class="quick-info-value">{{ $item->translate->material ?? '--' }}</div>
     </div>
-    <div class="quick-info-row">
+    <div class="quick-info-row special">
         <div class="quick-info-label">Ứng dụng</div>
         <div class="quick-info-value">{{ $item->translate->usage ?? '--' }}</div>
     </div>

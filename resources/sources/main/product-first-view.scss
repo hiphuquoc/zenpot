@@ -430,6 +430,7 @@
       .quick-info-row {
         display: flex;
         justify-content: space-between;
+        gap: 0.25rem;
         padding: 0.75rem 1.25rem;
 
         // Xen kẽ màu nền
@@ -454,6 +455,19 @@
           &.in-stock {
             color: rgb(var(--colorSuccess));
             font-weight: 600;
+          }
+        }
+      }
+      @media(max-width: 577px){
+        .quick-info-row {
+          &.special {
+            flex-direction: column;
+            .quick-info-label {
+              flex: unset;
+            }
+            .quick-info-value {
+              text-align: left;
+            }
           }
         }
       }
