@@ -242,9 +242,13 @@ class CategoryMoneyController extends Controller {
                 'product_info.code',
                 'product_info.sold',
                 'product_info.heart',
+                'product_info.price',
+                'product_info.size',
+                'product_info.capacity',
+                'product_info.weight',
+                'product_info.condition',
                 'product_info.created_at',
                 'product_info.updated_at',
-                'product_info.price',
                 'product_info.notes'
             )
             ->orderByDesc('common_tags_count')
