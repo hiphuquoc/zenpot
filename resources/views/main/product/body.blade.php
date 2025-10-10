@@ -181,10 +181,12 @@
         @endif
 
         <!-- Sản phẩm liên quan -->
-        {{-- <div class="details-section">
+        <div class="details-section">
             <h2 class="details-title">Sản phẩm liên quan</h2>
-            @include('main.category.itemProduct')
-        </div> --}}
+            @include('main.category.boxProduct', [
+                'idProduct' => $item->id,
+            ])
+        </div>
         
     </div>
 </div>

@@ -64,25 +64,7 @@
                     'total'             => $total,
                 ])
 
-                <input type="hidden" id="total" name="total" value="{{ $total }}" />
-                <input type="hidden" id="loaded" name="loaded" value="{{ $loaded ?? 0 }}" />
-                <input type="hidden" id="idNot" name="idNot" value="{{ $idNot ?? 0 }}" />
-                <input type="hidden" id="arrayIdCategory" name="arrayIdCategory" value="{{ json_encode($arrayIdCategory) }}" />
-
-                <!-- Products Grid -->
-                <div class="products-grid">
-                    @if($total>0)
-                        @foreach($wallpapers as $wallpaper)
-                            @include('main.category.itemProduct', [
-                                'wallpaper' => $wallpaper,
-                                'language'  => $language,
-                                'user'      => $user ?? null
-                            ])
-                        @endforeach
-                    @else 
-                        <div>{{ config('data_language_1.'.$language.'.no_suitable_results_found') }}</div>
-                    @endif
-                </div>
+                @include('main.category.boxProduct')
 
                 {{-- <!-- Pagination -->
                 <div class="pagination">
@@ -127,6 +109,6 @@
 @endpush
 @push('scriptCustom')
     <script type="text/javascript">
-    
+        
     </script>
 @endpush

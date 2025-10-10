@@ -15,7 +15,6 @@ class CategoryMoneyController extends Controller {
 
     public static function loadMoreWallpaper(Request $request){
         $language                                   = $request->get('language');
-        $viewBy                                     = Cookie::get('view_by') ?? 'each_set';
         $response                                   = [
             'content'   => '<div>'.config('data_language_1.'.$language.'.no_suitable_results_found').'</div>',
         ];
@@ -25,12 +24,12 @@ class CategoryMoneyController extends Controller {
                 /* trường hợp tải theo product liên quan */
                 $idProduct                          = $request->get('id_product');
                 $currentProduct                     = Product::find($idProduct);
-                $arrayIdTag                         = $currentProduct->tags->pluck('tag_info_id')->toArray();
+                $arrayIdCateogory                   = $currentProduct->categories->pluck('category_info_id')->toArray();
                 $params['loaded']                   = $request->get('loaded') ?? 0;
                 $params['request_load']             = $request->get('request_load');
-                $tmp                                = self::getWallpapersByProductRelated($idProduct, $arrayIdTag, $language, $params);
+                $tmp                                = self::getWallpapersByProductRelated($idProduct, $arrayIdCateogory, $language, $params);
                 /* đổ theme lấy html - phần này bên ngoài view nằm phía dưới -> không ảnh hưởng khung nhìn đầu tiên nên không cần dùng firstLoad */
-                $content                            = self::getXhtmlWallpapers($tmp['wallpapers'], $language, $viewBy, false);
+                $content                            = self::getXhtmlWallpapers($tmp['wallpapers'], $language, false);
             }else {
                 /* trường hợp tải từ category & tag */
                 $params['filters']                  = $request->get('filters') ?? [];
@@ -42,9 +41,8 @@ class CategoryMoneyController extends Controller {
                 $params['sort_by']                  = Cookie::get('sort_by') ?? config('main_'.env('APP_NAME').'.sort_type')[0]['key'];
                 $tmp                                = self::getWallpapers($params, $language);
                 /* đổ theme lấy html */
-                // $firstLoad                          = $params['loaded']==0 ? true : false;
                 $firstLoad                          = false;
-                $content                            = self::getXhtmlWallpapers($tmp['wallpapers'], $language, $viewBy, $firstLoad);
+                $content                            = self::getXhtmlWallpapers($tmp['wallpapers'], $language, $firstLoad);
             }
             
             /* trả kết quả */
@@ -58,47 +56,19 @@ class CategoryMoneyController extends Controller {
     /*
         $firstLoad để kiểm tra xem có phải lần đầu tải ajax /trang không -> dể thay đổi cách hiển thị, cải hiện khung nhìn đầu tiên
     */
-    public static function getXhtmlWallpapers($wallpapers, $language, $viewBy = 'each_set', $firstLoad = false){
+    public static function getXhtmlWallpapers($wallpapers, $language, $firstLoad = false){
         $response   = '';
         if(!empty($wallpapers)){
             $i      = 0;
             foreach($wallpapers as $wallpaper){
-                if($viewBy=='each_set'){
-                    $lazyload   = $firstLoad==true&&$i<4 ? false : true;
-                    $response    .= view('main.template.wallpaperItem', [
-                        'product'   => $wallpaper,
-                        'language'  => $language,
-                        'lazyload'  => $lazyload,
-                        'headingTitle'  => 'h2',
-                    ])->render();
-                    ++$i;
-                }else {
-                    $wallpaperName      = null;
-                    $link               = env('APP_URL').'/'.$wallpaper->seo->slug_full;
-                    foreach($wallpaper->seos as $seo){
-                        if(!empty($seo->infoSeo->language)&&$seo->infoSeo->language==$language) {
-                            $wallpaperName = $seo->infoSeo->title;
-                            $link = env('APP_URL').'/'.$seo->infoSeo->slug_full;
-                            break;
-                        }
-                    }
-                    foreach($wallpaper->prices as $price){
-                        foreach($price->wallpapers as $w){
-                            $lazyload   = $firstLoad==true&&$i<4 ? false : true;
-                            $response .= view('main.template.perWallpaperItem', [
-                                'idProduct'     => $w->id,
-                                'idPrice'       => $price->id,
-                                'wallpaper'     => $w, 
-                                'productName'   => $wallpaperName,
-                                'link'          => $link,
-                                'language'      => $language,
-                                'lazyload'      => $lazyload
-                            ]);
-                            ++$i;
-                        }
-                    }
-                    
-                }
+                $lazyload   = $firstLoad==true&&$i<4 ? false : true;
+                $response    .= view('main.category.itemProduct', [
+                    'wallpaper'   => $wallpaper,
+                    'language'  => $language,
+                    'lazyload'  => $lazyload,
+                    'headingTitle'  => 'h2',
+                ])->render();
+                ++$i;
             }
         }
         return $response;
@@ -195,11 +165,11 @@ class CategoryMoneyController extends Controller {
         ];
     }
 
-    public static function getWallpapersByProductRelated($idProduct, $arrayIdTag, $language, $params) {
+    public static function getWallpapersByProductRelated($idProduct, $arrayIdCategory, $language, $params) {
         // Tạo khóa cache dựa trên các tham số đầu vào
         $cacheKey = 'wallpapers_related:' . $idProduct
                     . ':' . $language
-                    . ':' . md5(json_encode($arrayIdTag))
+                    . ':' . md5(json_encode($arrayIdCategory))
                     . ':' . $params['loaded']
                     . ':' . $params['request_load'];
         $cacheTime = config('app.cache_redis_time', 86400);
@@ -207,35 +177,35 @@ class CategoryMoneyController extends Controller {
     
         // Nếu sử dụng cache
         if ($useCache) {
-            return Cache::remember($cacheKey, now()->addSeconds($cacheTime), function () use ($idProduct, $arrayIdTag, $language, $params) {
-                return self::queryWallpapersByProductRelated($idProduct, $arrayIdTag, $language, $params);
+            return Cache::remember($cacheKey, now()->addSeconds($cacheTime), function () use ($idProduct, $arrayIdCategory, $language, $params) {
+                return self::queryWallpapersByProductRelated($idProduct, $arrayIdCategory, $language, $params);
             });
         }
     
         // Nếu không sử dụng cache, truy vấn trực tiếp
-        return self::queryWallpapersByProductRelated($idProduct, $arrayIdTag, $language, $params);
+        return self::queryWallpapersByProductRelated($idProduct, $arrayIdCategory, $language, $params);
     }
     
     /**
      * Hàm thực hiện truy vấn wallpapers liên quan.
      *
      * @param int $idProduct
-     * @param array $arrayIdTag
+     * @param array $arrayIdCategory
      * @param string $language
      * @param array $params
      * @return array
      */
-    private static function queryWallpapersByProductRelated($idProduct, $arrayIdTag, $language, $params) {
+    private static function queryWallpapersByProductRelated($idProduct, $arrayIdCategory, $language, $params) {
         $response = [];
+
         $tmp = Product::select('product_info.*')
             ->whereHas('seos.infoSeo', function ($query) use ($language) {
                 $query->where('language', $language);
             })
-            ->join('relation_tag_info_orther as rt', 'product_info.id', '=', 'rt.reference_id')
-            ->where('rt.reference_type', 'product_info')
-            ->whereIn('rt.tag_info_id', $arrayIdTag)
+            ->join('relation_category_product as rcp', 'product_info.id', '=', 'rcp.product_info_id')
+            ->whereIn('rcp.category_info_id', $arrayIdCategory)
             ->where('product_info.id', '!=', $idProduct)
-            ->selectRaw('COUNT(rt.tag_info_id) as common_tags_count')
+            ->selectRaw('COUNT(rcp.category_info_id) as common_categories_count')
             ->groupBy(
                 'product_info.id',
                 'product_info.seo_id',
@@ -251,17 +221,18 @@ class CategoryMoneyController extends Controller {
                 'product_info.updated_at',
                 'product_info.notes'
             )
-            ->orderByDesc('common_tags_count')
-            ->with('tags')
+            ->orderByDesc('common_categories_count')
+            ->with(['categories.infoCategory'])
             ->get();
-    
+
         // Phân trang thủ công
         $response['wallpapers'] = $tmp->slice($params['loaded'], $params['request_load'])->values();
         $response['loaded']     = $params['loaded'] + $response['wallpapers']->count();
         $response['total']      = $tmp->count();
-    
+
         return $response;
     }
+
 
     public static function buildTocContentMain($contents, $language, $add = []) {
         // Nếu danh sách nội dung rỗng, trả về dữ liệu mặc định

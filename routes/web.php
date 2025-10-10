@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\CategoryController as CategoryPublic;
+use App\Http\Controllers\CategoryMoneyController as CategoryMoneyPublic;
 use App\Http\Controllers\PostController as PostPublic;
 use App\Http\Controllers\CompanyController as CompanyPublic;
 use App\Http\Controllers\VNPayController;
@@ -336,6 +336,7 @@ Route::get('/loadImageFromGoogleCloud', [AjaxController::class, 'loadImageFromGo
 Route::get('/setSortBy', [AjaxController::class, 'setSortBy'])->name('ajax.setSortBy');
 Route::get('/loadInfoCategory', [CategoryPublic::class, 'loadInfoCategory'])->name('main.category.loadInfoCategory');
 Route::get('/createQRLink', [AjaxController::class, 'createQRLink'])->name('ajax.createQRLink');
+Route::get('/loadMoreWallpaper', [CategoryMoneyPublic::class, 'loadMoreWallpaper'])->name('main.category.loadMoreWallpaper');
 /* Search */
 Route::get('/searchAjax', [SearchController::class, 'searchAjax'])->name('search.searchAjax');
 /* setting */

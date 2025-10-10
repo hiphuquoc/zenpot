@@ -295,6 +295,14 @@
                     });
                 });
             });
+            
+            // ===== 13. RESPONSIVE THANH BOTTOM ĐẶT HÀNG
+            const fixedBar = document.querySelector(".responsiveFixed");
+            if (fixedBar) {
+                setTimeout(() => {
+                fixedBar.classList.add("show");
+                }, 2000); // hiện sau 2 giây
+            }
         });
     </script>
 @endpush

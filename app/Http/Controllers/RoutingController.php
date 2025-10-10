@@ -139,8 +139,8 @@ class RoutingController extends Controller{
     }
 
     private function handleProductInfo($item, $itemSeo, $language, array $sharedData) {
-        $arrayIdTag = $item->tags->pluck('tag_info_id')->toArray();
-        $total = CategoryMoneyController::getWallpapersByProductRelated($item->id, $arrayIdTag, $language, [
+        $arrayIdCategory = $item->categories->pluck('category_info_id')->toArray();
+        $total = CategoryMoneyController::getWallpapersByProductRelated($item->id, $arrayIdCategory, $language, [
             'loaded' => 0,
             'request_load' => 0,
         ])['total'];
@@ -153,6 +153,7 @@ class RoutingController extends Controller{
             'language' => $language,
             'total'     => $total,
             'dataContent' => $dataContent,
+            'arrayIdCategory' => $arrayIdCategory,
         ], $sharedData))->render();
     }
 
@@ -242,11 +243,6 @@ class RoutingController extends Controller{
     }
 
     private function handleCategoryType($item, $itemSeo, $language, array $sharedData) {
-        $flagFree = in_array($itemSeo->slug, config('main_' . env('APP_NAME') . '.url_free_wallpaper_category'));
-        if ($flagFree) {
-            return $this->handleFreeCategory($item, $itemSeo, $language, $sharedData);
-        }
-    
         return $this->handlePaidCategory($item, $itemSeo, $language, $sharedData);
     }
     
@@ -259,7 +255,7 @@ class RoutingController extends Controller{
             'array_category_info_id' => $arrayIdCategory,
             'filters' => request()->get('filters') ?? [],
             'loaded' => 0,
-            'request_load' => 10,
+            'request_load' => 1,
             'sort_by' => Cookie::get('sort_by') ?? null,
             'search' => $search,
         ];
@@ -270,7 +266,7 @@ class RoutingController extends Controller{
         // Đảm bảo biến wallpapers luôn tồn tại
         $wallpapers = $response['wallpapers'] ?? [];
         $total = $response['total'] ?? 0;
-        $loaded = $response['loaded'] ?? 0;
+        $loaded = 0; // lần đầu in ra 0 phần tử
     
         // Xây dựng toc_content
         $dataContent = CategoryMoneyController::buildTocContentMain($itemSeo->contents, $language);
