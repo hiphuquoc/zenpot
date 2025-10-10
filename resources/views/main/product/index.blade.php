@@ -344,7 +344,15 @@
             priceSections.forEach(sec => {
                 sec.style.display = sec.classList.contains('active') ? 'flex' : 'none';
             });
+
+            // thêm class vào thanh button (mobile)
+            setTimeout(function() {
+                var el = document.querySelector('.responsiveFixed');
+                if (el) {
+                    el.classList.add('show');
+                }
+            }, 1500);
         });
-        </script>
+    </script>
 
 @endpush
