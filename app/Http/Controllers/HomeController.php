@@ -111,76 +111,11 @@ class HomeController extends Controller {
 
     public function test()
     {
-        // $services = [
-        //     [
-        //         'title' => 'Tour Du Lịch Trong Nước',
-        //         'description' => 'Khám phá vẻ đẹp Việt Nam từ núi rừng Tây Bắc đến biển đảo Nam Trung Bộ với các tour trọn gói chất lượng, khởi hành liên tục, giá ưu đãi.',
-        //         'image'     => 'https://hitour.vn/storage/images/upload/tour-du-lich-phu-quoc-750.webp',
-        //         'url'    => 'https://hitour.vn',
-        //     ],
-        //     [
-        //         'title' => 'Tour Du Lịch Quốc Tế',
-        //         'description' => 'Trải nghiệm hành trình khám phá thế giới với các tour nước ngoài chọn lọc, hướng dẫn viên chuyên nghiệp, lịch trình hấp dẫn, dịch vụ chu đáo.',
-        //         'image'     => 'https://hitour.vn/storage/images/upload/tour-du-lich-anh-750.webp',
-        //         'url'    => 'https://hitour.vn',
-        //     ],
-        //     [
-        //         'title' => 'Vé Vui Chơi – Giải Trí',
-        //         'description' => 'Đặt vé các khu vui chơi, công viên, show diễn hot một cách nhanh chóng – không xếp hàng – nhiều ưu đãi, phù hợp cho cả gia đình và nhóm bạn.',
-        //         'image'     => 'https://hitour.vn/storage/images/upload/ve-safari-phu-quoc-750.webp',
-        //         'url'    => 'https://hitour.vn',
-        //     ],
-        //     [
-        //         'title' => 'Vé Tàu Cao Tốc',
-        //         'description' => 'Di chuyển thuận tiện đến Phú Quốc, Côn Đảo, Lý Sơn... với vé tàu cao tốc chính hãng, giờ giấc linh hoạt, hỗ trợ đặt chỗ nhanh chóng.',
-        //         'image'     => 'https://hitour.vn/storage/images/upload/tau-sa-ky-ly-son-750.webp',
-        //         'url'    => 'https://hitour.vn',
-        //     ],
-        //     [
-        //         'title' => 'Vé Máy Bay Giá Tốt',
-        //         'description' => 'Săn vé máy bay nội địa và quốc tế với mức giá cạnh tranh, thủ tục đơn giản, hỗ trợ đặt vé – đổi vé – hoàn vé nhanh chóng, uy tín.',
-        //         'image'     => 'https://hitour.vn/storage/images/upload/ve-may-bay-phu-yen-di-ha-noi-750.webp',
-        //         'url'    => 'https://hitour.vn',
-        //     ],
-        //     [
-        //         'title' => 'Đặt Phòng Khách Sạn',
-        //         'description' => 'Liên kết hàng nghìn khách sạn từ bình dân đến cao cấp trong và ngoài nước, đặt phòng dễ dàng, giá minh bạch, nhiều chương trình khuyến mãi.',
-        //         'image'     => 'https://hitour.vn/storage/images/upload/thien-thanh-phu-quoc-resort-750.webp',
-        //         'url'    => 'https://hitour.vn',
-        //     ]
-        // ];
-
-        // foreach($services as $service){
-        //     \App\Models\CompanyService::insertItem([
-        //         'company_info_id'   => 128640,
-        //         'title'     => $service['title'],
-        //         'description'     => $service['description'],
-        //         'image'     => $service['image'],
-        //         'url'     => $service['url'],
-        //     ]);
-        // }
-
-        // Danh sách các đoạn YY bạn muốn tạo (theo từng khoảng từ..đến)
-        $ranges = [
-            [20, 29],
-            [32, 39],
-            [40, 49]
-        ];
-
-        $result = [];
-
-        foreach ($ranges as $range) {
-            [$startYY, $endYY] = $range;
-
-            for ($yy = $startYY; $yy <= $endYY; $yy++) {
-                for ($xx = 0; $xx <= 99; $xx++) {
-                    $result[] = sprintf('%02d%02d', $xx, $yy);
-                }
-            }
-        }
-
-        // In ra kết quả, ngăn cách bằng dấu phẩy
-        echo implode(',', $result);
+        dd([
+            'upload_max_filesize' => ini_get('upload_max_filesize'),
+            'post_max_size' => ini_get('post_max_size'),
+            'memory_limit' => ini_get('memory_limit'),
+        ]);
 
     }
 
