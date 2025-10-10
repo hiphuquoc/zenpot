@@ -42,7 +42,6 @@
 
         .main-image-container {
           position: relative;
-          height: 500px;
           overflow: hidden;
           cursor: zoom-in;
 
@@ -709,11 +708,11 @@
         .thumbnail-gallery {
           gap: 0.5rem;
         }
-        .main-gallery {
-          .main-image-container {
-            height: 420px;
-          }
-        }
+        // .main-gallery {
+        //   .main-image-container {
+        //     height: 420px;
+        //   }
+        // }
       }
 
       .product-info {
@@ -766,11 +765,11 @@
 
       .gallery-section {
         margin: -7px 0;
-        .main-gallery {
-          .main-image-container {
-            height: 320px;
-          }
-        }
+        // .main-gallery {
+        //   .main-image-container {
+        //     height: 320px;
+        //   }
+        // }
         .thumbnail-gallery {
           grid-template-columns: repeat(4, 1fr);
         }
