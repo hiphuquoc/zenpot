@@ -145,11 +145,14 @@ class RoutingController extends Controller{
             'request_load' => 0,
         ])['total'];
 
+        $dataContent = CategoryMoneyController::buildTocContentMain($itemSeo->contents, $language);
+
         return view('main.product.index', array_merge([
             'item' => $item,
             'itemSeo' => $itemSeo,
             'language' => $language,
             'total'     => $total,
+            'dataContent' => $dataContent,
         ], $sharedData))->render();
     }
 
@@ -250,11 +253,10 @@ class RoutingController extends Controller{
     private function handlePaidCategory($item, $itemSeo, $language, $sharedData) {
         // Khởi tạo các tham số tìm kiếm
         $arrayIdCategory    = Category::getArrayIdCategoryRelatedByIdCategory($item, [$item->id]);
-        $viewBy             = request()->cookie('view_by') ?? 'each_set';
+        // $viewBy             = request()->cookie('view_by') ?? 'each_set';
         $search             = request('search') ?? null;
         $params = [
             'array_category_info_id' => $arrayIdCategory,
-            'view_by' => $viewBy,
             'filters' => request()->get('filters') ?? [],
             'loaded' => 0,
             'request_load' => 10,
@@ -282,7 +284,6 @@ class RoutingController extends Controller{
             'total' => $total, 
             'loaded' => $loaded, 
             'language' => $language, 
-            'viewBy' => $viewBy, 
             'search' => $search, 
             'dataContent' => $dataContent,
         ], $sharedData))->render();

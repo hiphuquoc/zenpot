@@ -5,7 +5,20 @@
         <div class="gallery-section slide-in-left">
             <div class="main-gallery">
                 <div class="main-image-container" onclick="openZoom()">
-                    <img id="mainImage" class="main-image" src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-4.webp" alt="Chậu gỗ ZenPot" loading="lazy" />
+                    @foreach($item->prices as $price)
+                        @foreach($price->files as $file)
+                            @php
+                                /* lấy ảnh Small */
+                                $imageMini  = \App\Helpers\Image::getUrlImageMiniByUrlImage($file->file_path);
+                                $imageSource = \App\Helpers\Image::getUrlImageCloud($file->file_path);
+                                // tiêu đề 
+                                $titleProduct = $itemSeo->title ?? $item->seo->title ?? '';
+                            @endphp
+                            <img id="mainImage" class="main-image lazyload" src="{{ $imageMini }}" data-src="{{ $imageSource }}" alt="{{ $titleProduct }}" title="{{ $titleProduct }}" loading="lazy" />
+                            @break;
+                        @endforeach
+                        @break;
+                    @endforeach
                     <div class="zoom-indicator">
                         <svg><use xlink:href="#icon_magnifying-glass-plus"></use></svg> Zoom để xem chi tiết
                     </div>
@@ -19,73 +32,31 @@
             </div>
             
             <div class="thumbnail-gallery">
-                <div class="thumbnail active" onclick="setMainImage(0)">
-                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-4.webp" alt="Thumbnail 1" loading="lazy" />
-                </div>
-                <div class="thumbnail" onclick="setMainImage(1)">
-                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-2.webp" alt="Thumbnail 2" loading="lazy" />
-                </div>
-                <div class="thumbnail" onclick="setMainImage(2)">
-                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-3.webp" alt="Thumbnail 3" loading="lazy" />
-                </div>
-                <div class="thumbnail" onclick="setMainImage(3)">
-                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-1.webp" alt="Thumbnail 4" loading="lazy" />
-                </div>
-                <div class="thumbnail" onclick="setMainImage(4)">
-                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-5.webp" alt="Thumbnail 4" loading="lazy" />
-                </div>
-                <div class="thumbnail" onclick="setMainImage(5)">
-                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-21.webp" alt="Thumbnail 4" loading="lazy" />
-                </div>
-                <div class="thumbnail" onclick="setMainImage(6)">
-                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-22.webp" alt="Thumbnail 4" loading="lazy" />
-                </div>
-                <div class="thumbnail" onclick="setMainImage(7)">
-                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-23.webp" alt="Thumbnail 4" loading="lazy" />
-                </div>
-                <div class="thumbnail" onclick="setMainImage(8)">
-                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-24.webp" alt="Thumbnail 4" loading="lazy" />
-                </div>
-                <div class="thumbnail" onclick="setMainImage(9)">
-                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-25.webp" alt="Thumbnail 4" loading="lazy" />
-                </div>
-                <div class="thumbnail" onclick="setMainImage(10)">
-                    <img src="https://zenpot.storage.googleapis.com/storage/images/anh-san-pham-26.webp" alt="Thumbnail 4" loading="lazy" />
-                </div>
+                @php $priceIndex = 0; @endphp
+                @php $i = 0; @endphp
+                @foreach($item->prices as $price)
+                    @php $fileIndex = 0; @endphp
+                    @foreach($price->files as $file)
+                        @php
+                            $imageMini  = \App\Helpers\Image::getUrlImageMiniByUrlImage($file->file_path);
+                            $imageSmall = \App\Helpers\Image::getUrlImageSmallByUrlImage($file->file_path);
+                            $active     = $i==0 ? 'active' : '';
+                        @endphp
+                        <div class="thumbnail {{ $active }}" 
+                            data-price-index="{{ $priceIndex }}" 
+                            data-file-index="{{ $fileIndex }}">
+                            <img class="lazyload" src="{{ $imageMini }}" data-src="{{ $imageSmall }}" alt="" loading="lazy" />
+                        </div>
+                        @php $fileIndex++; @endphp
+                        @php $i++; @endphp
+                    @endforeach
+                    @php $priceIndex++; @endphp
+                @endforeach
             </div>
 
             <!-- bảng thông tin nhanh - mobile -->
             <div class="show-990">
-                <div class="quick-info">
-                    <div class="quick-info-row">
-                        <div class="quick-info-label">Mã sản phẩm</div>
-                        <div class="quick-info-value">ZP-001</div>
-                    </div>
-                    <div class="quick-info-row">
-                        <div class="quick-info-label">Kích thước (phủ bì)</div>
-                        <div class="quick-info-value">15cm x 15cm x 12cm (DxRxC)</div>
-                    </div>
-                    <div class="quick-info-row">
-                        <div class="quick-info-label">Dung tích chỗ trồng</div>
-                        <div class="quick-info-value">0.8 L</div>
-                    </div>
-                    <div class="quick-info-row">
-                        <div class="quick-info-label">Khối lượng</div>
-                        <div class="quick-info-value">0.9 kg</div>
-                    </div>
-                    <div class="quick-info-row">
-                        <div class="quick-info-label">Chất liệu</div>
-                        <div class="quick-info-value">Xi măng kèm phụ gia cao cấp, sơn 4 lớp chịu nhiệt, kháng UV, chống trầy</div>
-                    </div>
-                    <div class="quick-info-row">
-                        <div class="quick-info-label">Ứng dụng</div>
-                        <div class="quick-info-value">Chậu bonsai mini, decor để bàn</div>
-                    </div>
-                    <div class="quick-info-row">
-                        <div class="quick-info-label">Tình trạng</div>
-                        <div class="quick-info-value in-stock">Còn hàng</div>
-                    </div>
-                </div>
+                @include('main.product.quickInfo')
             </div>
         </div>
 
@@ -106,43 +77,14 @@
                             <svg><use xlink:href="#icon_star"></use></svg>
                             <svg><use xlink:href="#icon_star"></use></svg>
                         </div>
-                        <span class="rating-text">4.8/5 (124 đánh giá)</span>
+                        <span class="rating-text">{{ $item->seo->rating_aggregate_star ?? '--' }}/5 ({{ $item->seo->rating_aggregate_count ?? '--' }} đánh giá)</span>
                     </div>
                 </div>
             </div>
             
             <!-- bảng thông tin nhanh - desktop -->
             <div class="hide-990">
-                <div class="quick-info">
-                    <div class="quick-info-row">
-                        <div class="quick-info-label">Mã sản phẩm</div>
-                        <div class="quick-info-value">{{ $item->code ?? '--' }}</div>
-                    </div>
-                    <div class="quick-info-row">
-                        <div class="quick-info-label">Kích thước (phủ bì)</div>
-                        <div class="quick-info-value">15cm x 15cm x 12cm (DxRxC)</div>
-                    </div>
-                    <div class="quick-info-row">
-                        <div class="quick-info-label">Dung tích chỗ trồng</div>
-                        <div class="quick-info-value">0.8 L</div>
-                    </div>
-                    <div class="quick-info-row">
-                        <div class="quick-info-label">Khối lượng</div>
-                        <div class="quick-info-value">0.9 kg</div>
-                    </div>
-                    <div class="quick-info-row">
-                        <div class="quick-info-label">Chất liệu</div>
-                        <div class="quick-info-value">Xi măng kèm phụ gia cao cấp, sơn 4 lớp chịu nhiệt, kháng UV, chống trầy</div>
-                    </div>
-                    <div class="quick-info-row">
-                        <div class="quick-info-label">Ứng dụng</div>
-                        <div class="quick-info-value">Chậu bonsai mini, decor để bàn</div>
-                    </div>
-                    <div class="quick-info-row">
-                        <div class="quick-info-label">Tình trạng</div>
-                        <div class="quick-info-value in-stock">Còn hàng</div>
-                    </div>
-                </div>
+                @include('main.product.quickInfo')
             </div>
 
             <div class="hide-990">
@@ -150,21 +92,38 @@
                     <div class="option-group">
                         <div class="option-label">Tùy chọn:</div>
                         <div class="size-options">
-                            <div class="size-option active">Màu sáng - có đế lót</div>
-                            <div class="size-option">Màu sáng - không đế lót</div>
-                            <div class="size-option">Màu tối - có đế lót</div>
-                            <div class="size-option">Màu tối - không đế lót</div>
+                            @foreach($item->prices as $price)
+                                <div class="size-option {{ $loop->first ? 'active' : '' }}" 
+                                    data-price-index="{{ $loop->index }}">
+                                    {{ $price->code_name ?? '--' }}
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="responsiveFixed">
-                <div class="price-section">
-                    <span class="current-price">250,000₫</span>
-                    <span class="original-price">600,000₫</span>
-                    <span class="discount-badge">-56%</span>
-                </div>
+            <div class="responsiveFixed price-box">
+                @if(!empty($item->prices)&&$item->prices->isNotEmpty())
+                    @foreach($item->prices as $price)
+                        @php
+                            // giá gạch bỏ
+                            $pMax       = !empty($item->price) ? \App\Helpers\Number::getFormatPriceByLanguage($item->price, $language) : '--';
+                            // giá bán thức
+                            $pOrigin    = !empty($price->price) ? \App\Helpers\Number::getFormatPriceByLanguage($price->price, $language) : '--';
+                            // sale off
+                            $saleOff    = \App\Helpers\Number::calculatorSaleOffPercent($item->price, $price->price);
+                        @endphp
+                        @foreach($item->prices as $price)
+                            <div class="price-section {{ $loop->first ? 'active' : '' }}" 
+                                data-price-index="{{ $loop->index }}">
+                                <span class="current-price">{{ \App\Helpers\Number::getFormatPriceByLanguage($price->price, $language) }}</span>
+                                <span class="original-price">{{ \App\Helpers\Number::getFormatPriceByLanguage($item->price, $language) }}</span>
+                                <span class="discount-badge">{{ \App\Helpers\Number::calculatorSaleOffPercent($item->price, $price->price) }}</span>
+                            </div>
+                        @endforeach
+                    @endforeach
+                @endif
 
                 <div class="hide-990">
                     <div class="quantity-selector">
@@ -214,77 +173,18 @@
 
     <!-- Product Details -->
     <div class="product-details fade-in">
-        <div class="details-section">
-            <h2 class="details-title">Mô Tả Sản Phẩm</h2>
-            <div class="description-content">
-                <p>{{ $itemSeo->title ?? '' }} được chế tác từ gỗ tự nhiên cao cấp, mang đến vẻ đẹp rustic và gần gũi với thiên nhiên cho không gian sống của bạn. Sản phẩm được thiết kế tỉ mỉ bởi các nghệ nhân có kinh nghiệm, đảm bảo từng chi tiết đều hoàn hảo.</p>
-                
-                <p>Với thiết kế hiện đại nhưng vẫn giữ được nét truyền thống, chậu gỗ ZenPot không chỉ là nơi trồng cây mà còn là một món đồ trang trí sang trọng, nâng tầm thẩm mỹ cho ngôi nhà của bạn.</p>
-                
-                <p>Sản phẩm đã được xử lý chống mối mọt, chống thấm và có độ bền cao, phù hợp với khí hậu nhiệt đới của Việt Nam. Đây là lựa chọn hoàn hảo cho những ai yêu thích phong cách sống xanh và bền vững.</p>
-            </div>
-        </div>
 
-        <div class="details-section">
-            <h2 class="details-title">Thông Số Kỹ Thuật</h2>
-            <div class="specifications-grid">
-                <div class="spec-item">
-                    <span class="spec-label">Chất liệu:</span>
-                    <span class="spec-value">Gỗ tự nhiên (Gỗ cao su/Gỗ thông)</span>
-                </div>
-                <div class="spec-item">
-                    <span class="spec-label">Kích thước:</span>
-                    <span class="spec-value">15cm x 15cm x 12cm (DxRxC)</span>
-                </div>
-                <div class="spec-item">
-                    <span class="spec-label">Trọng lượng:</span>
-                    <span class="spec-value">0.8 kg</span>
-                </div>
-                <div class="spec-item">
-                    <span class="spec-label">Màu sắc:</span>
-                    <span class="spec-value">Nâu gỗ tự nhiên</span>
-                </div>
-                <div class="spec-item">
-                    <span class="spec-label">Xuất xứ:</span>
-                    <span class="spec-value">Việt Nam</span>
-                </div>
-                <div class="spec-item">
-                    <span class="spec-label">Bảo hành:</span>
-                    <span class="spec-value">12 tháng</span>
-                </div>
-                <div class="spec-item">
-                    <span class="spec-label">Chất liệu:</span>
-                    <span class="spec-value">Gỗ tự nhiên (Gỗ cao su/Gỗ thông)</span>
-                </div>
-                <div class="spec-item">
-                    <span class="spec-label">Kích thước:</span>
-                    <span class="spec-value">15cm x 15cm x 12cm (DxRxC)</span>
-                </div>
-                <div class="spec-item">
-                    <span class="spec-label">Trọng lượng:</span>
-                    <span class="spec-value">0.8 kg</span>
-                </div>
-                <div class="spec-item">
-                    <span class="spec-label">Màu sắc:</span>
-                    <span class="spec-value">Nâu gỗ tự nhiên</span>
-                </div>
-                <div class="spec-item">
-                    <span class="spec-label">Xuất xứ:</span>
-                    <span class="spec-value">Việt Nam</span>
-                </div>
-                <div class="spec-item">
-                    <span class="spec-label">Bảo hành:</span>
-                    <span class="spec-value">12 tháng</span>
-                </div>
-            </div>
-        </div>
+        @if(!empty($itemSeo->contents)&&$itemSeo->contents->isNotEmpty())
+            @foreach($itemSeo->contents as $c)
+                {!! $c->content ?? '' !!}
+            @endforeach
+        @endif
 
         <!-- Sản phẩm liên quan -->
-        
-         <div class="details-section">
+        {{-- <div class="details-section">
             <h2 class="details-title">Sản phẩm liên quan</h2>
-            @include('main.category.product')
-        </div>
+            @include('main.category.itemProduct')
+        </div> --}}
         
     </div>
 </div>

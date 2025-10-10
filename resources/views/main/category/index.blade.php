@@ -56,8 +56,49 @@
     <div class="pageContent container">
 
         <div class="mainContent">
-        
-            @include('main.category.test')
+            
+            <div class="categoryBox">
+
+                @include('main.category.sort', [
+                    'language'          => $language ?? 'vi',
+                    'total'             => $total,
+                ])
+
+                <input type="hidden" id="total" name="total" value="{{ $total }}" />
+                <input type="hidden" id="loaded" name="loaded" value="{{ $loaded ?? 0 }}" />
+                <input type="hidden" id="idNot" name="idNot" value="{{ $idNot ?? 0 }}" />
+                <input type="hidden" id="arrayIdCategory" name="arrayIdCategory" value="{{ json_encode($arrayIdCategory) }}" />
+
+                <!-- Products Grid -->
+                <div class="products-grid">
+                    @if($total>0)
+                        @foreach($wallpapers as $wallpaper)
+                            @include('main.category.itemProduct', [
+                                'wallpaper' => $wallpaper,
+                                'language'  => $language,
+                                'user'      => $user ?? null
+                            ])
+                        @endforeach
+                    @else 
+                        <div>{{ config('data_language_1.'.$language.'.no_suitable_results_found') }}</div>
+                    @endif
+                </div>
+
+                {{-- <!-- Pagination -->
+                <div class="pagination">
+                    <button class="pagination-btn" disabled>
+                        <svg><use xlink:href="#icon_arrow_left"></use></svg>
+                    </button>
+                    <button class="pagination-btn active">1</button>
+                    <button class="pagination-btn">2</button>
+                    <button class="pagination-btn">3</button>
+                    <button class="pagination-btn">...</button>
+                    <button class="pagination-btn">8</button>
+                    <button class="pagination-btn">
+                        <svg><use xlink:href="#icon_arrow_right"></use></svg>
+                    </button>
+                </div> --}}
+            </div>
             
         </div>
 

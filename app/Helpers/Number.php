@@ -7,13 +7,17 @@ use Carbon\Carbon;
 
 class Number {
 
-    public static function calculatorPriceBeforeSaleoff($price, $saleOff){
-        $result         = 0;
-        if(!empty($price)&&!empty($saleOff)){
-            $result     = ($price*100)/(100 - $saleOff);
+    public static function calculatorSaleOffPercent($priceOrigin, $priceSell) {
+        $result = 0;
+        if (!empty($priceOrigin) && !empty($priceSell) && $priceOrigin > 0) {
+            $result = (($priceOrigin - $priceSell) / $priceOrigin) * 100;
         }
-        return $result;
+
+        // Nếu không giảm (hoặc giá tăng), vẫn hiển thị dấu đúng logic
+        $formatted = ($result >= 0 ? '-' : '+') . abs(round($result, 2)) . '%';
+        return $formatted;
     }
+
 
     // public static function getFormatPriceByLanguage($number, $language, $showCurrency = true){
     //     $result         = null;
@@ -34,7 +38,7 @@ class Number {
         $formattedNumber = number_format($tmp['number'], $tmp['decimal_places'], '.', ',');
         
         if ($showCurrency) {
-            $result = $formattedNumber . ' ' . $tmp['currency_code'];
+            $result = $formattedNumber . $tmp['currency_code'];
         } else {
             $result = $formattedNumber;
         }
@@ -49,12 +53,15 @@ class Number {
             'currency'          => null,
             'currency_code'     => null,
         ];
-        $exchangeRate               = config('language.'.$language.'.money_value');
-        $calculator                 = $number * $exchangeRate;
-        $result['number']           = $calculator;
+        // $exchangeRate               = config('language.'.$language.'.money_value');
+        // $calculator                 = $number * $exchangeRate;
+        // $result['number']           = $calculator;
+
+        $result['number']           = $number;
         $result['currency']         = config('language.'.$language.'.currency');
         $result['currency_code']    = config('language.'.$language.'.currency_code');
-        $result['decimal_places']    = config('language.'.$language.'.decimal_places');
+        $result['decimal_places']   = config('language.'.$language.'.decimal_places');
+        
         return $result;
     }
 

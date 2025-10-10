@@ -24,7 +24,7 @@
             <strong>Dường dẫn tĩnh:</strong> {{ $item->seo->slug_full }}
         </div>
         <div class="oneLine">
-            <strong>Giá trọn bộ:</strong> <span style="color:red;font-weight:bold;font-size:1.3rem;">{{ $item->price }}</span>
+            <strong>Giá gốc:</strong> <span style="font-weight:bold;font-size:1.3rem;">{{ !empty($item->price) ? number_format($item->price) : 0 }}đ</span>
         </div>
         
         @if(!empty($item->categories)&&$item->categories->isNotEmpty())
@@ -32,34 +32,11 @@
                 @php
                     $xhtmlCategory      = null;
                     foreach($item->categories as $category){
-                        if($category->infoCategory->seo->type=='category_info'){
-                            $xhtmlCategory  .= '<div class="badge bg-primary" style="margin-left:0.25rem;">'.$category->infoCategory->seo->title.'</div>';
-                        }
+                        // dd($category->infoCategory);
+                        $xhtmlCategory  .= '<div class="badge bg-primary" style="margin-left:0.25rem;background: rgb(7,163,93) !important;">'.$category->infoCategory->seo->title.'</div>';
                     }
                 @endphp 
                 <strong>Chủ đề:</strong> {!! $xhtmlCategory !!}
-            </div>
-            <div class="oneLine">
-                @php
-                    $xhtmlCategory      = null;
-                    foreach($item->categories as $category){
-                        if($category->infoCategory->seo->type=='style_info'){
-                            $xhtmlCategory  .= '<div class="badge bg-primary" style="margin-left:0.25rem;">'.$category->infoCategory->seo->title.'</div>';
-                        }
-                    }
-                @endphp 
-                <strong>Phong cách:</strong> {!! $xhtmlCategory !!}
-            </div>
-            <div class="oneLine">
-                @php
-                    $xhtmlCategory      = null;
-                    foreach($item->categories as $category){
-                        if($category->infoCategory->seo->type=='event_info'){
-                            $xhtmlCategory  .= '<div class="badge bg-primary" style="margin-left:0.25rem;">'.$category->infoCategory->seo->title.'</div>';
-                        }
-                    }
-                @endphp 
-                <strong>Sự kiện:</strong> {!! $xhtmlCategory !!}
             </div>
         @endif
     </td>
@@ -71,7 +48,7 @@
                         @php
                             /* lấy ảnh Small */
                             $imageSmall = config('image.default');
-                            if(!empty($price->files[0]->infoWallpaper->file_cloud_wallpaper)) $imageSmall  = \App\Helpers\Image::getUrlImageSmallByUrlImage($price->files[0]->infoWallpaper->file_cloud_wallpaper);
+                            if(!empty($price->files[0]->file_path)) $imageSmall  = \App\Helpers\Image::getUrlImageSmallByUrlImage($price->files[0]->file_path);
                         @endphp     
                         <img src="{{ $imageSmall }}" />
                         @if(!empty($price->files)&&$price->files->count()>1)

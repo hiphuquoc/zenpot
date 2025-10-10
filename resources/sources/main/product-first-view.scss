@@ -206,9 +206,17 @@
           }
         }
       }
+      
+      .price-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 0.5rem;
+        margin-top: -0.5rem;
+      }
 
       .price-section {
-        margin: 0 0 0.5rem 0;
         display: flex;
         align-items: center;
         gap: 1.5rem;
@@ -327,6 +335,7 @@
         gap: 1rem;
         margin: 1rem 0;
         width: 100%;
+        height: 100%;
 
         > * {
           width: 100% !important;
@@ -346,14 +355,12 @@
           text-decoration: none;
 
           &-primary {
-            background: linear-gradient(50deg, rgb(var(--colorTextLight)), rgb(var(--colorButtonLv1)), rgb(var(--colorButtonLv2)));
+            background: -webkit-linear-gradient(transparent, transparent), url(https://zenpot.storage.googleapis.com/storage/images/stock-van-go.webp) left 0 no-repeat;
             color: white;
             justify-content: center;
 
             &:hover {
-              background: linear-gradient(230deg, rgb(var(--colorTextLight)), rgb(var(--colorButtonLv1)), rgb(var(--colorButtonLv2)));
               transform: translateY(2px);
-              box-shadow: 0 5px 15px rgba(139,69,19,0.3);
             }
           }
 
@@ -364,7 +371,7 @@
             justify-content: center;
 
             &:hover {
-              background: linear-gradient(50deg, rgb(var(--colorTextLight)), rgb(var(--colorButtonLv1)), rgb(var(--colorButtonLv2)));
+              background: -webkit-linear-gradient(transparent, transparent), url(https://zenpot.storage.googleapis.com/storage/images/stock-van-go.webp) left 0 no-repeat;
               transform: translateY(2px);
               color: white;
             }
@@ -620,7 +627,6 @@
           font-size: 1.6rem;
         }
         .price-section {
-          margin: 0 auto;
           justify-content: center;
           gap: 0;
           width: 100%;
@@ -798,6 +804,9 @@
     bottom: 0;
     left: 0;
     display: flex;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
     margin: 0;
     padding: 0;
     background: white;
@@ -869,22 +878,6 @@
     z-index: 1001;
   }
 }
-
-// /* Responsive */
-// @media (max-width: 768px) {
-//   .productDetail {
-//     .product-header {
-//       grid-template-columns: 1fr;
-//       gap: 20px;
-//     }
-//     .product-info { padding-left: 0; }
-//     .thumbnail-gallery { grid-template-columns: repeat(4, 1fr); }
-//     .specifications-grid { grid-template-columns: 1fr; }
-//     .action-buttons { flex-direction: column; }
-//     .btn { flex: 1; }
-//     .quick-info-grid { grid-template-columns: 1fr; }
-//   }
-// }
 
 /* Animations */
 .fade-in { animation: fadeIn 0.6s ease-in; }
