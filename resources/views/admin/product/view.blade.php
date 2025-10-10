@@ -157,6 +157,21 @@
 @endpush
 @push('scriptCustom')
     <script type="text/javascript">
-        $('.pageAdminWithRightSidebar_main').repeater();
+        $('.pageAdminWithRightSidebar_main').repeater({
+            show: function () {
+                $(this).slideDown();
+                loadProductPriceImage(); // gọi sau khi thêm item
+            },
+            hide: function (deleteElement) {
+                $(this).slideUp(function () {
+                    deleteElement();
+                    loadProductPriceImage(); // gọi sau khi xóa item
+                });
+            }
+        });
+
+        // Và gọi 1 lần khi repeater khởi tạo xong
+        loadProductPriceImage();
+
     </script>
 @endpush

@@ -54,48 +54,47 @@
         });
 
         function handleProductPriceImageChange(input) {
-    const files = input.files;
-    if (!files || files.length === 0) return;
+            const files = input.files;
+            if (!files || files.length === 0) return;
 
-    // Tìm card cha để đảm bảo không lẫn repeater khác
-    const card = input.closest('.card');
-    const previewBox = card.querySelector('.imageProductPrice');
+            // Tìm card cha để đảm bảo không lẫn repeater khác
+            const card = input.closest('.card');
+            const previewBox = card.querySelector('.imageProductPrice');
 
-    if (!previewBox) return;
+            if (!previewBox) return;
 
-    // ❌ Không xóa previewBox.innerHTML nữa
-    // Vì xóa thì sẽ mất luôn ảnh cũ load từ Ajax (DB)
+            // ❌ Không xóa previewBox.innerHTML nữa
+            // Vì xóa thì sẽ mất luôn ảnh cũ load từ Ajax (DB)
 
-    // Duyệt qua files và render preview
-    Array.from(files).forEach(file => {
-        if (!file.type.startsWith("image/")) return;
+            // Duyệt qua files và render preview
+            Array.from(files).forEach(file => {
+                if (!file.type.startsWith("image/")) return;
 
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const wrapper = document.createElement("div");
-            wrapper.classList.add("imageProductPrice_item", "is-preview");
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const wrapper = document.createElement("div");
+                    wrapper.classList.add("imageProductPrice_item", "is-preview");
 
-            const img = document.createElement("img");
-            img.src = e.target.result;
-            img.classList.add("preview-img");
+                    const img = document.createElement("img");
+                    img.src = e.target.result;
+                    img.classList.add("preview-img");
 
-            // thêm input hidden tạm để submit file upload mới
-            // (tuỳ backend bạn xử lý FormData file upload thế nào, nếu dùng input[type=file] thì hidden này có thể bỏ)
-            
-            const removeIcon = document.createElement("div");
-            removeIcon.classList.add("imageProductPrice_item_removeIcon");
-            removeIcon.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+                    // thêm input hidden tạm để submit file upload mới
+                    // (tuỳ backend bạn xử lý FormData file upload thế nào, nếu dùng input[type=file] thì hidden này có thể bỏ)
+                    
+                    const removeIcon = document.createElement("div");
+                    removeIcon.classList.add("imageProductPrice_item_removeIcon");
+                    removeIcon.innerHTML = '<i class="fa-solid fa-xmark"></i>';
 
-            wrapper.appendChild(img);
-            wrapper.appendChild(removeIcon);
+                    wrapper.appendChild(img);
+                    wrapper.appendChild(removeIcon);
 
-            // Thêm vào đầu box (trước ảnh cũ)
-            previewBox.prepend(wrapper);
-        };
-        reader.readAsDataURL(file);
-    });
-}
-
+                    // Thêm vào đầu box (trước ảnh cũ)
+                    previewBox.prepend(wrapper);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
 
         // load ajax mới lấy đúng được name của input
         function loadProductPriceImage(cardElement) {

@@ -385,74 +385,125 @@ class ProductController extends Controller {
         }
     }
 
-    public function delete(Request $request){
+    public function delete(Request $request)
+    {
+        $id = $request->get('id');
+
+        if (empty($id)) {
+            return response()->json(['success' => false, 'message' => 'Thiếu ID sản phẩm']);
+        }
+
         try {
             DB::beginTransaction();
-            $id = $request->get('id');
 
-            if (!$id) return false;
+            $product = Product::with([
+                'seo',
+                'seos.infoSeo.contents',
+                'prices.files',
+                'files',
+                'categories',
+                'tags',
+                'translate'
+            ])->find($id);
 
-            $info       = Product::select('*')
-                            ->where('id', $id)
-                            ->with(['files' => function($query){
-                                $query->where('relation_table', 'seo.type');
-                            }])
-                            ->with('seo', 'seos', 'seo.contents', 'prices.files')
-                            ->first();
-                        
-            if (!$info) return false;
-
-            // Xoá ảnh đại diện chính
-            if (!empty($info->seo->image)) {
-                Upload::deleteWallpaper($info->seo->image);
+            if (empty($product)) {
+                DB::rollBack();
+                return response()->json(['success' => false, 'message' => 'Không tìm thấy sản phẩm']);
             }
 
-            // Xoá các quan hệ
-            $info->prices->each(function ($price) {
-                $price->wallpapers()->delete();
-            });
-            $info->prices()->delete();
-            $info->categories()->delete();
-            $info->files()->delete();
+            /* =====================
+            * 1. XÓA ẢNH TRONG SEO CHÍNH
+            * ===================== */
+            if (!empty($product->seo->image)) {
+                Upload::deleteWallpaper($product->seo->image);
+            }
 
-            // Xoá các bản ghi liên quan trong seos
-            foreach ($info->seos as $s) {
-                if (!empty($s->infoSeo->image)) {
-                    Upload::deleteWallpaper($s->infoSeo->image);
+            /* =====================
+            * 2. XÓA ẢNH, FILE, SLIDER CỦA PRODUCT_PRICE
+            * ===================== */
+            foreach ($product->prices as $price) {
+                foreach ($price->files as $file) {
+                    GalleryController::removeById($file->id);
                 }
+                $price->delete();
+            }
 
-                if (!empty($s->infoSeo->contents)) {
-                    foreach ($s->infoSeo->contents as $c) {
-                        $c->delete();
+            /* =====================
+            * 3. XÓA FILE KHÁC (relation_table = product_info)
+            * ===================== */
+            foreach ($product->files as $file) {
+                GalleryController::removeById($file->id);
+            }
+
+            /* =====================
+            * 4. XÓA CATEGORIES, TAGS, TRANSLATE
+            * ===================== */
+            $product->categories()->delete();
+            $product->tags()->delete();
+            if (!empty($product->translate)) {
+                $product->translate()->delete();
+            }
+
+            /* =====================
+            * 5. XÓA SEO PHỤ (seos.infoSeo + contents)
+            * ===================== */
+            foreach ($product->seos as $relationSeo) {
+                if (!empty($relationSeo->infoSeo)) {
+                    // Xóa ảnh SEO phụ
+                    if (!empty($relationSeo->infoSeo->image)) {
+                        Upload::deleteWallpaper($relationSeo->infoSeo->image);
                     }
-                }
 
-                $s->infoSeo()->delete();
-                $s->delete();
+                    // Xóa nội dung SEO phụ
+                    foreach ($relationSeo->infoSeo->contents ?? [] as $content) {
+                        $content->delete();
+                    }
+
+                    $relationSeo->infoSeo()->delete();
+                }
+                $relationSeo->delete();
             }
 
-            // Liên quan tới dữ liệu đã index trên Melisearch
-            $engineManager = app(EngineManager::class);
-            $engineManager->forgetEngines();
-            // Tiếp tục với phần xóa dữ liệu
-            \App\Models\Product::withoutSyncingToSearch(function () use ($info) {
-                $info->delete();
-            });
+            /* =====================
+            * 6. XÓA SEO CHÍNH (kèm nội dung)
+            * ===================== */
+            if (!empty($product->seo)) {
+                foreach ($product->seo->contents ?? [] as $content) {
+                    $content->delete();
+                }
+                $product->seo()->delete();
+            }
 
-            // Xoá khỏi Meilisearch (nếu index tồn tại)
+            /* =====================
+            * 7. XÓA QUAN HỆ RELATION_SEO_PRODUCT_INFO (nếu còn sót)
+            * ===================== */
+            \App\Models\RelationSeoProductInfo::where('product_info_id', $id)->delete();
+
+            /* =====================
+            * 8. XÓA PRODUCT CHÍNH
+            * ===================== */
+            $product->delete();
+
+            /* =====================
+            * 9. XÓA TRONG MEILISEARCH (nếu có)
+            * ===================== */
             try {
-                $meili = new MeilisearchClient(env('MEILISEARCH_HOST'), env('MEILISEARCH_KEY'));
+                $meili = new \Meilisearch\Client(env('MEILISEARCH_HOST'), env('MEILISEARCH_KEY'));
                 $meili->index('product_info')->deleteDocument($id);
             } catch (\Exception $e) {
-                // Bạn có thể log lỗi hoặc bỏ qua nếu không cần xử lý tiếp
-                Log::warning("Meilisearch delete failed for product ID $id: ".$e->getMessage());
+                \Log::warning("Meilisearch delete failed for product ID $id: " . $e->getMessage());
             }
 
             DB::commit();
-            return true;
-        } catch (\Exception $exception){
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Đã xóa sản phẩm và toàn bộ dữ liệu liên quan!'
+            ]);
+        } catch (\Exception $e) {
             DB::rollBack();
-            return false;
+            \Log::error('Xóa sản phẩm lỗi: ' . $e->getMessage());
+            return response()->json(['success' => false, 'message' => 'Lỗi khi xóa sản phẩm']);
         }
     }
 
