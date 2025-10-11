@@ -1140,12 +1140,12 @@ html .content {
 //     }
 // }
 .priceProductBox {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    display: flex;
     gap: 0.5rem;
     &_item {
         display: flex;
         flex-direction: column;
+        max-width: 33.33%;
         &_image {
             // flex: 0 0 50px;
             position: relative;
