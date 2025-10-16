@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('heart')->default(0);
             $table->text('price');
             $table->string('size', 30)->nullable();       // Kích thước
-            $table->string('capacity', 5)->nullable();   // Dung tích
+            $table->string('capacity', 50)->nullable();   // Dung tích
             $table->string('weight', 5)->nullable();     // Khối lượng
             $table->string('condition')->nullable();  // Tình trạng
             $table->longText('notes')->nullable();

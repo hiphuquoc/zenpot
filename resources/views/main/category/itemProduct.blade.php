@@ -47,7 +47,17 @@
                     @endforeach
                 @endif
                 <a href="/{{ $url }}"><h3 class="product-name maxLine_2">{{ $altImage }}</h3></a>
-                <p class="product-description maxLine_3">{{ $description }}</p>
+                {{-- <p class="product-description maxLine_3">{{ $description }}</p> --}}
+                <div class="product-table">
+                    <div class="product-table_item">
+                        <div>Kích thước</div>
+                        <div>{{ $wallpaper->size ?? '--' }}</div>
+                    </div>
+                    <div class="product-table_item">
+                        <div>Cân nặng</div>
+                        <div>{{ $wallpaper->weight ?? '--' }} kg</div>
+                    </div>
+                </div>
                 @if(!empty($wallpaper->categories)&&$wallpaper->categories->isNotEmpty())
                 <!-- category list -->
                 <div class="product-features">
