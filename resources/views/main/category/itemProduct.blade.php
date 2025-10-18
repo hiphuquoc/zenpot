@@ -34,7 +34,7 @@
                 @endif
             </a>
             <div class="product-content">
-                <!-- category main -->
+                {{-- <!-- category main -->
                 @if(!empty($wallpaper->categories)&&$wallpaper->categories->isNotEmpty())
                     @foreach($wallpaper->categories as $category)
                         @foreach($category->infoCategory->seos as $seo)
@@ -45,7 +45,7 @@
                         @endforeach
                         @break;
                     @endforeach
-                @endif
+                @endif --}}
                 <a href="/{{ $url }}"><h3 class="product-name maxLine_2">{{ $altImage }}</h3></a>
                 {{-- <p class="product-description maxLine_3">{{ $description }}</p> --}}
                 <div class="product-table">
