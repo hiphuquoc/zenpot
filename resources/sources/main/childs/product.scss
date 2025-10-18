@@ -220,11 +220,17 @@
   margin-bottom: 0.25rem;
   &_item {
     display: flex;
-    gap: 0;
+    align-items: center;
+    gap: 0.5rem;
     > * {
       &:first-child {
-        flex: 0 0 125px;
+        // margin-top: 0.25rem;
       }
+    }
+    svg {
+      width: 18px;
+      height: 18px;
+      color: rgb(var(--colorIcon));
     }
   }
   @media(max-width: 767px){

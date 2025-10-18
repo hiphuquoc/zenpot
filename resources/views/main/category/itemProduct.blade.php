@@ -50,11 +50,11 @@
                 {{-- <p class="product-description maxLine_3">{{ $description }}</p> --}}
                 <div class="product-table">
                     <div class="product-table_item">
-                        <div>Kích thước</div>
+                        <svg><use xlink:href="#icon_expland"></use></svg>
                         <div>{{ $wallpaper->size ?? '--' }}</div>
                     </div>
                     <div class="product-table_item">
-                        <div>Cân nặng</div>
+                        <svg><use xlink:href="#icon_weight-hanging"></use></svg>
                         <div>{{ $wallpaper->weight ?? '--' }} kg</div>
                     </div>
                 </div>
